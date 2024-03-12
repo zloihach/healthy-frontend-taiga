@@ -1,0 +1,47 @@
+<div style="width: 400px; margin-top: 60px; margin-left: 60px">
+  <form [formGroup]="form">
+    <p>
+      <!-- <input type="text" formControlName="email" placeholder="email" /> -->
+      <tui-input formControlName="email"> Type an email </tui-input>
+      <tui-field-error formControlName="email"></tui-field-error>
+    </p>
+    <p>
+      <!-- <input
+        type="text"
+        formControlName="firstName"
+        placeholder="First Name"
+      /> -->
+      <tui-input formControlName="firstName"> First Name </tui-input>
+      <tui-field-error formControlName="firstName"></tui-field-error>
+    </p>
+    <p>
+      <!-- <input type="text" formControlName="lastName" placeholder="Last Name" /> -->
+      <tui-input formControlName="lastName"> Last Name </tui-input>
+      <tui-field-error formControlName="lastName"></tui-field-error>
+    </p>
+    <p>
+      <!-- <input
+        type="password"
+        formControlName="password"
+        placeholder="Password"
+      /> -->
+      <tui-input-password formControlName="password">
+        Type a password
+      </tui-input-password>
+      <tui-field-error formControlName="password"></tui-field-error>
+    </p>
+    <p>
+      <!-- <input type="checkbox" formControlName="agreeToToC" /> I agree to
+      <a routerLink="">Terms and Conditions</a> -->
+      <tui-checkbox-labeled formControlName="agreeToToC">
+        I agree to
+        <a tuiLink routerLink="">Terms and Conditions</a>
+      </tui-checkbox-labeled>
+      <tui-field-error formControlName="agreeToToC"></tui-field-error>
+    </p>
+    <p>
+      <button tuiButton [disabled]="form.invalid">Submit</button>
+    </p>
+  </form>
+</div>
+
