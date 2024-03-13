@@ -3,7 +3,7 @@ import { TuiRootModule, TuiDialogModule, TuiAlertModule, TUI_SANITIZER } from "@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {LoginComponent} from "./login/login.component";
-import {HeaderComponent} from "./components/header/header.component";
+import {HeaderComponent} from "./layout/header/header.component";
 
 @Component({
   selector: 'app-root',

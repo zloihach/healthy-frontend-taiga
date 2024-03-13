@@ -1,0 +1,46 @@
+<header style="display: flex" class="header">
+  <h1 [routerLink]="['/']" style="cursor: pointer">
+    <img
+      src="https://biba.hb.ru-msk.vkcs.cloud/logo_taiga.png"
+      alt="taiga ui logo"
+      width="48 "
+    />
+    Healthy
+  </h1>
+  <div *ngIf="breakpoint$ | async as breakpoint" class="header__button-box" style="display: flex">
+    <button *ngIf="breakpoint !=='mobile'" tuiButton type="button" class="tui-space_right-2" size="m"
+            [routerLink]="['/signup']"
+            appearance="secondary">Sign Up
+    </button>
+    <button *ngIf="breakpoint !=='mobile'" tuiButton type="button" class="tui-space_right-2" size="m"
+            [routerLink]="['/login']" appearance="primary">
+      Login
+    </button>
+    <div *ngIf="breakpoint === 'mobile'" class="header__dropdown">
+      <tui-hosted-dropdown
+        [content]="dropdown"
+        [(open)]="open"
+      >
+        <button
+          size="m"
+          tuiButton
+          type="button"
+        >
+          Menu
+        </button>
+      </tui-hosted-dropdown>
+      <ng-template #dropdown>
+        <tui-data-list>
+          <button
+            *ngFor="let item of items"
+            tuiOption
+            (click)="onClick(item)"
+          >
+            {{ item.label }}
+          </button>
+        </tui-data-list>
+      </ng-template>
+    </div>
+  </div>
+</header>
+
