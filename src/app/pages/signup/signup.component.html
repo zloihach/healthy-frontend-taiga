@@ -2,9 +2,9 @@
   <div class="login-form">
     <form [formGroup]="form" style="display: flex; flex-direction: column; align-items: center;">
       <tui-stepper [activeItemIndex]="step - 1">
-        <button tuiStep disabled>🏁 Начинаем</button>
-        <button tuiStep disabled>🤩 Расскажите о себе</button>
-        <button tuiStep disabled>✅ Завершение</button>
+        <button tuiStep disabled class="tui-text_body-xl">🏁 Начинаем</button>
+        <button tuiStep disabled class="tui-text_body-xl">🤩 Расскажите о себе</button>
+        <button tuiStep disabled class="tui-text_body-xl">✅ Завершение</button>
       </tui-stepper>
       <tui-island class="login-island">
         <h2 style="color: var(--tui-primary);">👋 Регистрация в <span>healthy.</span></h2>

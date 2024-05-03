@@ -1,1 +1,8 @@
-<p>info works!</p>
+<tui-accordion class="container">
+  <tui-accordion-item *ngFor="let item of items" [open]="item.open">
+    {{item.title}}
+    <ng-template tuiAccordionItemContent>
+      {{ item.content }}
+    </ng-template>
+  </tui-accordion-item>
+</tui-accordion>
