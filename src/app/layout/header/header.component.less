@@ -3,10 +3,6 @@
 a {
   text-decoration: none;
   color: var(--tui-link);
-  &:hover, &:focus {
-    color: var(--tui-link-hover);
-    text-decoration: underline;
-  }
 }
 
 .header {
@@ -21,7 +17,7 @@ a {
   align-items: center;
   border-bottom: 1px solid var(--tui-base-04);
   width: 100%;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
   &__inner {
     margin: 0 20px;
@@ -42,28 +38,35 @@ a {
       display: flex;
       align-items: center;
       column-gap: 20px;
+      @media @tui-tablet-interval{
+        column-gap: 10px;
+      }
+    }
+    &__link {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      height: 48px;
 
-      &__link {
-        position: relative;
-        display: inline-flex;
-        align-items: center;
-        color: var(--tui-link);
+      &:hover::after {
+        color: var(--tui-link-hover);
+        width: 100%;
+      }
 
-        &::after {
-          content: '';
-          position: absolute;
-          bottom: -5px;
-          left: 0;
-          right: 0;
-          height: 2px;
-          background-color: var(--tui-link-hover);
-          transform: scaleX(0);
-          transition: transform 0.3s ease;
-        }
+      &::after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        translate: -50%;
+        width: 0;
+        height: 2px;
+        background-color: var(--tui-link-hover);
+        transition-duration: .5s;
+      }
 
-        &:hover::after, &:focus::after {
-          transform: scaleX(1);
-        }
+      @media @tui-tablet-interval{
+        font-size: 14px;
       }
     }
   }
@@ -76,53 +79,59 @@ a {
       &:not(:last-child) {
         margin-right: .5rem;
       }
-    }
-  }
-
-  .mobile, .desktop-small, .desktop-large {
-    display: none;
-
-    @media @tui-tablet-min {
-      .desktop-small {
-        display: block;
-      }
-    }
-
-    @media @tui-desktop-min {
-      .desktop-large {
-        display: block;
+      @media @tui-tablet-interval{
+        max-width: 100px;
+        height: var(--tui-height-s) !important;
+        font: var(--tui-font-text-s) !important;
       }
     }
   }
+}
 
-  .sidebar-content {
-    padding: 20px;
-  }
 
-  .sidebar-menu {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+.mobile, .desktop-small, .desktop-large {
+  display: none;
 
-    li a {
+  @media @tui-tablet-min {
+    .desktop-small {
       display: block;
-      color: #000;
-      padding: 10px;
-
-      &:hover {
-        background-color: #f5f5f5;
-      }
     }
   }
 
-  .sidebar-button {
-    background: none;
-    border: none;
-    color: var(--tui-primary);
-    cursor: pointer;
-
-    tui-icon {
-      fill: var(--tui-primary);
+  @media @tui-desktop-min {
+    .desktop-large {
+      display: block;
     }
+  }
+}
+
+.sidebar-content {
+  padding: 20px;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li a {
+    display: block;
+    color: #000;
+    padding: 10px;
+
+    &:hover {
+      background-color: #f5f5f5;
+    }
+  }
+}
+
+.sidebar-button {
+  background: none;
+  border: none;
+  color: var(--tui-primary);
+  cursor: pointer;
+
+  tui-icon {
+    fill: var(--tui-primary);
   }
 }
