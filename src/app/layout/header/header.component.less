@@ -10,8 +10,6 @@ a {
 }
 
 .header {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid var(--tui-base-04);
 
@@ -35,8 +33,6 @@ a {
       align-items: center;
       column-gap: 20px;
 
-      &__item {
-      }
 
       &__link {
         position: relative;
@@ -88,5 +84,37 @@ a {
     .desktop-large {
       display: block;
     }
+  }
+}
+
+.sidebar-content {
+  padding: 20px;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li a {
+    display: block;
+    color: #000;
+    padding: 10px;
+    text-decoration: none;
+
+    &:hover {
+      background-color: #f5f5f5;
+    }
+  }
+}
+
+.sidebar-button {
+  background: none;
+  border: none;
+  color: var(--tui-primary);
+  cursor: pointer;
+
+  tui-icon {
+    fill: var(--tui-primary); // Убедитесь, что это правильное свойство для изменения цвета иконки
   }
 }

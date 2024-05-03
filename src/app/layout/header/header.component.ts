@@ -4,7 +4,7 @@ import {
   TuiButtonModule,
   TuiDataListModule,
   TuiHostedDropdownModule,
-  TuiLinkModule
+  TuiLinkModule, TuiSvgModule
 } from '@taiga-ui/core';
 import { MenuItem } from './menu-item.interface';
 import {RouterLink} from "@angular/router";
@@ -12,6 +12,8 @@ import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {TuiActiveZoneModule} from "@taiga-ui/cdk";
 import {TuiSidebarModule} from "@taiga-ui/addon-mobile";
 import {TuiAccordionModule} from "@taiga-ui/kit";
+import {TuiIconModule} from "@taiga-ui/experimental";
+
 
 @Component({
   selector: 'app-header',
@@ -27,7 +29,9 @@ import {TuiAccordionModule} from "@taiga-ui/kit";
     TuiActiveZoneModule,
     TuiSidebarModule,
     TuiAccordionModule,
-    TuiLinkModule
+    TuiLinkModule,
+    TuiIconModule,
+    TuiSvgModule
   ],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.less'],

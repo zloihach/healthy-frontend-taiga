@@ -11,44 +11,38 @@
       </ul>
     </nav>
     <div *ngIf="breakpoint$ | async as breakpoint" class="header-button__box" style="display: flex">
-      <button *ngIf="breakpoint !=='mobile'" tuiButton type="button" class="tui-space_right-2" size="m"
-              [routerLink]="['/signup']"
-              appearance="secondary">Регистрация
-      </button>
-        <button *ngIf="breakpoint !=='mobile'" tuiButton type="button" class="tui-space_right-2" size="m"
-                [routerLink]="['/login']" appearance="primary">
-          Войти
+      <div *ngIf="breakpoint !=='mobile'"  class="buttons">
+        <button *ngFor="let auth of authItems" tuiButton type="button" class="tui-space_right-2" size="m"
+                [routerLink]="auth.link"
+                [appearance]="auth.name === 'Регистрация' ? 'secondary' : 'primary'">
+          {{ auth.name }}
         </button>
+      </div>
     </div>
-    <div *ngIf="breakpoint$ | async as breakpoint" class="header-button__box" style="display: flex">
+    <div *ngIf="breakpoint$ | async as breakpoint" class="header-button-box">
       <div *ngIf="breakpoint === 'mobile'" class="header__dropdown">
         <button
-          tuiButton
           type="button"
+          class="sidebar-button"
           (click)="toggle(true)"
           (tuiActiveZoneChange)="toggle($event)"
         >
-          Show sidebar
-          <div *tuiSidebar="open; direction: 'right'">
-            <tui-accordion [rounded]="false">
-              <tui-accordion-item borders="top-bottom">
-                Other libraries
-                <ng-template tuiAccordionItemContent>
-                  <a
-                    *ngFor="let link of menuItems"
-                    href="https://github.com/taiga-family/{{ link }}"
-                    rel="noreferrer"
-                    target="_blank"
-                    tuiLink
-                    class="link"
-                  >
-                    {{ link }}
-                  </a>
-                </ng-template>
-              </tui-accordion-item>
-            </tui-accordion>
-          </div>
+          <tui-svg src="tuiIconAlignJustifyLarge"></tui-svg>
         </button>
+        <div *tuiSidebar="open; direction: 'right'" class="sidebar-content">
+          <ul class="sidebar-menu">
+            <li *ngFor="let item of menuItems">
+              <a [routerLink]="item.link" rel="noreferrer" tuiLink class="link">
+                {{ item.name }}
+              </a>
+            </li>
+            <li *ngFor="let auth of authItems">
+              <a [routerLink]="auth.link" rel="noreferrer" tuiLink class="link">
+                {{ auth.name }}
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
