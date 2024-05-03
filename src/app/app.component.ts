@@ -2,7 +2,7 @@ import { NgDompurifySanitizer } from "@tinkoff/ng-dompurify";
 import { TuiRootModule, TuiDialogModule, TuiAlertModule, TUI_SANITIZER } from "@taiga-ui/core";
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import {LoginComponent} from "./login/login.component";
+import {LoginComponent} from "./pages/login/login.component";
 import {HeaderComponent} from "./layout/header/header.component";
 import {SidebarComponent} from "./layout/sidebar/sidebar.component";
 

@@ -1,7 +1,7 @@
 import {Component, Inject} from '@angular/core';
 import {TuiAlertService, TuiGroupModule, TuiSvgModule} from "@taiga-ui/core";
 import {TuiActionModule, TuiBadgeModule, TuiRadioBlockModule, TuiTabsModule} from "@taiga-ui/kit";
-import {VaccineCardComponent} from "../shared/components/vaccine-card/vaccine-card.component";
+import {VaccineCardComponent} from "../../shared/components/vaccine-card/vaccine-card.component";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {NgForOf} from "@angular/common";
 

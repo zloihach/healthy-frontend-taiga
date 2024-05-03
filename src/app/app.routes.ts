@@ -1,14 +1,14 @@
 import { Routes } from '@angular/router';
-import {LoginComponent} from "./login/login.component";
+import {LoginComponent} from "./pages/login/login.component";
 import {AppComponent} from "./app.component";
-import {SignupComponent} from "./signup/signup.component";
-import {HomeComponent} from "./home/home.component";
+import {SignupComponent} from "./pages/signup/signup.component";
+import {HomeComponent} from "./pages/home/home.component";
 import {PageNotFoundComponent} from "./views/page-not-found/page-not-found.component";
-import {DashboardComponent} from "./dashboard/dashboard.component";
-import {CalendarComponent} from "./calendar/calendar.component";
-import {ChildrenComponent} from "./children/children.component";
-import {ArticlesComponent} from "./articles/articles.component";
-import {InfoComponent} from "./info/info.component";
+import {DashboardComponent} from "./pages/dashboard/dashboard.component";
+import {CalendarComponent} from "./pages/calendar/calendar.component";
+import {ChildrenComponent} from "./pages/children/children.component";
+import {ArticlesComponent} from "./pages/articles/articles.component";
+import {InfoComponent} from "./pages/info/info.component";
 
 export const routes: Routes = [
   {
