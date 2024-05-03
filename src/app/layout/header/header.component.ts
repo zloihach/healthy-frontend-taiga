@@ -9,6 +9,9 @@ import {
 } from '@taiga-ui/core';
 import {MenuItem} from "./menu-item.interface";
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
+import {TuiActiveZoneModule} from "@taiga-ui/cdk";
+import {TuiSidebarModule} from "@taiga-ui/addon-mobile";
+import {TuiAccordionModule} from "@taiga-ui/kit";
 
 @Component({
   selector: 'app-header',
@@ -20,7 +23,10 @@ import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
     TuiButtonModule,
     NgForOf,
     AsyncPipe,
-    NgIf
+    NgIf,
+    TuiActiveZoneModule,
+    TuiSidebarModule,
+    TuiAccordionModule
   ],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.less'],
@@ -29,27 +35,24 @@ import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 export class HeaderComponent implements OnInit {
   @ViewChild(TuiHostedDropdownComponent) component?: TuiHostedDropdownComponent;
 
-  readonly items: MenuItem[] = [
-    {label: 'Login', path: '/login'},
-    {label: 'Sign Up', path: '/signup'}
-  ];
-
   open = false;
 
   constructor(private router: Router, @Inject(TuiBreakpointService)
   readonly breakpoint$: TuiBreakpointService) {
   }
 
-  ngOnInit(): void {
-  }
+  readonly webApis = ['Common', 'Audio', 'Canvas', 'Geolocation', 'MIDI', 'Workers'];
 
-  onClick(item: MenuItem): void {
-    this.router.navigate([item.path]);
-    this.closeDropdown();
-  }
+  readonly tinkoff = [
+    'Taiga-UI',
+    'ng-event-plugins',
+    'ng-polymorpheus',
+    'ng-dompurify',
+  ];
 
-  closeDropdown(): void {
-    this.open = false;
-    this.component?.nativeFocusableElement?.focus();
+  toggle(open: boolean): void {
+    this.open = open;
+  }
+  ngOnInit() {
   }
 }

@@ -1,45 +1,85 @@
-<header style="display: flex" class="header">
-  <h1 [routerLink]="['/']" style="cursor: pointer">
-    <img
-      src="https://biba.hb.ru-msk.vkcs.cloud/logo_taiga.png"
-      alt="taiga ui logo"
-      width="48 "
-    />
-    Healthy
-  </h1>
-  <div *ngIf="breakpoint$ | async as breakpoint" class="header__button-box" style="display: flex">
-    <button *ngIf="breakpoint !=='mobile'" tuiButton type="button" class="tui-space_right-2" size="m"
-            [routerLink]="['/signup']"
-            appearance="secondary">Sign Up
-    </button>
-    <button *ngIf="breakpoint !=='mobile'" tuiButton type="button" class="tui-space_right-2" size="m"
-            [routerLink]="['/login']" appearance="primary">
-      Login
-    </button>
-    <div *ngIf="breakpoint === 'mobile'" class="header__dropdown">
-      <tui-hosted-dropdown
-        [content]="dropdown"
-        [(open)]="open"
-      >
+<header class="header">
+  <div class="header__inner container">
+    <h2 class="header-logo" [routerLink]="['/']" style="cursor: pointer">
+      <img
+        src="https://biba.hb.ru-msk.vkcs.cloud/logo_taiga.png"
+        alt="taiga ui logo"
+        width="32"
+      />
+      Healthy
+    </h2>
+    <nav class="header-menu">
+      <ul class="header__menu-list">
+        <li class="header__menu-item">
+          <a href="" class="header__menu-link">Кабинет</a>
+        </li>
+        <li class="header__menu-item">
+          <a href="" class="header__menu-link">Календарь прививок</a>
+        </li>
+        <li class="header__menu-item">
+          <a href="" class="header__menu-link">Дети</a>
+        </li>
+        <li class="header__menu-item">
+          <a href="" class="header__menu-link">Статьи</a>
+        </li>
+        <li class="header__menu-item">
+          <a href="" class="header__menu-link">Информация</a>
+        </li>
+      </ul>
+    </nav>
+    <div *ngIf="breakpoint$ | async as breakpoint" class="header__button-box" style="display: flex">
+      <button *ngIf="breakpoint !=='mobile'" tuiButton type="button" class="tui-space_right-2" size="m"
+              [routerLink]="['/signup']"
+              appearance="secondary">Регистрация
+      </button>
+      <button *ngIf="breakpoint !=='mobile'" tuiButton type="button" class="tui-space_right-2" size="m"
+              [routerLink]="['/login']" appearance="primary">
+        Войти
+      </button>
+      <div *ngIf="breakpoint === 'mobile'" class="header__dropdown">
         <button
-          size="m"
           tuiButton
           type="button"
+          (click)="toggle(true)"
+          (tuiActiveZoneChange)="toggle($event)"
         >
-          Menu
+          Show sidebar
+          <div *tuiSidebar="open; direction: 'right'">
+            <tui-accordion [rounded]="false">
+              <tui-accordion-item borders="top-bottom">
+                Web APIs for Angular
+                <ng-template tuiAccordionItemContent>
+                  <a
+                    *ngFor="let link of webApis"
+                    href="https://github.com/taiga-family/ng-web-apis/tree/main/libs/{{ link }}/README.md"
+                    rel="noreferrer"
+                    target="_blank"
+                    tuiLink
+                    class="link"
+                  >
+                    {{ link }}
+                  </a>
+                </ng-template>
+              </tui-accordion-item>
+              <tui-accordion-item borders="top-bottom">
+                Other libraries
+                <ng-template tuiAccordionItemContent>
+                  <a
+                    *ngFor="let link of tinkoff"
+                    href="https://github.com/taiga-family/{{ link }}"
+                    rel="noreferrer"
+                    target="_blank"
+                    tuiLink
+                    class="link"
+                  >
+                    {{ link }}
+                  </a>
+                </ng-template>
+              </tui-accordion-item>
+            </tui-accordion>
+          </div>
         </button>
-      </tui-hosted-dropdown>
-      <ng-template #dropdown>
-        <tui-data-list>
-          <button
-            *ngFor="let item of items"
-            tuiOption
-            (click)="onClick(item)"
-          >
-            {{ item.label }}
-          </button>
-        </tui-data-list>
-      </ng-template>
+      </div>
     </div>
   </div>
 </header>
