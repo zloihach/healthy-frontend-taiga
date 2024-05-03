@@ -57,7 +57,7 @@
     <form [formGroup]="form" style="justify-content: center; align-content: center; align-items: center; display: flex">
       <div class="tui-col_5">
         <tui-island class="login-island">
-          <h2>👋 Регистрация в <span appearance="primary">healthy.</span></h2>
+          <h2 style="color: var(--tui-primary);">👋 Регистрация в <span appearance="primary">healthy.</span></h2>
           <p class="tui-island__paragraph">
             Заполните форму, чтобы создать аккаунт.
           </p>
@@ -82,15 +82,10 @@
           <div class="tui-form__row">
             <tui-select formControlName="sex" placeholder="Выберите пол">Выберите пол</tui-select>
           </div>
-          <div class="tui-form__row login-form__button-box">
-            <tui-checkbox-labeled formControlName="remember">
-              Запомнить устройство?
-            </tui-checkbox-labeled>
-          </div>
-          <div class="tui-island_text-align_right">
+          <div class="tui-island_text-align_right tui-space_top-3">
             <a tuiButton type="button" class="tui-form__buttons_align_end" appearance="primary"
                [routerLink]="['/dashboard']" size="m">
-              Зарегистрироваться
+              Далее
             </a>
           </div>
         </tui-island>
