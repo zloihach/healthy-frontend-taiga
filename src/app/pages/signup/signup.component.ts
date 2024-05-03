@@ -1,44 +1,57 @@
-import { Component } from '@angular/core';
-import {RouterLink, RouterOutlet} from "@angular/router";
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {TuiButtonModule, TuiSvgModule} from "@taiga-ui/core";
-import {
-  TuiCheckboxLabeledModule,
-  TuiInputModule,
-  TuiInputPasswordModule,
-  TuiIslandModule,
-  TuiSelectModule
-} from "@taiga-ui/kit";
+import { Component, OnInit } from '@angular/core';
+import {FormGroup, FormBuilder, Validators, ReactiveFormsModule} from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { TuiInputModule, TuiInputPasswordModule, TuiIslandModule, TuiStepperModule, TuiSelectModule } from "@taiga-ui/kit";
+import {TuiButtonModule} from "@taiga-ui/experimental";
 
 @Component({
   selector: 'app-signup',
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.less'],
   standalone: true,
   imports: [
-    RouterOutlet,
-    FormsModule,
-    ReactiveFormsModule,
-    TuiButtonModule,
-    TuiCheckboxLabeledModule,
+    CommonModule,
     TuiInputModule,
     TuiInputPasswordModule,
     TuiIslandModule,
-    TuiSvgModule,
-    RouterLink,
-    TuiSelectModule
-  ],
-  templateUrl: './signup.component.html',
-  styleUrl: './signup.component.less'
+    TuiStepperModule,
+    TuiSelectModule,
+    ReactiveFormsModule,
+    TuiButtonModule
+  ]
 })
-export class SignupComponent {
-  form: FormGroup = new FormGroup({
-    email: new FormControl(null, [Validators.required, Validators.email]),
-    password: new FormControl(null, [Validators.required, Validators.minLength(1), Validators.maxLength(32)]),
-    remember: new FormControl(null, [Validators.required]),
-  });
+export class SignupComponent implements OnInit {
+  form!: FormGroup;
+  step = 1;
 
-  constructor() { }
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
-    // Initialization logic if needed
+    this.form = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      passwordConfirm: ['', [Validators.required]],
+      firstname: [''],
+      lastname: [''],
+      midname: [''],
+      dob: [''],
+      sex: ['']
+    });
+  }
+
+  nextStep(): void {
+    this.step++;
+  }
+
+  previousStep(): void {
+    if (this.step > 1) {
+      this.step--;
+    }
+  }
+
+  submit(): void {
+    if (this.form.valid) {
+      console.log('Form Submitted', this.form.value);
+    }
   }
 }

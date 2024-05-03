@@ -1,95 +1,58 @@
-<!--<div class="center-screen flex justify-around items-center h-screen">-->
-<!--  <div class="login-form">-->
-<!--    <form [formGroup]="form" style="justify-content: center; align-content: center;align-items: center; display: flex">-->
-<!--      <div class="tui-col_5">-->
-<!--        <tui-island class="login-island">-->
-<!--          <h1 class="" style="color: var(&#45;&#45;tui-primary);">👋 Регистрация в <span appearance="primary">healthy.</span></h1>-->
-<!--          <p class="tui-island__paragraph">-->
-<!--            Введите свои данные ниже, чтобы войти в аккаунт.-->
-<!--          </p>-->
-<!--          <div class="tui-island__paragraph tui-island__paragraph_link">-->
-
-<!--            <div class="tui-form__row">-->
-<!--              <p>-->
-<!--                <tui-input formControlName="email"> Введите ваш email  </tui-input>-->
-<!--              </p>-->
-
-<!--            </div>-->
-
-<!--            <div class="tui-form__row">-->
-<!--              <p>-->
-<!--                <tui-input-password formControlName="password">-->
-<!--                  Введите ваш пароль-->
-<!--                </tui-input-password>-->
-<!--              </p>-->
-<!--            </div>-->
-
-<!--            <div class="tui-form__row login-form__button-box">-->
-<!--              <p>-->
-<!--                <tui-checkbox-labeled formControlName="remember">-->
-<!--                  Запомнить устройство?-->
-<!--                </tui-checkbox-labeled>-->
-<!--              </p>-->
-<!--              <div class="tui-island_text-align_right">-->
-<!--                <a tuiButton type="button" class="tui-form__buttons_align_end" appearance="primary"-->
-<!--                   [routerLink]="['/']" size="m">-->
-<!--                  Далее-->
-<!--                  <tui-svg src="tuiIconArrowRight"></tui-svg>-->
-
-<!--                </a>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-
-
-
-<!--          <a tuiButton [routerLink]="['/register']" type="button" size="m" class="tui-island__footer-button"-->
-<!--             appearance="primary">-->
-<!--            Войти-->
-<!--          </a>-->
-<!--        </tui-island>-->
-<!--      </div>-->
-<!--    </form>-->
-<!--  </div>-->
-<!--</div>-->
 <div class="center-screen flex justify-around items-center h-screen">
   <div class="login-form">
-    <form [formGroup]="form" style="justify-content: center; align-content: center; align-items: center; display: flex">
-      <div class="tui-col_5">
-        <tui-island class="login-island">
-          <h2 style="color: var(--tui-primary);">👋 Регистрация в <span appearance="primary">healthy.</span></h2>
-          <p class="tui-island__paragraph">
-            Заполните форму, чтобы создать аккаунт.
-          </p>
+    <form [formGroup]="form" style="display: flex; flex-direction: column; align-items: center;">
+      <tui-stepper [activeItemIndex]="step - 1">
+        <button tuiStep (click)="step = 1">First step</button>
+        <button tuiStep (click)="step = 2">Second step</button>
+      </tui-stepper>
+      <tui-island class="login-island">
+        <h2>👋 Регистрация в <span style="color: var(--tui-primary);">healthy.</span></h2>
+        <p class="tui-island__paragraph">
+          Заполните форму, чтобы создать аккаунт.
+        </p>
+        <div *ngIf="step === 1">
           <div class="tui-form__row">
-            <tui-input formControlName="email" placeholder="Введите ваш email">Введите ваш email</tui-input>
+            <tui-input formControlName="email" placeholder="Введите ваш email"></tui-input>
           </div>
           <div class="tui-form__row">
-            <tui-input-password formControlName="password" placeholder="Введите ваш пароль">Введите ваш пароль</tui-input-password>
+            <tui-input-password formControlName="password" placeholder="Введите ваш пароль"></tui-input-password>
           </div>
           <div class="tui-form__row">
-            <tui-input formControlName="firstname" placeholder="Введите ваше имя">Введите ваше имя</tui-input>
-          </div>
-          <div class="tui-form__row">
-            <tui-input formControlName="lastname" placeholder="Введите вашу фамилию">Введите вашу фамилию</tui-input>
-          </div>
-          <div class="tui-form__row">
-            <tui-input formControlName="midname" placeholder="Введите ваше отчество (необязательно)">Введите ваше отчество (необязательно)</tui-input>
-          </div>
-          <div class="tui-form__row">
-            <tui-input formControlName="dob" type="date" placeholder="Выберите дату рождения">Выберите дату рождения</tui-input>
-          </div>
-          <div class="tui-form__row">
-            <tui-select formControlName="sex" placeholder="Выберите пол">Выберите пол</tui-select>
+            <tui-input-password formControlName="passwordConfirm" placeholder="Подтвердите ваш пароль"></tui-input-password>
           </div>
           <div class="tui-island_text-align_right tui-space_top-3">
-            <a tuiButton type="button" class="tui-form__buttons_align_end" appearance="primary"
-               [routerLink]="['/dashboard']" size="m">
+            <button tuiButton type="button" (click)="nextStep()" appearance="primary" size="m">
               Далее
-            </a>
+            </button>
           </div>
-        </tui-island>
-      </div>
+        </div>
+        <div *ngIf="step === 2">
+          <!-- Second Step: Additional Details -->
+          <div class="tui-form__row">
+            <tui-input formControlName="firstname" placeholder="Введите ваше имя"></tui-input>
+          </div>
+          <div class="tui-form__row">
+            <tui-input formControlName="lastname" placeholder="Введите вашу фамилию"></tui-input>
+          </div>
+          <div class="tui-form__row">
+            <tui-input formControlName="midname" placeholder="Введите ваше отчество (необязательно)"></tui-input>
+          </div>
+          <div class="tui-form__row">
+            <tui-input formControlName="dob" type="date" placeholder="Выберите дату рождения"></tui-input>
+          </div>
+          <div class="tui-form__row">
+            <tui-select formControlName="sex" placeholder="Выберите пол"></tui-select>
+          </div>
+          <div class="tui-island_text-align_right tui-space_top-3">
+            <button tuiButton type="button" (click)="previousStep()" appearance="secondary" size="m">
+              Назад
+            </button>
+            <button tuiButton type="submit" (click)="submit()" appearance="primary" size="m">
+              Зарегистрироваться
+            </button>
+          </div>
+        </div>
+      </tui-island>
     </form>
   </div>
 </div>
