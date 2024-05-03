@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormBuilder, Validators, ReactiveFormsModule} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TuiInputModule, TuiInputPasswordModule, TuiIslandModule, TuiStepperModule, TuiSelectModule } from "@taiga-ui/kit";
-import {TuiButtonModule} from "@taiga-ui/experimental";
+import {TuiButtonModule, TuiSvgModule} from "@taiga-ui/core";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-signup',
@@ -17,7 +18,10 @@ import {TuiButtonModule} from "@taiga-ui/experimental";
     TuiStepperModule,
     TuiSelectModule,
     ReactiveFormsModule,
-    TuiButtonModule
+    TuiButtonModule,
+    TuiButtonModule,
+    TuiSvgModule,
+    RouterLink
   ]
 })
 export class SignupComponent implements OnInit {

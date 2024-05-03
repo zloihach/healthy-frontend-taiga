@@ -2,23 +2,24 @@
   <div class="login-form">
     <form [formGroup]="form" style="display: flex; flex-direction: column; align-items: center;">
       <tui-stepper [activeItemIndex]="step - 1">
-        <button tuiStep (click)="step = 1">First step</button>
-        <button tuiStep (click)="step = 2">Second step</button>
+        <button tuiStep disabled>🏁 Начинаем</button>
+        <button tuiStep disabled>🤩 Расскажите о себе</button>
+        <button tuiStep disabled>✅ Завершение</button>
       </tui-stepper>
       <tui-island class="login-island">
-        <h2>👋 Регистрация в <span style="color: var(--tui-primary);">healthy.</span></h2>
+        <h2 style="color: var(--tui-primary);">👋 Регистрация в <span>healthy.</span></h2>
         <p class="tui-island__paragraph">
           Заполните форму, чтобы создать аккаунт.
         </p>
         <div *ngIf="step === 1">
           <div class="tui-form__row">
-            <tui-input formControlName="email" placeholder="Введите ваш email"></tui-input>
+            <tui-input formControlName="email" placeholder="Введите ваш email">Введите ваш email</tui-input>
           </div>
           <div class="tui-form__row">
-            <tui-input-password formControlName="password" placeholder="Введите ваш пароль"></tui-input-password>
+            <tui-input-password formControlName="password" placeholder="Введите ваш пароль">Введите ваш пароль</tui-input-password>
           </div>
           <div class="tui-form__row">
-            <tui-input-password formControlName="passwordConfirm" placeholder="Подтвердите ваш пароль"></tui-input-password>
+            <tui-input-password formControlName="passwordConfirm" placeholder="Подтвердите ваш пароль">Подтвердите ваш пароль</tui-input-password>
           </div>
           <div class="tui-island_text-align_right tui-space_top-3">
             <button tuiButton type="button" (click)="nextStep()" appearance="primary" size="m">
@@ -29,19 +30,19 @@
         <div *ngIf="step === 2">
           <!-- Second Step: Additional Details -->
           <div class="tui-form__row">
-            <tui-input formControlName="firstname" placeholder="Введите ваше имя"></tui-input>
+            <tui-input formControlName="firstname" placeholder="Введите ваше имя">Введите ваше имя</tui-input>
           </div>
           <div class="tui-form__row">
-            <tui-input formControlName="lastname" placeholder="Введите вашу фамилию"></tui-input>
+            <tui-input formControlName="lastname" placeholder="Введите вашу фамилию">Введите вашу фамилию</tui-input>
           </div>
           <div class="tui-form__row">
-            <tui-input formControlName="midname" placeholder="Введите ваше отчество (необязательно)"></tui-input>
+            <tui-input formControlName="midname" placeholder="Введите ваше отчество (необязательно)">Введите ваше отчество (необязательно)</tui-input>
           </div>
           <div class="tui-form__row">
-            <tui-input formControlName="dob" type="date" placeholder="Выберите дату рождения"></tui-input>
+            <tui-input formControlName="dob" type="date" placeholder="Выберите дату рождения">Выберите дату рождения</tui-input>
           </div>
           <div class="tui-form__row">
-            <tui-select formControlName="sex" placeholder="Выберите пол"></tui-select>
+            <tui-select formControlName="sex" placeholder="Выберите пол">Выберите пол</tui-select>
           </div>
           <div class="tui-island_text-align_right tui-space_top-3">
             <button tuiButton type="button" (click)="previousStep()" appearance="secondary" size="m">
@@ -52,6 +53,10 @@
             </button>
           </div>
         </div>
+        <a tuiButton [routerLink]="['/login']" type="button" size="m" class="tui-island__footer-button"
+           appearance="primary">
+          У меня уже есть запись
+        </a>
       </tui-island>
     </form>
   </div>
