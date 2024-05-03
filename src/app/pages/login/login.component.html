@@ -3,7 +3,7 @@
     <form [formGroup]="form" style="justify-content: center; align-content: center;align-items: center; display: flex">
       <div class="tui-col_5">
         <tui-island class="login-island">
-          <h3 class="tui-island__title">Вход в <span appearance="primary">healthy.</span></h3>
+          <h1 class="" style="color: var(--tui-primary);">👉 Вход в <span appearance="primary">healthy.</span></h1>
           <p class="tui-island__paragraph">
             Введите свои данные ниже, чтобы войти в аккаунт.
           </p>
@@ -34,6 +34,8 @@
                 <a tuiButton type="button" class="tui-form__buttons_align_end" appearance="primary"
                    [routerLink]="['/']" size="m">
                   Войти
+                  <tui-svg src="tuiIconArrowRight"></tui-svg>
+
                 </a>
               </div>
             </div>
@@ -43,6 +45,7 @@
 
           <a tuiButton [routerLink]="['/register']" type="button" size="m" class="tui-island__footer-button"
              appearance="primary">
+            <tui-svg src="tuiIconUserPlus"></tui-svg>
             Регистрация
           </a>
         </tui-island>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TuiButtonModule } from '@taiga-ui/core';
+import {TuiButtonModule, TuiSvgModule} from '@taiga-ui/core';
 import { TuiInputModule, TuiInputPasswordModule, TuiCheckboxLabeledModule, TuiIslandModule } from '@taiga-ui/kit';
 import { RouterModule } from '@angular/router';
 
@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule, ReactiveFormsModule, TuiInputModule,
     TuiInputPasswordModule, TuiButtonModule, TuiCheckboxLabeledModule,
-    TuiIslandModule, RouterModule
+    TuiIslandModule, RouterModule, TuiSvgModule
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.less']

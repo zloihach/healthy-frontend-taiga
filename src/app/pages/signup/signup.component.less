@@ -1,0 +1,36 @@
+.center-screen {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.login {
+  &-form {
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+
+    @media (max-width: 1100px) {
+      min-width: 800px;
+      padding: 10px;
+    }
+    &__button-box{
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+  &-island {
+    border-radius: 10px !important;
+  }
+}
+
+.tui-island__footer-button{
+  border-bottom-left-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
+}
