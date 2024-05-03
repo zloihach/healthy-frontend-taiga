@@ -10,9 +10,9 @@
         </li>
       </ul>
     </nav>
-    <div *ngIf="breakpoint$ | async as breakpoint" class="header-button__box" style="display: flex">
+    <div *ngIf="breakpoint$ | async as breakpoint" class="header-button-box" style="display: flex">
       <div *ngIf="breakpoint !=='mobile'"  class="buttons">
-        <button *ngFor="let auth of authItems" tuiButton type="button" class="tui-space_right-2" size="m"
+        <button *ngFor="let auth of authItems" tuiButton type="button" class="header-button-box__button" size="m"
                 [routerLink]="auth.link"
                 [appearance]="auth.name === 'Регистрация' ? 'secondary' : 'primary'">
           {{ auth.name }}
