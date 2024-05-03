@@ -1,29 +1,12 @@
 <header class="header">
   <div class="header__inner container">
-    <h2 class="header-logo" [routerLink]="['/']" style="cursor: pointer">
-      <img
-        src="https://biba.hb.ru-msk.vkcs.cloud/logo_taiga.png"
-        alt="taiga ui logo"
-        width="32"
-      />
-      Healthy
+    <h2 class="header-logo" routerLink="/" style="cursor: pointer">
+      healthy.
     </h2>
-    <nav class="header-menu">
-      <ul class="header__menu-list">
-        <li class="header__menu-item">
-          <a href="" class="header__menu-link">Кабинет</a>
-        </li>
-        <li class="header__menu-item">
-          <a href="" class="header__menu-link">Календарь прививок</a>
-        </li>
-        <li class="header__menu-item">
-          <a href="" class="header__menu-link">Дети</a>
-        </li>
-        <li class="header__menu-item">
-          <a href="" class="header__menu-link">Статьи</a>
-        </li>
-        <li class="header__menu-item">
-          <a href="" class="header__menu-link">Информация</a>
+    <nav *ngIf="breakpoint$ | async as breakpoint" class="header-menu">
+      <ul *ngIf="breakpoint !== 'mobile'" class="header__menu-list">
+        <li *ngFor="let item of menuItems" class="header__menu-item">
+          <a [routerLink]="item.link" class="header__menu-link">{{ item.name }}</a>
         </li>
       </ul>
     </nav>
@@ -36,6 +19,8 @@
               [routerLink]="['/login']" appearance="primary">
         Войти
       </button>
+    </div>
+    <div *ngIf="breakpoint$ | async as breakpoint" class="header__button-box" style="display: flex">
       <div *ngIf="breakpoint === 'mobile'" class="header__dropdown">
         <button
           tuiButton
@@ -47,25 +32,10 @@
           <div *tuiSidebar="open; direction: 'right'">
             <tui-accordion [rounded]="false">
               <tui-accordion-item borders="top-bottom">
-                Web APIs for Angular
-                <ng-template tuiAccordionItemContent>
-                  <a
-                    *ngFor="let link of webApis"
-                    href="https://github.com/taiga-family/ng-web-apis/tree/main/libs/{{ link }}/README.md"
-                    rel="noreferrer"
-                    target="_blank"
-                    tuiLink
-                    class="link"
-                  >
-                    {{ link }}
-                  </a>
-                </ng-template>
-              </tui-accordion-item>
-              <tui-accordion-item borders="top-bottom">
                 Other libraries
                 <ng-template tuiAccordionItemContent>
                   <a
-                    *ngFor="let link of tinkoff"
+                    *ngFor="let link of menuItems"
                     href="https://github.com/taiga-family/{{ link }}"
                     rel="noreferrer"
                     target="_blank"
@@ -83,4 +53,3 @@
     </div>
   </div>
 </header>
-
