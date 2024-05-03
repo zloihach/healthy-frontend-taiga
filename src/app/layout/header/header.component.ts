@@ -1,5 +1,11 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
-import {TuiBreakpointService, TuiButtonModule, TuiDataListModule, TuiHostedDropdownModule} from '@taiga-ui/core';
+import {
+  TuiBreakpointService,
+  TuiButtonModule,
+  TuiDataListModule,
+  TuiHostedDropdownModule,
+  TuiLinkModule
+} from '@taiga-ui/core';
 import { MenuItem } from './menu-item.interface';
 import {RouterLink} from "@angular/router";
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
@@ -20,7 +26,8 @@ import {TuiAccordionModule} from "@taiga-ui/kit";
     NgIf,
     TuiActiveZoneModule,
     TuiSidebarModule,
-    TuiAccordionModule
+    TuiAccordionModule,
+    TuiLinkModule
   ],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.less'],
@@ -40,7 +47,7 @@ export class HeaderComponent implements OnInit {
     {name: 'Войти', link: '/login'}
   ];
 
-  open: boolean = false; // Свойство для отслеживания состояния боковой панели
+  open: boolean = false;
 
   constructor(public breakpoint$: TuiBreakpointService) {
   }

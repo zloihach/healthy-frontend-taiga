@@ -4,23 +4,23 @@
       healthy.
     </h2>
     <nav *ngIf="breakpoint$ | async as breakpoint" class="header-menu">
-      <ul *ngIf="breakpoint !== 'mobile'" class="header__menu-list">
-        <li *ngFor="let item of menuItems" class="header__menu-item">
-          <a [routerLink]="item.link" class="header__menu-link">{{ item.name }}</a>
+      <ul *ngIf="breakpoint !== 'mobile'" class="header-menu__list">
+        <li *ngFor="let item of menuItems" class="header-menu__item">
+          <a [routerLink]="item.link" class="header-menu__link">{{ item.name }}</a>
         </li>
       </ul>
     </nav>
-    <div *ngIf="breakpoint$ | async as breakpoint" class="header__button-box" style="display: flex">
+    <div *ngIf="breakpoint$ | async as breakpoint" class="header-button__box" style="display: flex">
       <button *ngIf="breakpoint !=='mobile'" tuiButton type="button" class="tui-space_right-2" size="m"
               [routerLink]="['/signup']"
               appearance="secondary">Регистрация
       </button>
-      <button *ngIf="breakpoint !=='mobile'" tuiButton type="button" class="tui-space_right-2" size="m"
-              [routerLink]="['/login']" appearance="primary">
-        Войти
-      </button>
+        <button *ngIf="breakpoint !=='mobile'" tuiButton type="button" class="tui-space_right-2" size="m"
+                [routerLink]="['/login']" appearance="primary">
+          Войти
+        </button>
     </div>
-    <div *ngIf="breakpoint$ | async as breakpoint" class="header__button-box" style="display: flex">
+    <div *ngIf="breakpoint$ | async as breakpoint" class="header-button__box" style="display: flex">
       <div *ngIf="breakpoint === 'mobile'" class="header__dropdown">
         <button
           tuiButton
