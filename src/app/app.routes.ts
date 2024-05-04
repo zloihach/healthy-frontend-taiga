@@ -7,8 +7,8 @@ import {PageNotFoundComponent} from "./views/page-not-found/page-not-found.compo
 import {DashboardComponent} from "./pages/dashboard/dashboard.component";
 import {CalendarComponent} from "./pages/calendar/calendar.component";
 import {ChildrenComponent} from "./pages/children/children.component";
-import {ArticlesComponent} from "./pages/articles/articles.component";
 import {InfoComponent} from "./pages/info/info.component";
+import {PublicationComponent} from "./pages/publication/publication.component";
 
 export const routes: Routes = [
   {
@@ -30,7 +30,7 @@ export const routes: Routes = [
     path: 'children', pathMatch: 'full', component: ChildrenComponent
   },
   {
-    path: 'articles', pathMatch: 'full', component: ArticlesComponent
+    path: 'publication', pathMatch: 'full', component: PublicationComponent
   },
   {
     path: 'info', pathMatch: 'full', component: InfoComponent

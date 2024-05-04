@@ -1,11 +1,11 @@
 <div class="container tui-space_top-5">
-<h1 style="text-align: center">Важная информация о прививках и вакцинации</h1>
-<tui-accordion>
-  <tui-accordion-item *ngFor="let item of items" [open]="item.open">
-    {{ item.title }}
-    <ng-template tuiAccordionItemContent>
-      {{ item.content }}
-    </ng-template>
-  </tui-accordion-item>
-</tui-accordion>
+  <h1 style="text-align: center;color:var(--tui-primary)">Важная информация о прививках и вакцинации</h1>
+  <tui-accordion>
+    <tui-accordion-item *ngFor="let item of items" [open]="item.open">
+      {{ item.title }}
+      <ng-template tuiAccordionItemContent>
+        {{ item.content }}
+      </ng-template>
+    </tui-accordion-item>
+  </tui-accordion>
 </div>

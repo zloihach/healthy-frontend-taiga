@@ -42,7 +42,7 @@ export class HeaderComponent implements OnInit {
     {name: 'Кабинет', link: '/dashboard'},
     {name: 'Календарь прививок', link: '/vaccination-calendar'},
     {name: 'Дети', link: '/children'},
-    {name: 'Статьи', link: '/articles'},
+    {name: 'Статьи', link: '/publication'},
     {name: 'Информация', link: '/info'}
   ];
 
