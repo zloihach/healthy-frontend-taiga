@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="tui-row">
+    <div class="tui-col_md-4" *ngFor="let publication of publications">
+      <tui-island (click)="openPublicationDialog(publication)">
+        <div class="tui-island__content">
+          <figure class="tui-island__figure">
+            <img [src]="publication.image_url" alt="{{ publication.short_title }}" class="tui-island__image">
+          </figure>
+          <div>
+            <h3 class="tui-island__title">{{ publication.short_title }}</h3>
+            <p class="tui-island__paragraph">{{ publication.text | slice:0:150 }}...</p>
+            <p class="tui-island__paragraph tui-island__paragraph_link">
+              <a tuiLink>Read more</a>
+            </p>
+          </div>
+        </div>
+      </tui-island>
+    </div>
+  </div>
+</div>
