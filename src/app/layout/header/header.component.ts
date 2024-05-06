@@ -39,8 +39,8 @@ import {TuiIconModule} from "@taiga-ui/experimental";
 })
 export class HeaderComponent implements OnInit {
   menuItems: MenuItem[] = [
-    {name: 'Кабинет', link: '/dashboard'},
     {name: 'Календарь прививок', link: '/vaccination-calendar'},
+    {name: 'Кабинет', link: '/dashboard'},
     {name: 'Дети', link: '/children'},
     {name: 'Статьи', link: '/publication'},
     {name: 'Информация', link: '/info'}

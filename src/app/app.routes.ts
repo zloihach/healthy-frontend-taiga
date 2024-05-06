@@ -12,7 +12,7 @@ import {PublicationComponent} from "./pages/publication/publication.component";
 
 export const routes: Routes = [
   {
-    path: '', component: HomeComponent
+    path: '', component: DashboardComponent
   },
   {
     path: 'login', component: LoginComponent
@@ -25,8 +25,6 @@ export const routes: Routes = [
   },
   {
     path: 'vaccination-calendar', pathMatch: 'full', component: HomeComponent
-
-    // path: 'vaccination-calendar', pathMatch: 'full', component: CalendarComponent
   },
   {
     path: 'children', pathMatch: 'full', component: ChildrenComponent
