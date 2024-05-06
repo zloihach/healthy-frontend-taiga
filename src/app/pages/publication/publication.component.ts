@@ -4,6 +4,7 @@ import {ChangeDetectionStrategy, Component, Inject} from "@angular/core";
 import {TuiIslandModule} from "@taiga-ui/kit";
 import {NgForOf, SlicePipe} from "@angular/common";
 import {Publication} from "./publication";
+
 @Component({
   selector: 'app-publication',
   templateUrl: './publication.component.html',
@@ -61,20 +62,19 @@ export class PublicationComponent {
     }
   ];
 
-  constructor(@Inject(TuiDialogService) private readonly dialogs: TuiDialogService) {}
+  constructor(@Inject(TuiDialogService) private readonly dialogs: TuiDialogService) {
+  }
+
 
   openPublicationDialog(publication: Publication): void {
     const content: PolymorpheusContent<TuiDialogContext> = {
-      template: this.getDialogTemplate(publication),
+      template: '',
       context: {
         $implicit: 'Close',
         completeWith: (data: any) => console.log(data),
       },
     };
-    this.dialogs.open(publication.text, {label: publication.full_title, size: 'm'}).subscribe();
-  }
 
-  private getDialogTemplate(publication: Publication): string {
-    return ``;
+    this.dialogs.open(publication.text, {label: publication.full_title, size: 'm'}).subscribe();
   }
 }
