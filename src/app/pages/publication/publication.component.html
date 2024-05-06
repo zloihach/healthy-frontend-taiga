@@ -1,4 +1,6 @@
 <div class="container">
+  <h1 style="text-align: center;color:var(--tui-primary)">Статьи от врачей</h1>
+
   <div class="tui-row">
     <div class="tui-col_md-4" *ngFor="let publication of publications">
       <tui-island (click)="openPublicationDialog(publication)">
