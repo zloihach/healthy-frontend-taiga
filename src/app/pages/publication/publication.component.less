@@ -1,72 +1,87 @@
-// Define breakpoints
 @tui-breakpoint-mobile: 320px;
 @tui-breakpoint-tablet: 768px;
 @tui-breakpoint-desktop: 1024px;
 @tui-breakpoint-large-desktop: 1200px;
 
-// Style the container and island to be responsive
 .container {
+  margin-top: 20px;
+  padding: 0 15px;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+.tui-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -15px;
+}
+
+.tui-col_md-4 {
+  padding: 0 15px;
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 15px; // Add some padding to prevent content from touching the edges
 
-  .tui-row {
+  @media (min-width: @tui-breakpoint-tablet) {
+    width: 50%;
+  }
+
+  @media (min-width: @tui-breakpoint-desktop) {
+    width: 33.3333%;
+  }
+}
+
+.tui-island {
+  width: calc(100% - 20px);
+  margin-bottom: 20px;
+  box-sizing: border-box;
+
+  @media (min-width: @tui-breakpoint-desktop) {
+    margin-right: 20px;
+  }
+
+
+  &:nth-child(3n) {
+    margin-right: 0;
+  }
+
+  &:hover {
+    background-color: var(--tui-base-02);
+  }
+
+  .tui-island__content {
     display: flex;
-    flex-wrap: wrap;
-    margin: 0 -15px; // Negative margin to counteract padding on the columns
-  }
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 15px;
+    height: 100%;
 
-  .tui-col_md-4 {
-    padding: 0 15px; // Padding for gutters
-    width: 100%; // Default to full width on mobile
+    .tui-island__figure {
+      margin-bottom: 10px;
 
-    @media (min-width: @tui-breakpoint-tablet) {
-      width: 50%; // Half width on tablets
+      img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
     }
 
-    @media (min-width: @tui-breakpoint-desktop) {
-      width: 33.3333%; // One third on desktop and larger
-    }
-  }
-
-  .tui-island {
-    width: 100%; // Ensure island takes full width of column
-    cursor: pointer; // Make it clear the island is clickable
-
-    &:hover {
-      //background-color: @tui-base-03; // Light hover effect, replace with your theme color variable
+    .tui-island__title {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
     }
 
-    .tui-island__content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
+    .tui-island__paragraph {
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+    }
 
-      .tui-island__figure {
-        width: 100%; // Make image responsive within the container
-        margin-bottom: 15px; // Space between image and text
-
-        img {
-          width: 100%;
-          height: auto; // Maintain aspect ratio
-          object-fit: cover; // Ensure the image covers the figure area
+    .tui-island__paragraph_link {
+      margin-top: auto;
+      a {
+        color: var(--tui-primary);
+        &:hover {
+          text-decoration: underline;
         }
-      }
-
-      .tui-island__title {
-        font-size: 1.25rem; // Adjustable based on your design system
-        margin-bottom: 10px; // Space between title and paragraph
-      }
-
-      .tui-island__paragraph {
-        font-size: 1rem;
-        margin-bottom: 5px; // Space between paragraphs
-      }
-
-      .tui-island__paragraph_link {
-        margin-top: 10px; // Additional space above link for clear separation
       }
     }
   }

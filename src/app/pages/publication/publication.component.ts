@@ -25,7 +25,7 @@ export class PublicationComponent {
       short_title: "Vaccinations 101",
       text: "Vaccinations are vital to preventing disease...",
       is_active: true,
-      image_url: "https://s3.timeweb.cloud/304acea6-healthy/blue_publicatiom.png",
+      image_url: "https://s3.timeweb.cloud/304acea6-healthy/blue_publication.svg",
       created_at: new Date("2024-03-06T14:51:52.634Z"),
       updated_at: new Date("2024-03-06T14:51:52.634Z")
     },
@@ -35,7 +35,7 @@ export class PublicationComponent {
       short_title: "Vaccinations 101",
       text: "Vaccinations are vital to preventing disease...",
       is_active: true,
-      image_url: "https://s3.timeweb.cloud/304acea6-healthy/orange_publicatiom.png",
+      image_url: "https://s3.timeweb.cloud/304acea6-healthy/orange_publication.svg",
       created_at: new Date("2024-03-06T14:51:52.634Z"),
       updated_at: new Date("2024-03-06T14:51:52.634Z")
     },
@@ -45,7 +45,7 @@ export class PublicationComponent {
       short_title: "Vaccinations 101",
       text: "Vaccinations are vital to preventing disease...",
       is_active: true,
-      image_url: "https://s3.timeweb.cloud/304acea6-healthy/blue_publicatiom.png",
+      image_url: "https://s3.timeweb.cloud/304acea6-healthy/blue_publication.svg",
       created_at: new Date("2024-03-06T14:51:52.634Z"),
       updated_at: new Date("2024-03-06T14:51:52.634Z")
     },
@@ -55,7 +55,7 @@ export class PublicationComponent {
       short_title: "Vaccinations 101",
       text: "Vaccinations are vital to preventing disease...",
       is_active: true,
-      image_url: "https://s3.timeweb.cloud/304acea6-healthy/orange_publicatiom.png",
+      image_url: "https://s3.timeweb.cloud/304acea6-healthy/orange_publication.svg",
       created_at: new Date("2024-03-06T14:51:52.634Z"),
       updated_at: new Date("2024-03-06T14:51:52.634Z")
     }
