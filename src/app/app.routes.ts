@@ -24,7 +24,9 @@ export const routes: Routes = [
     path: 'dashboard', pathMatch: 'full', component: DashboardComponent
   },
   {
-    path: 'vaccination-calendar', pathMatch: 'full', component: CalendarComponent
+    path: 'vaccination-calendar', pathMatch: 'full', component: HomeComponent
+
+    // path: 'vaccination-calendar', pathMatch: 'full', component: CalendarComponent
   },
   {
     path: 'children', pathMatch: 'full', component: ChildrenComponent
