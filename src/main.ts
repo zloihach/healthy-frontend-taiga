@@ -6,11 +6,13 @@ import {provideAnimations} from "@angular/platform-browser/animations";
 import {provideRouter} from "@angular/router";
 import {importProvidersFrom} from "@angular/core";
 import {routes} from "./app/app.routes";
+import {provideHttpClient, withFetch} from "@angular/common/http";
 
 bootstrapApplication(AppComponent, {
   providers: [
     provideAnimations(),
     provideRouter(routes),
+    provideHttpClient(withFetch()),
     provideClientHydration(),
     importProvidersFrom(
       TuiRootModule,

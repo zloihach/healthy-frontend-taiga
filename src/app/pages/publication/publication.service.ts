@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
-import {Publication} from "./publication";
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Publication } from './publication';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PublicationService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getPublication(){
+  getAllPublications(): Observable<Publication[]> {
+    return this.http.get<Publication[]>('http://localhost:3010/publication/getAll');
   }
 }

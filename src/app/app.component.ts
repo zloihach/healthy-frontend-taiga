@@ -6,11 +6,12 @@ import {LoginComponent} from "./pages/login/login.component";
 import {HeaderComponent} from "./layout/header/header.component";
 import {SidebarComponent} from "./layout/sidebar/sidebar.component";
 import {FooterComponent} from "./layout/footer/footer.component";
+import {HttpClientModule} from "@angular/common/http";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, TuiRootModule, TuiDialogModule, TuiAlertModule, LoginComponent, HeaderComponent, SidebarComponent, FooterComponent],
+  imports: [RouterOutlet, TuiRootModule,HttpClientModule, TuiDialogModule, TuiAlertModule, LoginComponent, HeaderComponent, SidebarComponent, FooterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.less',
     providers: [{provide: TUI_SANITIZER, useClass: NgDompurifySanitizer}]
