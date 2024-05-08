@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import {TuiButtonModule, TuiLoaderModule, TuiSvgModule} from '@taiga-ui/core';
+import {
+  TuiButtonModule,
+  TuiHintModule,
+  TuiLoaderModule,
+  TuiSvgModule,
+  TuiTextfieldControllerModule
+} from '@taiga-ui/core';
 import { TuiInputModule, TuiInputPasswordModule, TuiCheckboxLabeledModule, TuiIslandModule } from '@taiga-ui/kit';
 import {Router, RouterModule} from '@angular/router';
 import {AuthService} from "../../core/auth/auth.service";
@@ -12,7 +18,7 @@ import {AuthService} from "../../core/auth/auth.service";
   imports: [
     CommonModule, ReactiveFormsModule, TuiInputModule,
     TuiInputPasswordModule, TuiButtonModule, TuiCheckboxLabeledModule,
-    TuiIslandModule, RouterModule, TuiSvgModule, TuiLoaderModule
+    TuiIslandModule, RouterModule, TuiSvgModule, TuiLoaderModule, TuiTextfieldControllerModule, TuiHintModule
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.less']
@@ -24,7 +30,10 @@ export class LoginComponent implements OnInit {
     remember: new FormControl(false),
   });
   protected loading: boolean = false;
-
+  readonly control = new FormControl(null, [
+    Validators.required,
+    Validators.email,
+  ]);
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void { }
