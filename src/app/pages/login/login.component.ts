@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import {TuiButtonModule, TuiSvgModule} from '@taiga-ui/core';
+import {TuiButtonModule, TuiLoaderModule, TuiSvgModule} from '@taiga-ui/core';
 import { TuiInputModule, TuiInputPasswordModule, TuiCheckboxLabeledModule, TuiIslandModule } from '@taiga-ui/kit';
 import {Router, RouterModule} from '@angular/router';
 import {AuthService} from "../../core/auth/auth.service";
@@ -12,7 +12,7 @@ import {AuthService} from "../../core/auth/auth.service";
   imports: [
     CommonModule, ReactiveFormsModule, TuiInputModule,
     TuiInputPasswordModule, TuiButtonModule, TuiCheckboxLabeledModule,
-    TuiIslandModule, RouterModule, TuiSvgModule
+    TuiIslandModule, RouterModule, TuiSvgModule, TuiLoaderModule
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.less']
@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
     password: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(32)]),
     remember: new FormControl(false),
   });
+  protected loading: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -30,15 +31,17 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     if (this.form.valid) {
-      console.log(this.form.value)
+      this.loading = true;
       this.authService.login(
         this.form.value.email,
         this.form.value.password
       ).subscribe({
         next: () => {
+          this.loading = false;
           this.router.navigate(['/dashboard']);
         },
         error: error => {
+          this.loading = false;
           console.error('Login failed:', error);
         }
       });

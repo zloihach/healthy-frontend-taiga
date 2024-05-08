@@ -1,6 +1,7 @@
 <div class="center-screen flex justify-around items-center h-screen">
   <div class="login-form">
-    <form [formGroup]="form" (ngSubmit)="login()" style="justify-content: center; align-content: center; align-items: center; display: flex">
+    <form [formGroup]="form" (ngSubmit)="login()" autocomplete="on"
+          style="justify-content: center; align-content: center; align-items: center; display: flex">
       <div class="tui-col_5">
         <tui-island class="login-island">
           <h1 class="" style="color: var(--tui-primary);">👉 Вход в <span appearance="primary">healthy.</span></h1>
@@ -11,7 +12,12 @@
 
             <div class="tui-form__row">
               <p>
-                <tui-input formControlName="email"> Введите ваш email</tui-input>
+                <tui-input formControlName="email"><input
+                  autocomplete="email"
+                  tuiTextfield
+                  type="email"
+                />Введите ваш email
+                </tui-input>
               </p>
 
             </div>
@@ -19,6 +25,11 @@
             <div class="tui-form__row">
               <p>
                 <tui-input-password formControlName="password">
+                  <input
+                    autocomplete="password"
+                    tuiTextfield
+                    type="password"
+                  />
                   Введите ваш пароль
                 </tui-input-password>
               </p>
@@ -31,7 +42,14 @@
                 </tui-checkbox-labeled>
               </p>
               <div class="tui-island_text-align_right">
-                <button tuiButton type="submit" class="tui-form__buttons_align_end" appearance="primary" size="m">
+                <tui-loader *ngIf="loading" class="loader" [inheritColor]="true" [overlay]="true" [showLoader]="true">
+                  <button tuiButton type="submit" class="tui-form__buttons_align_end" appearance="primary" size="m">
+                    Войти
+                    <tui-svg src="tuiIconArrowRight"></tui-svg>
+                  </button>
+                </tui-loader>
+                <button *ngIf="!loading" tuiButton type="submit" class="tui-form__buttons_align_end"
+                        appearance="primary" size="m">
                   Войти
                   <tui-svg src="tuiIconArrowRight"></tui-svg>
                 </button>
