@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { TuiDialogService } from '@taiga-ui/core';
-import { Publication } from './publication';
-import { PublicationService } from './publication.service';
-import { TuiIslandModule, TuiPaginationModule } from '@taiga-ui/kit';
-import { Subscription } from 'rxjs';
+import {Component, OnInit} from '@angular/core';
+import {TuiDialogContext, TuiDialogService} from '@taiga-ui/core';
+import {Publication} from './publication';
+import {PublicationService} from './publication.service';
+import {TuiIslandModule, TuiPaginationModule} from '@taiga-ui/kit';
+import {Subscription} from 'rxjs';
 import {NgForOf, NgIf} from "@angular/common";
+import {PolymorpheusContent} from '@tinkoff/ng-polymorpheus';
+
 
 @Component({
   selector: 'app-publication',
@@ -24,11 +26,11 @@ export class PublicationComponent implements OnInit {
   constructor(
     private publicationService: PublicationService,
     private dialogService: TuiDialogService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.currentPage = 1;
-    console.log('ngOnInit', this.currentPage, this.itemsPerPage);
     this.loadPublications(this.currentPage, this.itemsPerPage);
     this.loadTotalItems();
   }
@@ -45,7 +47,6 @@ export class PublicationComponent implements OnInit {
   }
 
   private loadPublications(page: number, limit: number): void {
-    console.log('loadPublications', page, limit);
     this.subscription = this.publicationService.getAllPublications(page, limit).subscribe({
       next: (publications) => {
         this.publications = publications;
@@ -59,7 +60,7 @@ export class PublicationComponent implements OnInit {
   }
 
   onPageChange(newPage: number): void {
-    this.currentPage = newPage+1;
+    this.currentPage = newPage + 1;
     this.loadPublications(this.currentPage, this.itemsPerPage);
   }
 
@@ -67,10 +68,17 @@ export class PublicationComponent implements OnInit {
     const dialogRef = this.dialogService.open(publication.text, {
       label: publication.full_title,
       size: 'm',
-      data: { button: 'Close' }
-    })};
+      data: {button: 'Close'}
+    });
+    dialogRef.subscribe({
+      next: result => console.log('Dialog closed with:', result),
+      error: error => console.error('Dialog failed with error:', error)
+    });
+  }
 
-  ngOnDestroy(): void {
+  ngOnDestroy()
+    :
+    void {
     this.subscription?.unsubscribe();
   }
 }

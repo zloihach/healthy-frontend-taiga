@@ -26,6 +26,5 @@ export class LoginComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    // Initialization logic if needed
   }
 }
