@@ -1,40 +1,29 @@
 <div class="center-screen flex justify-around items-center h-screen">
   <div class="login-form">
-    <form [formGroup]="form" (ngSubmit)="login()" autocomplete="on"
-          style="justify-content: center; align-content: center; align-items: center; display: flex">
+    <form [formGroup]="form" class="login-form__wrapper" (ngSubmit)="login()" autocomplete="on">
       <div class="tui-col_5">
         <tui-island class="login-island">
-          <h1 class="" style="color: var(--tui-primary);">👉 Вход в <span appearance="primary">healthy.</span></h1>
+          <h1>👉 Вход в <span appearance="primary">healthy.</span></h1>
           <p class="tui-island__paragraph">
             Введите свои данные ниже, чтобы войти в аккаунт.
           </p>
           <div class="tui-island__paragraph tui-island__paragraph_link">
-
             <div class="tui-form__row">
               <p>
                 <tui-input tuiHintContent="Введите ваш email" formControlName="email">
-                  <input
-                  autocomplete="email"
-                  tuiTextfield
-                  type="email"
-                />Введите ваш email
+                  <input autocomplete="email" tuiTextfield type="email"/>
+                  Введите ваш email
                 </tui-input>
               </p>
             </div>
-
             <div class="tui-form__row">
               <p>
                 <tui-input-password formControlName="password">
-                  <input
-                    autocomplete="password"
-                    tuiTextfield
-                    type="password"
-                  />
+                  <input autocomplete="password" tuiTextfield type="password"/>
                   Введите ваш пароль
                 </tui-input-password>
               </p>
             </div>
-
             <div class="tui-form__row login-form__button-box">
               <p>
                 <tui-checkbox-labeled formControlName="remember">

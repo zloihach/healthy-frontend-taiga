@@ -11,33 +11,43 @@
   overflow: hidden;
 }
 
-.login {
-  &-form {
-    width: 100%;
-    max-width: 1200px;
-    padding: 20px;
+.login-form {
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
 
-    @media (max-width: 1100px) {
-      min-width: 800px;
-      padding: 10px;
-    }
-    &__button-box{
-      display: flex;
-      justify-content: space-between;
-    }
+  @media (max-width: 1100px) {
+    min-width: 800px;
+    padding: 10px;
   }
-  &-island {
-    border-radius: 10px !important;
+
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+  }
+
+  &__button-box {
+    display: flex;
+    justify-content: space-between;
   }
 }
 
-.tui-island__footer-button{
-  border-bottom-left-radius: 10px !important;
-  border-bottom-right-radius: 10px !important;
+.login-island {
+  border-radius: 10px;
+
+  h1 {
+    color: var(--tui-primary);
+  }
+
+  .tui-island__footer-button {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
 }
 
 .success {
   position: relative;
   color: var(--tui-success-fill);
 }
-
