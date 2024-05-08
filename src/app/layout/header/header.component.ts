@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {
   TuiBreakpointService,
   TuiButtonModule,
@@ -13,6 +13,8 @@ import {TuiActiveZoneModule} from "@taiga-ui/cdk";
 import {TuiSidebarModule} from "@taiga-ui/addon-mobile";
 import {TuiAccordionModule} from "@taiga-ui/kit";
 import {TuiIconModule} from "@taiga-ui/experimental";
+import {AuthService} from "../../core/auth/auth.service";
+import {Subscription} from "rxjs";
 
 
 @Component({
@@ -37,28 +39,46 @@ import {TuiIconModule} from "@taiga-ui/experimental";
   styleUrls: ['./header.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent implements OnInit {
-  menuItems: MenuItem[] = [
-    {name: 'Календарь прививок', link: '/vaccination-calendar'},
-    {name: 'Кабинет', link: '/dashboard'},
-    {name: 'Дети', link: '/children'},
-    {name: 'Статьи', link: '/publication'},
-    {name: 'Информация', link: '/info'}
-  ];
-
+export class HeaderComponent implements OnInit, OnDestroy {
+  menuItems: MenuItem[] = [];
   authItems: MenuItem[] = [
-    {name: 'Регистрация', link: '/signup'},
-    {name: 'Войти', link: '/login'}
+    { name: 'Войти', link: '/login' },
+    { name: 'Регистрация', link: '/signup' }
   ];
+  user: any;
+  protected open: boolean = false;
+  private subscription!: Subscription;
 
-  open: boolean = false;
+  constructor(
+    public breakpoint$: TuiBreakpointService,
+    private authService: AuthService,
+    private cd: ChangeDetectorRef
+  ) {}
 
-  constructor(public breakpoint$: TuiBreakpointService) {
+  ngOnInit(): void {
+    this.subscription = this.authService.currentUser.subscribe(user => {
+      this.user = user;
+      this.menuItems = user ? [
+        { name: 'Календарь прививок', link: '/vaccination-calendar' },
+        { name: 'Кабинет', link: '/dashboard' },
+        { name: 'Дети', link: '/children' },
+        { name: 'Статьи', link: '/publication' },
+        { name: 'Информация', link: '/info' }
+      ] : [
+        { name: 'Статьи', link: '/publication' },
+        { name: 'Информация', link: '/info' }
+      ];
+      this.cd.markForCheck();
+    });
   }
 
-  ngOnInit() {
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
+  logout(): void {
+    this.authService.logout().subscribe(() => {});
+  }
   toggle(open: boolean): void {
     this.open = open;
   }

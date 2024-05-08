@@ -11,11 +11,16 @@
       </ul>
     </nav>
     <div *ngIf="breakpoint$ | async as breakpoint" class="header-button-box" style="display: flex">
-      <div *ngIf="breakpoint !=='mobile'"  class="buttons">
+      <div *ngIf="!user && breakpoint !== 'mobile'" class="buttons">
         <button *ngFor="let auth of authItems" tuiButton type="button" class="header-button-box__button" size="m"
                 [routerLink]="auth.link"
                 [appearance]="auth.name === 'Регистрация' ? 'secondary' : 'primary'">
           {{ auth.name }}
+        </button>
+      </div>
+      <div *ngIf="user && breakpoint !== 'mobile'" class="buttons">
+        <button tuiButton type="button" class="header-button-box__button" size="m" (click)="logout()">
+          Выйти
         </button>
       </div>
     </div>
