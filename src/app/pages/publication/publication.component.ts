@@ -2,21 +2,24 @@ import { Component, OnInit } from '@angular/core';
 import { TuiDialogService } from '@taiga-ui/core';
 import { Publication } from './publication';
 import { PublicationService } from './publication.service';
-import { NgIf, NgForOf } from '@angular/common';
-import { TuiIslandModule } from '@taiga-ui/kit';
+import { TuiIslandModule, TuiPaginationModule } from '@taiga-ui/kit';
 import { Subscription } from 'rxjs';
+import {NgForOf, NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-publication',
   templateUrl: './publication.component.html',
   styleUrls: ['./publication.component.less'],
-  imports: [TuiIslandModule, NgForOf, NgIf],
+  imports: [TuiIslandModule, TuiPaginationModule, NgForOf, NgIf],
   standalone: true
 })
 export class PublicationComponent implements OnInit {
   publications: Publication[] = [];
   isLoading = true;
-  private subscription: Subscription | null = null; // Properly manage subscription lifecycle
+  currentPage = 1;
+  totalItems = 0;
+  itemsPerPage = 8;
+  private subscription: Subscription | null = null;
 
   constructor(
     private publicationService: PublicationService,
@@ -24,11 +27,26 @@ export class PublicationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadPublications();
+    this.currentPage = 1;
+    console.log('ngOnInit', this.currentPage, this.itemsPerPage);
+    this.loadPublications(this.currentPage, this.itemsPerPage);
+    this.loadTotalItems();
   }
 
-  private loadPublications(): void {
-    this.subscription = this.publicationService.getAllPublications().subscribe({
+  private loadTotalItems(): void {
+    this.subscription = this.publicationService.getPublicationCount().subscribe({
+      next: (count) => {
+        this.totalItems = count;
+      },
+      error: (error) => {
+        console.error('Failed to retrieve publication count:', error);
+      }
+    });
+  }
+
+  private loadPublications(page: number, limit: number): void {
+    console.log('loadPublications', page, limit);
+    this.subscription = this.publicationService.getAllPublications(page, limit).subscribe({
       next: (publications) => {
         this.publications = publications;
         this.isLoading = false;
@@ -40,20 +58,20 @@ export class PublicationComponent implements OnInit {
     });
   }
 
+  onPageChange(newPage: number): void {
+    this.currentPage = newPage+1;
+    this.loadPublications(this.currentPage, this.itemsPerPage);
+  }
+
   openPublicationDialog(publication: Publication): void {
     const dialogRef = this.dialogService.open(publication.text, {
       label: publication.full_title,
       size: 'm',
       data: { button: 'Close' }
-    });
-
-    dialogRef.subscribe({
-      next: result => console.log('Dialog closed with:', result),
-      error: error => console.error('Dialog failed with error:', error)
-    });
-  }
+    })};
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
 }
+
