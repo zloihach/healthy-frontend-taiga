@@ -1,16 +1,44 @@
+<!--<div class="container">-->
+<!--  <h1 class="publication__header" style="text-align: center; color:var(&#45;&#45;tui-primary)">Статьи от врачей</h1>-->
+<!--  <div class="tui-row">-->
+<!--    <div class="tui-col_md-4" *ngFor="let publication of publications">-->
+<!--      <tui-island (click)="openPublicationDialog(publication)">-->
+<!--        <div class="tui-island__content">-->
+<!--          <figure class="tui-island__figure">-->
+<!--            <div *ngIf="imageSkeletonVisible" class="tui-skeleton tui-skeleton_rounded" style="height: 200px; width: 250px;"></div>-->
+<!--            <img *ngIf="!imageSkeletonVisible" [src]="publication.image_url" alt="{{ publication.short_title }}" class="tui-island__image">-->
+<!--          </figure>-->
+<!--          <div>-->
+<!--            <h3 class="tui-island__title" [class.tui-skeleton]="titleSkeletonVisible" [class.tui-skeleton_text]="titleSkeletonVisible">-->
+<!--              {{ titleSkeletonVisible ? 'Publication Title' : publication.short_title }}-->
+<!--            </h3>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </tui-island>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
 <div class="container">
   <h1 class="publication__header" style="text-align: center; color:var(--tui-primary)">Статьи от врачей</h1>
   <div class="tui-row">
+    <!-- Use isLoading to manage the entire loading state rather than individual skeleton states -->
     <div class="tui-col_md-4" *ngFor="let publication of publications">
       <tui-island (click)="openPublicationDialog(publication)">
         <div class="tui-island__content">
           <figure class="tui-island__figure">
-            <div *ngIf="imageSkeletonVisible" class="tui-skeleton tui-skeleton_rounded" style="height: 200px; width: 250px;"></div>
-            <img *ngIf="!imageSkeletonVisible" [src]="publication.image_url" alt="{{ publication.short_title }}" class="tui-island__image">
+            <!-- Unified loading condition for image skeleton -->
+            <ng-container *ngIf="isLoading; else imageContent">
+              <div class="tui-skeleton tui-skeleton_rounded" style="height: 200px; width: 250px;"></div>
+            </ng-container>
+            <ng-template #imageContent>
+              <img [src]="publication.image_url" alt="{{ publication.short_title }}" class="tui-island__image">
+            </ng-template>
           </figure>
           <div>
-            <h3 class="tui-island__title" [class.tui-skeleton]="titleSkeletonVisible" [class.tui-skeleton_text]="titleSkeletonVisible">
-              {{ titleSkeletonVisible ? 'Publication Title' : publication.short_title }}
+            <!-- Unified loading condition for title skeleton -->
+            <h3 class="tui-island__title" [class.tui-skeleton]="isLoading" [class.tui-skeleton_text]="isLoading">
+              {{ isLoading ? 'Loading...' : publication.short_title }}
             </h3>
           </div>
         </div>

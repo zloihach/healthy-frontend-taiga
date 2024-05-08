@@ -1,60 +1,59 @@
 import { Component, OnInit } from '@angular/core';
-import { TuiDialogService, TuiDialogContext } from '@taiga-ui/core';
-import { PolymorpheusContent } from '@tinkoff/ng-polymorpheus';
+import { TuiDialogService } from '@taiga-ui/core';
 import { Publication } from './publication';
 import { PublicationService } from './publication.service';
-import {TuiIslandModule} from "@taiga-ui/kit";
-import {NgForOf, NgIf} from "@angular/common";
+import { NgIf, NgForOf } from '@angular/common';
+import { TuiIslandModule } from '@taiga-ui/kit';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-publication',
   templateUrl: './publication.component.html',
   styleUrls: ['./publication.component.less'],
-  imports: [
-    TuiIslandModule,
-    NgForOf,
-    NgIf
-  ],
+  imports: [TuiIslandModule, NgForOf, NgIf],
   standalone: true
 })
 export class PublicationComponent implements OnInit {
   publications: Publication[] = [];
-  imageSkeletonVisible = true;
-  titleSkeletonVisible = true;
-  constructor(private publicationService: PublicationService, private dialogs: TuiDialogService) {}
+  isLoading = true;
+  private subscription: Subscription | null = null; // Properly manage subscription lifecycle
+
+  constructor(
+    private publicationService: PublicationService,
+    private dialogService: TuiDialogService
+  ) {}
 
   ngOnInit(): void {
-    this.getAllPublications();
+    this.loadPublications();
   }
 
-  getAllPublications(): void {
-    this.publicationService.getAllPublications().subscribe(
-      publications => {
+  private loadPublications(): void {
+    this.subscription = this.publicationService.getAllPublications().subscribe({
+      next: (publications) => {
         this.publications = publications;
-        this.imageSkeletonVisible = false;
-        this.titleSkeletonVisible = false;
+        this.isLoading = false;
       },
-      error => {
+      error: (error) => {
         console.error('Failed to retrieve publications:', error);
-        this.imageSkeletonVisible = false;
-        this.titleSkeletonVisible = false;
+        this.isLoading = false;
       }
-    );
+    });
   }
 
   openPublicationDialog(publication: Publication): void {
-    const content: PolymorpheusContent<TuiDialogContext> = {
-      template: '',
-      context: {
-        $implicit: 'Close',
-        completeWith: (data: any) => console.log(data),
-      },
-    };
-
-    this.dialogs.open(publication.text, {
+    const dialogRef = this.dialogService.open(publication.text, {
       label: publication.full_title,
       size: 'm',
-      data: { button: 'Закрыть' }
-    }).subscribe();
+      data: { button: 'Close' }
+    });
+
+    dialogRef.subscribe({
+      next: result => console.log('Dialog closed with:', result),
+      error: error => console.error('Dialog failed with error:', error)
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 }
