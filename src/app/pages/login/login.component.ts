@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import {TuiButtonModule, TuiSvgModule} from '@taiga-ui/core';
 import { TuiInputModule, TuiInputPasswordModule, TuiCheckboxLabeledModule, TuiIslandModule } from '@taiga-ui/kit';
-import { RouterModule } from '@angular/router';
+import {Router, RouterModule} from '@angular/router';
+import {AuthService} from "../../core/auth/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -18,13 +19,29 @@ import { RouterModule } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   form: FormGroup = new FormGroup({
-    email: new FormControl(null, [Validators.required, Validators.email]),
-    password: new FormControl(null, [Validators.required, Validators.minLength(1), Validators.maxLength(32)]),
-    remember: new FormControl(null, [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(32)]),
+    remember: new FormControl(false),
   });
 
-  constructor() { }
+  constructor(private authService: AuthService, private router: Router) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
+
+  login(): void {
+    if (this.form.valid) {
+      console.log(this.form.value)
+      this.authService.login(
+        this.form.value.email,
+        this.form.value.password
+      ).subscribe({
+        next: () => {
+          this.router.navigate(['/dashboard']);
+        },
+        error: error => {
+          console.error('Login failed:', error);
+        }
+      });
+    }
   }
 }
