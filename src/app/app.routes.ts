@@ -1,11 +1,9 @@
 import { Routes } from '@angular/router';
 import {LoginComponent} from "./pages/login/login.component";
-import {AppComponent} from "./app.component";
 import {SignupComponent} from "./pages/signup/signup.component";
 import {HomeComponent} from "./pages/home/home.component";
 import {PageNotFoundComponent} from "./views/page-not-found/page-not-found.component";
 import {DashboardComponent} from "./pages/dashboard/dashboard.component";
-import {CalendarComponent} from "./pages/calendar/calendar.component";
 import {ChildrenComponent} from "./pages/children/children.component";
 import {InfoComponent} from "./pages/info/info.component";
 import {PublicationComponent} from "./pages/publication/publication.component";
