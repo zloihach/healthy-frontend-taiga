@@ -1,10 +1,10 @@
 <div class="center-screen flex justify-around items-center h-screen">
   <div class="login-form">
     <div class="login-stepper tui-space_top-5 tui-space_bottom-5" style="display: flex; justify-content: center;">
-      <tui-stepper [activeItemIndex]="step - 1">
-        <button tuiStep disabled class="tui-text_body-xl">🏁 Начинаем</button>
-        <button tuiStep disabled class="tui-text_body-xl">🤩 Расскажите о себе</button>
-        <button tuiStep disabled class="tui-text_body-xl">✅ Завершение</button>
+      <tui-stepper class="login-stepper__box" [activeItemIndex]="step - 1">
+        <button tuiStep disabled class="tui-text_body-xl login-stepper__button">🏁 Начинаем</button>
+        <button tuiStep disabled class="tui-text_body-xl login-stepper__button">🤩 Расскажите о себе</button>
+        <button tuiStep disabled class="tui-text_body-xl login-stepper__button">✅ Завершение</button>
       </tui-stepper>
     </div>
     <form [formGroup]="form" style="display: flex; flex-direction: column; align-items: center;">
@@ -34,7 +34,6 @@
             </div>
           </div>
           <div *ngIf="step === 2">
-            <!-- Second Step: Additional Details -->
             <div class="tui-form__row">
               <tui-input formControlName="firstname" placeholder="Введите ваше имя">Введите ваше имя</tui-input>
             </div>

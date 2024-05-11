@@ -1,3 +1,7 @@
+@tui-breakpoint-mobile: 320px;
+@tui-breakpoint-tablet: 768px;
+@tui-breakpoint-desktop: 1024px;
+@tui-breakpoint-large-desktop: 1200px;
 
 .center-screen {
   top: 0;
@@ -21,22 +25,41 @@
       min-width: 800px;
       padding: 10px;
     }
-    &__button-box{
+
+    &__button-box {
       display: flex;
       justify-content: space-between;
     }
   }
+
   &-island {
     border-radius: 10px !important;
   }
+
+  &-stepper {
+    &__box {
+      @media (max-width: @tui-breakpoint-tablet) {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+
+    &__button {
+      @media (max-width: @tui-breakpoint-tablet) {
+        &:not(:last-child) {
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
 }
 
-.tui-island__footer-button{
+.tui-island__footer-button {
   border-bottom-left-radius: 10px !important;
   border-bottom-right-radius: 10px !important;
 }
 
-.button-box{
+.button-box {
   display: flex;
   justify-content: space-between;
 }
