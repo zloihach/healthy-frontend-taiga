@@ -1,24 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import {CommonModule, NgIf} from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
   TuiButtonModule,
   TuiHintModule,
   TuiLoaderModule,
   TuiSvgModule,
-  TuiTextfieldControllerModule
 } from '@taiga-ui/core';
-import {ActivatedRoute, Router, RouterLink, RouterModule} from '@angular/router';
-import {AuthService} from "../../core/auth/auth.service";
-import {TuiCheckboxLabeledModule, TuiInputModule, TuiInputPasswordModule, TuiIslandModule} from "@taiga-ui/kit";
+import {ActivatedRoute, Router, RouterModule} from '@angular/router';
+import { AuthService } from "../../core/auth/auth.service";
+import { TuiCheckboxLabeledModule, TuiInputModule, TuiInputPasswordModule, TuiIslandModule } from "@taiga-ui/kit";
+
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   standalone: true,
   imports: [
-    TuiSvgModule,
-    RouterLink,
+    CommonModule,
+    RouterModule,
     TuiInputPasswordModule,
     ReactiveFormsModule,
     TuiCheckboxLabeledModule,
@@ -27,7 +27,8 @@ import {TuiCheckboxLabeledModule, TuiInputModule, TuiInputPasswordModule, TuiIsl
     TuiButtonModule,
     TuiIslandModule,
     TuiInputModule,
-    TuiHintModule
+    TuiHintModule,
+    TuiSvgModule
   ],
   styleUrls: ['./login.component.less']
 })
@@ -38,7 +39,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {
     this.form = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -48,13 +49,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      if (params['returnUrl']) {
-        localStorage.setItem('returnUrl', params['returnUrl']);
-      }
-    });
   }
-
   login(): void {
     if (this.form.valid) {
       this.loading = true;
@@ -62,13 +57,13 @@ export class LoginComponent implements OnInit {
         this.form.value.email,
         this.form.value.password
       ).subscribe({
-        next: () => {
+        next: sessionInfo => {
           this.loading = false;
-          const returnUrl = localStorage.getItem('returnUrl');
-          if (returnUrl) {
-            this.router.navigateByUrl(returnUrl);
+          if (sessionInfo) {
+            const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/vaccination-calendar';
+            this.router.navigateByUrl(decodeURIComponent(returnUrl));
           } else {
-            this.router.navigateByUrl('/vaccination-calendar');
+            console.error('Login failed: No session info returned');
           }
         },
         error: error => {
