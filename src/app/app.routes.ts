@@ -1,30 +1,54 @@
-import {Routes} from '@angular/router';
-import {LoginComponent} from "./pages/login/login.component";
-import {SignupComponent} from "./pages/signup/signup.component";
-import {HomeComponent} from "./pages/home/home.component";
-import {PageNotFoundComponent} from "./views/page-not-found/page-not-found.component";
-import {DashboardComponent} from "./pages/dashboard/dashboard.component";
-import {ChildrenComponent} from "./pages/children/children.component";
-import {InfoComponent} from "./pages/info/info.component";
-import {PublicationComponent} from "./pages/publication/publication.component";
-import {AuthGuard} from "./core/auth/guards/auth.guard";
-import {AdminBoardComponent} from "./admin/pages/admin-board/admin-board.component";
-import {roleGuard} from "./core/auth/guards/role.guard";
+import { Routes } from '@angular/router';
+import { AuthGuard } from "./core/auth/guards/auth.guard";
+import { RoleGuard } from "./core/auth/guards/role.guard";
 
 export const routes: Routes = [
-  {path: '', component: DashboardComponent, canActivate: [AuthGuard]},
-  {path: 'login', component: LoginComponent},
-  {path: 'signup', component: SignupComponent},
-  {path: 'dashboard', pathMatch: 'full', component: DashboardComponent, canActivate: [AuthGuard]},
-  {path: 'vaccination-calendar', pathMatch: 'full', component: HomeComponent, canActivate: [AuthGuard]},
-  {path: 'children', pathMatch: 'full', component: ChildrenComponent, canActivate: [AuthGuard]},
-  {path: 'publication', pathMatch: 'full', component: PublicationComponent, canActivate: [AuthGuard]},
-  {path: 'info', pathMatch: 'full', component: InfoComponent, canActivate: [AuthGuard]},
+  {
+    path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full'
+  },
+  {
+    path: 'dashboard',
+    canActivate: [AuthGuard],
+    loadComponent: () => import('./pages/dashboard/dashboard.component').then(m => m.DashboardComponent)
+  },
+  {
+    path: 'login',
+    loadComponent: () => import('./pages/login/login.component').then(m => m.LoginComponent)
+  },
+  {
+    path: 'signup',
+    loadComponent: () => import('./pages/signup/signup.component').then(m => m.SignupComponent)
+  },
+  {
+    path: 'vaccination-calendar',
+    canActivate: [AuthGuard],
+    loadComponent: () => import('./pages/home/home.component').then(m => m.HomeComponent)
+  },
+  {
+    path: 'children',
+    canActivate: [AuthGuard],
+    loadComponent: () => import('./pages/children/children.component').then(m => m.ChildrenComponent)
+  },
+  {
+    path: 'info',
+    canActivate: [AuthGuard],
+    loadComponent: () => import('./pages/info/info.component').then(m => m.InfoComponent)
+  },
+  {
+    path: 'publication',
+    canActivate: [AuthGuard],
+    loadComponent: () => import('./pages/publication/publication.component').then(m => m.PublicationComponent)
+  },
   {
     path: 'admin',
-    component: AdminBoardComponent,
-    canActivate: [AuthGuard,roleGuard],
-    data: {roles: ['admin']}
+    canActivate: [AuthGuard, RoleGuard],
+    data: { roles: ['ADMIN'] },
+    loadComponent: () => import('./admin/pages/admin-board/admin-board.component').then(m => m.AdminBoardComponent)
   },
-  {path: '**', pathMatch: 'full', component: PageNotFoundComponent},
+  {
+    path: '**',
+    loadComponent: () => import('./views/page-not-found/page-not-found.component').then(m => m.PageNotFoundComponent)
+  }
 ];
