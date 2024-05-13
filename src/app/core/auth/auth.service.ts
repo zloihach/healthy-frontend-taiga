@@ -72,18 +72,4 @@ export class AuthService {
   getSessionInfo(): Observable<SessionInfo> {
     return this.http.post<SessionInfo>(`${AUTH_API}session`, {}, {withCredentials: true});
   }
-
-  setReturnUrl(url: string): void {
-    this.returnUrl = url;
-    this.returnUrlSubject.next(this.returnUrl);
-  }
-
-  getReturnUrl(): string {
-    return this.returnUrl;
-  }
-
-  getReturnUrlObservable() {
-    return this.returnUrlSubject.asObservable();
-  }
-
 }
