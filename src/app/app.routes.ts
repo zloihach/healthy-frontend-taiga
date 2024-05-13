@@ -33,12 +33,10 @@ export const routes: Routes = [
   },
   {
     path: 'info',
-    canActivate: [AuthGuard],
     loadComponent: () => import('./pages/info/info.component').then(m => m.InfoComponent)
   },
   {
     path: 'publication',
-    canActivate: [AuthGuard],
     loadComponent: () => import('./pages/publication/publication.component').then(m => m.PublicationComponent)
   },
   {
