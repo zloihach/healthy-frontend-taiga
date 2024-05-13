@@ -13,8 +13,6 @@ const AUTH_API = 'http://localhost:3010/auth/';
 export class AuthService {
   private currentUserSubject: BehaviorSubject<SessionInfo | null>;
   public currentUser: Observable<SessionInfo | null>;
-  private returnUrl: string = '/';  // Default return URL
-  private returnUrlSubject: BehaviorSubject<string> = new BehaviorSubject(this.returnUrl);
 
   constructor(private http: HttpClient, private router: Router) {
     this.currentUserSubject = new BehaviorSubject<SessionInfo | null>(JSON.parse(localStorage.getItem('currentUser') || 'null'));
@@ -59,7 +57,7 @@ export class AuthService {
       map(response => {
         this.currentUserSubject.next(null);
         localStorage.removeItem('currentUser');
-        this.router.navigate(['/login']);
+        this.router.navigate(['/login']).then();
         return response;
       }),
       catchError(err => {
