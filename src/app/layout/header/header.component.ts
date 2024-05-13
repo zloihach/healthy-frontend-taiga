@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {
   TuiBreakpointService,
   TuiButtonModule,
@@ -58,16 +58,26 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscription = this.authService.currentUser.subscribe(user => {
       this.user = user;
-      this.menuItems = user ? [
-        { name: 'Календарь прививок', link: '/vaccination-calendar' },
-        { name: 'Кабинет', link: '/dashboard' },
-        { name: 'Дети', link: '/children' },
-        { name: 'Статьи', link: '/publication' },
-        { name: 'Информация', link: '/info' }
-      ] : [
-        { name: 'Статьи', link: '/publication' },
-        { name: 'Информация', link: '/info' }
-      ];
+      if (user) {
+        this.menuItems = [
+          { name: 'Календарь прививок', link: '/vaccination-calendar' },
+          { name: 'Кабинет', link: '/dashboard' },
+          { name: 'Дети', link: '/children' },
+          { name: 'Статьи', link: '/publication' },
+          { name: 'Информация', link: '/info' }
+        ];
+        if (user.role && user.role === 'ADMIN') {
+          this.menuItems.push(
+            { name: 'Административная панель', link: '/admin' },
+            { name: 'Управление пользователями', link: '/admin/users' }
+          );
+        }
+      } else {
+        this.menuItems = [
+          { name: 'Статьи', link: '/publication' },
+          { name: 'Информация', link: '/info' }
+        ];
+      }
       this.cd.markForCheck();
     });
   }
