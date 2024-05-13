@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable, catchError, of} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {SessionInfo} from './sessionInfo.interface';
+import { Router } from '@angular/router';
 
 const AUTH_API = 'http://localhost:3010/auth/';
 
@@ -13,7 +14,7 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<SessionInfo | null>;
   public currentUser: Observable<SessionInfo | null>;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     this.currentUserSubject = new BehaviorSubject<SessionInfo | null>(JSON.parse(localStorage.getItem('currentUser') || 'null'));
     this.currentUser = this.currentUserSubject.asObservable();
     this.fetchSessionInfo();
@@ -56,6 +57,7 @@ export class AuthService {
       map(response => {
         this.currentUserSubject.next(null);
         localStorage.removeItem('currentUser');
+        this.router.navigate(['/login']);
         return response;
       }),
       catchError(err => {

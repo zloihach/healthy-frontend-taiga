@@ -7,33 +7,17 @@ import {DashboardComponent} from "./pages/dashboard/dashboard.component";
 import {ChildrenComponent} from "./pages/children/children.component";
 import {InfoComponent} from "./pages/info/info.component";
 import {PublicationComponent} from "./pages/publication/publication.component";
+import {AuthGuard} from "./core/auth/auth.guard";
 
 export const routes: Routes = [
-  {
-    path: '', component: DashboardComponent
-  },
-  {
-    path: 'login', component: LoginComponent
-  },
-  {
-    path: 'signup', component: SignupComponent
-  },
-  {
-    path: 'dashboard', pathMatch: 'full', component: DashboardComponent
-  },
-  {
-    path: 'vaccination-calendar', pathMatch: 'full', component: HomeComponent
-  },
-  {
-    path: 'children', pathMatch: 'full', component: ChildrenComponent
-  },
-  {
-    path: 'publication', pathMatch: 'full', component: PublicationComponent
-  },
-  {
-    path: 'info', pathMatch: 'full', component: InfoComponent
-  },
-  {
-    path: '**',pathMatch: 'full', component: PageNotFoundComponent
-  }
+  { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignupComponent },
+  { path: 'dashboard', pathMatch: 'full', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'vaccination-calendar', pathMatch: 'full', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'children', pathMatch: 'full', component: ChildrenComponent, canActivate: [AuthGuard] },
+  { path: 'publication', pathMatch: 'full', component: PublicationComponent, canActivate: [AuthGuard] },
+  { path: 'info', pathMatch: 'full', component: InfoComponent, canActivate: [AuthGuard] },
+  // { path: 'admin', pathMatch: 'full', component: AdminComponent, canActivate: [AdminGuard] },
+  { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
 ];
