@@ -48,7 +48,7 @@ export class AuthService {
         localStorage.setItem('currentUser', JSON.stringify(sessionInfo));
       }),
       catchError(err => {
-        console.error('Login failed', err);
+        console.error('Login failed!', err);
         return of(null);
       })
     );
