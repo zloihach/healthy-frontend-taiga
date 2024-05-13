@@ -2,8 +2,9 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable, catchError, of, switchMap, tap} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {SessionInfo} from './sessionInfo.interface';
+import {SessionInfo} from './interfaces/sessionInfo.interface';
 import { Router } from '@angular/router';
+import {SignUpRequest} from "./interfaces/signup.interface";
 
 const AUTH_API = 'http://localhost:3010/auth/';
 
@@ -13,6 +14,7 @@ const AUTH_API = 'http://localhost:3010/auth/';
 export class AuthService {
   private currentUserSubject: BehaviorSubject<SessionInfo | null>;
   public currentUser: Observable<SessionInfo | null>;
+
 
   constructor(private http: HttpClient, private router: Router) {
     this.currentUserSubject = new BehaviorSubject<SessionInfo | null>(JSON.parse(localStorage.getItem('currentUser') || 'null'));
@@ -69,5 +71,9 @@ export class AuthService {
 
   getSessionInfo(): Observable<SessionInfo> {
     return this.http.post<SessionInfo>(`${AUTH_API}session`, {}, {withCredentials: true});
+  }
+
+  signUp(signUpRequest: SignUpRequest): Observable<any> {
+    return this.http.post<any>(`${AUTH_API}sign-up`, {signUpRequest}, {withCredentials: true});
   }
 }

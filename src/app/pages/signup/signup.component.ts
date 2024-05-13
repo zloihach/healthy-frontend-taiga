@@ -1,9 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import {FormGroup, FormBuilder, Validators, ReactiveFormsModule} from '@angular/forms';
+import {FormGroup, FormControl, Validators, ValidatorFn, AbstractControl, ReactiveFormsModule} from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { TuiInputModule, TuiInputPasswordModule, TuiIslandModule, TuiStepperModule, TuiSelectModule } from "@taiga-ui/kit";
-import {TuiButtonModule, TuiSvgModule} from "@taiga-ui/core";
-import {RouterLink} from "@angular/router";
+import {
+  TuiInputModule,
+  TuiInputPasswordModule,
+  TuiIslandModule,
+  TuiStepperModule,
+  TuiSelectModule,
+  TuiInputDateModule,
+  TuiDataListWrapperModule,
+  TuiFieldErrorPipeModule,
+  TuiFilterByInputPipeModule,
+  TuiStringifyContentPipeModule
+} from "@taiga-ui/kit";
+import { TuiButtonModule, TuiErrorModule, TuiSvgModule, TuiTextfieldControllerModule } from "@taiga-ui/core";
+import { RouterLink } from "@angular/router";
+import { AuthService } from "../../core/auth/auth.service";
+
+interface GenderOption {
+  id: number;
+  name: string;
+}
 
 @Component({
   selector: 'app-signup',
@@ -19,29 +36,54 @@ import {RouterLink} from "@angular/router";
     TuiSelectModule,
     ReactiveFormsModule,
     TuiButtonModule,
-    TuiButtonModule,
     TuiSvgModule,
-    RouterLink
+    RouterLink,
+    TuiInputDateModule,
+    TuiDataListWrapperModule,
+    TuiErrorModule,
+    TuiFieldErrorPipeModule,
+    TuiTextfieldControllerModule,
+    TuiFilterByInputPipeModule,
+    TuiStringifyContentPipeModule
   ]
 })
 export class SignupComponent implements OnInit {
   form!: FormGroup;
   step = 1;
 
-  constructor(private formBuilder: FormBuilder) {}
+  genderOptions: GenderOption[] = [
+    { id: 1, name: 'Мужской' },
+    { id: 2, name: 'Женский' }
+  ];
+
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.form = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      passwordConfirm: ['', [Validators.required]],
-      firstname: [''],
-      lastname: [''],
-      midname: [''],
-      dob: [''],
-      sex: ['']
-    });
+    this.form = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      passwordConfirm: new FormControl('', [Validators.required]),
+      firstname: new FormControl(''),
+      lastname: new FormControl(''),
+      midname: new FormControl(''),
+      dob: new FormControl(''),
+      sex: new FormControl('', Validators.required)
+    }, { validators: this.checkPasswords });
   }
+
+  genderStringify(item: GenderOption): string {
+    return item.name;
+  }
+
+  checkPasswords: ValidatorFn = (group: AbstractControl): { [key: string]: boolean } | null => {
+    const password = group.get('password');
+    const confirmPassword = group.get('passwordConfirm');
+
+    if (password && confirmPassword && password.value !== confirmPassword.value) {
+      return { notSame: true };
+    }
+    return null;
+  };
 
   nextStep(): void {
     this.step++;
@@ -55,7 +97,11 @@ export class SignupComponent implements OnInit {
 
   submit(): void {
     if (this.form.valid) {
-      console.log('Form Submitted', this.form.value);
+      const { passwordConfirm, ...signUpData } = this.form.value;
+      this.authService.signUp(signUpData).subscribe({
+        next: response => console.log('User registered', response),
+        error: error => console.error('Registration error', error)
+      });
     }
   }
 }

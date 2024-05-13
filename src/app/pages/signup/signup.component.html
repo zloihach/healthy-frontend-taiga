@@ -46,12 +46,27 @@
               </tui-input>
             </div>
             <div class="tui-form__row">
-              <tui-input formControlName="dob" type="date" placeholder="Выберите дату рождения">Выберите дату рождения
-              </tui-input>
+              <tui-input-date formControlName="dob" type="date" placeholder="Выберите дату рождения">Выберите дату рождения
+              </tui-input-date>
             </div>
             <div class="tui-form__row">
-              <tui-select formControlName="sex" placeholder="Выберите пол">Выберите пол</tui-select>
+              <tui-select
+                formControlName="sex"
+                [stringify]="genderStringify"
+              >
+                Выберите пол
+                <tui-data-list-wrapper
+                  *tuiDataList
+                  [items]="genderOptions"
+                  [itemContent]="itemContent"
+                >
+                </tui-data-list-wrapper>
+              </tui-select>
+              <ng-template #itemContent let-item>
+                {{ item.name }}
+              </ng-template>
             </div>
+
             <div class="button-box tui-island_text-align_right tui-space_top-3">
               <button tuiButton type="button" (click)="previousStep()" appearance="secondary" size="m">
                 Назад

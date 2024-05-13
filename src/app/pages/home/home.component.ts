@@ -34,11 +34,9 @@ export class HomeComponent implements OnInit {
   activeItemIndex = 0;
   user: any;
 
-
   readonly vaccineTypeRadio = new FormGroup({
     testValue: new FormControl('orange'),
   });
-
 
   readonly vaccineType = ['Эпидемиология', 'Нац. Календарь'];
 
