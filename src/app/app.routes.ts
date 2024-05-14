@@ -24,7 +24,7 @@ export const routes: Routes = [
   {
     path: 'vaccination-calendar',
     canActivate: [AuthGuard],
-    loadComponent: () => import('./pages/home/home.component').then(m => m.HomeComponent)
+    loadComponent: () => import('./pages/calendar/calendar.component').then(m => m.CalendarComponent)
   },
   {
     path: 'children',

@@ -1,1 +1,3 @@
-<h1 style="text-align: center;color:var(--tui-primary)">Мой календарь</h1>
+<div *ngFor="let vaccine of vaccines">
+  <app-vaccine-card [vaccine]="vaccine"></app-vaccine-card>
+</div>

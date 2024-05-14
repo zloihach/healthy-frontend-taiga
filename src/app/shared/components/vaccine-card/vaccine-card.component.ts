@@ -1,34 +1,25 @@
-import { Component } from '@angular/core';
-import {TuiButtonModule, TuiLinkModule} from "@taiga-ui/core";
+import { Component, Input } from '@angular/core';
+import { Vaccine } from '../../interfaces/vaccine.interface';
+import {TuiButtonModule, TuiCardModule, TuiHeaderModule, TuiSurfaceModule} from "@taiga-ui/experimental";
 import {TuiPlatformModule} from "@taiga-ui/cdk";
-import {
-  TuiAvatarModule,
-  TuiCardModule,
-  TuiHeaderModule,
-  TuiSurfaceModule,
-  TuiTitleModule
-} from '@taiga-ui/experimental';
+import {DatePipe} from "@angular/common";
 import {TuiBadgeModule} from "@taiga-ui/kit";
-
 
 @Component({
   selector: 'app-vaccine-card',
+  templateUrl: './vaccine-card.component.html',
   standalone: true,
   imports: [
-    TuiLinkModule,
-    TuiPlatformModule,
-    TuiButtonModule,
+    TuiHeaderModule,
     TuiCardModule,
     TuiSurfaceModule,
-    TuiHeaderModule,
-    TuiTitleModule,
-    TuiAvatarModule,
-    TuiAvatarModule,
-    TuiBadgeModule
+    TuiPlatformModule,
+    DatePipe,
+    TuiBadgeModule,
+    TuiButtonModule
   ],
-  templateUrl: './vaccine-card.component.html',
-  styleUrl: './vaccine-card.component.less'
+  styleUrls: ['./vaccine-card.component.less']
 })
 export class VaccineCardComponent {
-
+  @Input() vaccine!: Vaccine;
 }
