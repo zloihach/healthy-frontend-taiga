@@ -3,7 +3,7 @@
     <form [formGroup]="form" class="login-form__wrapper" (ngSubmit)="login()" autocomplete="on">
       <div class="tui-col_5">
         <tui-island class="login-island">
-          <h1>👉 Вход в <span appearance="primary">healthy.</span></h1>
+          <h2 style="color: var(--tui-primary);">👉 Вход в <span appearance="primary">healthy.</span></h2>
           <p class="tui-island__paragraph">
             Введите свои данные ниже, чтобы войти в аккаунт.
           </p>
@@ -47,8 +47,8 @@
           </div>
           <a tuiButton [routerLink]="['/signup']" type="button" size="m" class="tui-island__footer-button"
              appearance="primary">
-            <tui-svg src="tuiIconUserPlus"></tui-svg>
             Регистрация
+            <tui-svg src="tuiIconUserPlus"></tui-svg>
           </a>
         </tui-island>
       </div>
