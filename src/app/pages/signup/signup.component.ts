@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import {
   TuiInputModule,
@@ -17,7 +17,8 @@ import { TuiButtonModule, TuiErrorModule, TuiSvgModule, TuiTextfieldControllerMo
 import { RouterLink, Router } from "@angular/router";
 import { AuthService } from "../../core/auth/auth.service";
 import { SignUpRequest } from '../../core/auth/interfaces/signup.interface';
-import {SignupFormService} from "./services/signup-form.service"; // Ensure this path is correct
+import {SignupFormService} from "./services/signup-form.service";
+import {debounceTime, distinctUntilChanged} from "rxjs"; // Ensure this path is correct
 
 
 interface GenderOption {
@@ -70,11 +71,17 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.signupFormService.generateForm();
 
-    this.form.get('email')?.valueChanges.subscribe(email => {
-      this.checkEmail(email);
-    });
+    this.form.get('email')?.valueChanges
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged()
+      )
+      .subscribe(email => {
+        if (this.form.get('email')?.valid) {
+          this.checkEmail(email);
+        }
+      });
   }
-
   genderStringify = (item: GenderOption): string => {
     return item.name;
   };
@@ -120,8 +127,11 @@ export class SignupComponent implements OnInit {
     }
   }
 
-  private formatDate(date: { year: number, month: number, day: number }): string {
-    return `${date.year}-${String(date.month).padStart(2, '0')}-${String(date.day).padStart(2, '0')}T00:00:00.000Z`;
+  private formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}T00:00:00.000Z`;
   }
 
   private checkEmail(email: string): void {

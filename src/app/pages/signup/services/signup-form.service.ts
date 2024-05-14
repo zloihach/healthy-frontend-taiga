@@ -11,7 +11,7 @@ export class SignupFormService {
     return new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-      passwordConfirm: new FormControl('', [Validators.required]),
+      passwordConfirm: new FormControl('', [Validators.required, Validators.minLength(6)]),
       firstname: new FormControl('', Validators.required),
       lastname: new FormControl('', Validators.required),
       midname: new FormControl(''),
@@ -25,8 +25,10 @@ export class SignupFormService {
     const confirmPassword = group.get('passwordConfirm');
 
     if (password && confirmPassword && password.value !== confirmPassword.value) {
+      confirmPassword.setErrors({ notSame: true });
       return { notSame: true };
+    } else {
+      return null;
     }
-    return null;
   };
 }
