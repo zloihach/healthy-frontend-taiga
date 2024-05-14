@@ -16,7 +16,10 @@
           </p>
           <div *ngIf="step === 1">
             <div class="tui-form__row">
-              <tui-input formControlName="email" placeholder="Введите ваш email">Введите ваш email</tui-input>
+              <tui-input formControlName="email" placeholder="Введите ваш email">
+                Введите ваш email
+                <div tuiFieldError="emailTaken">Этот email уже зарегистрирован.</div>
+              </tui-input>
             </div>
             <div class="tui-form__row">
               <tui-input-password formControlName="password" placeholder="Введите ваш пароль">Введите ваш пароль
@@ -28,7 +31,7 @@
               </tui-input-password>
             </div>
             <div class="tui-island_text-align_right tui-space_top-3">
-              <button tuiButton type="button" (click)="nextStep()" appearance="primary" size="m">
+              <button tuiButton type="button" (click)="nextStep()" appearance="primary" size="m" [disabled]="!form.get('email')?.valid || !form.get('password')?.valid || !form.get('passwordConfirm')?.valid || !isEmailValid">
                 Далее
               </button>
             </div>

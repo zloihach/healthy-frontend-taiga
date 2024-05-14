@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import {SignUpRequest} from "./interfaces/signup.interface";
 
 const AUTH_API = 'http://localhost:3010/auth/';
+const API = 'http://localhost:3010/';
 
 @Injectable({
   providedIn: 'root'
@@ -73,7 +74,9 @@ export class AuthService {
     return this.http.post<SessionInfo>(`${AUTH_API}session`, {}, {withCredentials: true});
   }
 
-
+  checkEmail(email: string): Observable<boolean> {
+    return this.http.get<boolean>(`${API}users/check-email/${email}`);
+  }
   signUp(signUpRequest: SignUpRequest): Observable<any> {
     return this.http.post<any>(`${AUTH_API}sign-up`, signUpRequest, { withCredentials: true });
   }

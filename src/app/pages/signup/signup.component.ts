@@ -16,7 +16,7 @@ import {
 import { TuiButtonModule, TuiErrorModule, TuiSvgModule, TuiTextfieldControllerModule } from "@taiga-ui/core";
 import { RouterLink, Router } from "@angular/router";
 import { AuthService } from "../../core/auth/auth.service";
-import { SignUpRequest } from '../../core/auth/interfaces/signup.interface'; // Ensure this path is correct
+import { SignUpRequest } from '../../core/auth/interfaces/signup.interface';
 
 interface GenderOption {
   id: number;
@@ -52,6 +52,7 @@ interface GenderOption {
 export class SignupComponent implements OnInit {
   form!: FormGroup;
   step = 1;
+  isEmailValid = false;
 
   genderOptions: GenderOption[] = [
     { id: 1, name: 'Мужской', value: 'MALE' },
@@ -69,8 +70,13 @@ export class SignupComponent implements OnInit {
       lastname: new FormControl('', Validators.required),
       midname: new FormControl(''),
       dob: new FormControl('', Validators.required),
-      sex: new FormControl('', Validators.required)  // Используем пустую строку для инициализации
+      sex: new FormControl('', Validators.required)
     }, { validators: this.checkPasswords });
+
+    // Email check
+    this.form.get('email')?.valueChanges.subscribe(email => {
+      this.checkEmail(email);
+    });
   }
 
   genderStringify = (item: GenderOption): string => {
@@ -88,7 +94,11 @@ export class SignupComponent implements OnInit {
   };
 
   nextStep(): void {
-    this.step++;
+    if (this.form.get('email')?.valid && this.form.get('password')?.valid && this.form.get('passwordConfirm')?.valid && this.isEmailValid) {
+      this.step++;
+    } else {
+      alert('Пожалуйста, заполните все поля корректно.');
+    }
   }
 
   previousStep(): void {
@@ -101,7 +111,6 @@ export class SignupComponent implements OnInit {
     if (this.form.valid) {
       const formValue = this.form.value;
 
-      // Преобразуем форму в нужный формат
       const signUpRequest: SignUpRequest = {
         email: formValue.email,
         password: formValue.password,
@@ -109,14 +118,14 @@ export class SignupComponent implements OnInit {
         lastname: formValue.lastname,
         midname: formValue.midname,
         dob: this.formatDate(formValue.dob),
-        sex: formValue.sex.value  // Передаем только значение пола
+        sex: formValue.sex.value
       };
 
-      console.log('Submitting sign-up request:', signUpRequest);  // Логируем данные перед отправкой
+      console.log('Submitting sign-up request:', signUpRequest);
 
       this.authService.signUp(signUpRequest).subscribe({
         next: () => {
-          this.router.navigate(['/login']);
+          this.router.navigate(['/vaccination-calendar']);
         },
         error: (err) => {
           console.error('Registration failed', err);
@@ -127,5 +136,20 @@ export class SignupComponent implements OnInit {
 
   private formatDate(date: { year: number, month: number, day: number }): string {
     return `${date.year}-${String(date.month).padStart(2, '0')}-${String(date.day).padStart(2, '0')}T00:00:00.000Z`;
+  }
+
+  private checkEmail(email: string): void {
+    this.authService.checkEmail(email).subscribe({
+      next: (exists: boolean) => {
+        this.isEmailValid = !exists;
+        if (!this.isEmailValid) {
+          this.form.get('email')?.setErrors({ emailTaken: true });
+        }
+      },
+      error: (err) => {
+        console.error('Email check failed', err);
+        this.isEmailValid = false;
+      }
+    });
   }
 }
