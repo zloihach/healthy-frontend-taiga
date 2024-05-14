@@ -73,7 +73,8 @@ export class AuthService {
     return this.http.post<SessionInfo>(`${AUTH_API}session`, {}, {withCredentials: true});
   }
 
+
   signUp(signUpRequest: SignUpRequest): Observable<any> {
-    return this.http.post<any>(`${AUTH_API}sign-up`, {signUpRequest}, {withCredentials: true});
+    return this.http.post<any>(`${AUTH_API}sign-up`, signUpRequest, { withCredentials: true });
   }
 }
