@@ -18,7 +18,8 @@ import { RouterLink, Router } from "@angular/router";
 import { AuthService } from "../../core/auth/auth.service";
 import { SignUpRequest } from '../../core/auth/interfaces/signup.interface';
 import {SignupFormService} from "./services/signup-form.service";
-import {debounceTime, distinctUntilChanged} from "rxjs"; // Ensure this path is correct
+import {debounceTime, distinctUntilChanged} from "rxjs";
+import {ExampleNativeDateTransformerDirective} from "../../shared/directives/nativeDateTransformer.directive"; // Ensure this path is correct
 
 
 interface GenderOption {
@@ -49,7 +50,8 @@ interface GenderOption {
     TuiFieldErrorPipeModule,
     TuiTextfieldControllerModule,
     TuiFilterByInputPipeModule,
-    TuiStringifyContentPipeModule
+    TuiStringifyContentPipeModule,
+    ExampleNativeDateTransformerDirective
   ]
 })
 export class SignupComponent implements OnInit {
@@ -82,6 +84,7 @@ export class SignupComponent implements OnInit {
         }
       });
   }
+
   genderStringify = (item: GenderOption): string => {
     return item.name;
   };
@@ -103,14 +106,14 @@ export class SignupComponent implements OnInit {
   submit(): void {
     if (this.form.valid) {
       const formValue = this.form.value;
-
+      console.log(formValue.dob);
       const signUpRequest: SignUpRequest = {
         email: formValue.email,
         password: formValue.password,
         firstname: formValue.firstname,
         lastname: formValue.lastname,
         midname: formValue.midname,
-        dob: this.formatDate(formValue.dob),
+        dob: formValue.dob,
         sex: formValue.sex.value
       };
 
@@ -125,13 +128,6 @@ export class SignupComponent implements OnInit {
         }
       });
     }
-  }
-
-  private formatDate(date: Date): string {
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}T00:00:00.000Z`;
   }
 
   private checkEmail(email: string): void {
