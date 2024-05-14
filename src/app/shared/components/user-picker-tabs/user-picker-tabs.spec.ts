@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChildTabsComponent } from './child-tabs.component';
+import { UserPickerTabs } from './user-picker-tabs';
 
 describe('ChildTabsComponent', () => {
-  let component: ChildTabsComponent;
-  let fixture: ComponentFixture<ChildTabsComponent>;
+  let component: UserPickerTabs;
+  let fixture: ComponentFixture<UserPickerTabs>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ChildTabsComponent]
+      imports: [UserPickerTabs]
     })
     .compileComponents();
-    
-    fixture = TestBed.createComponent(ChildTabsComponent);
+
+    fixture = TestBed.createComponent(UserPickerTabs);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

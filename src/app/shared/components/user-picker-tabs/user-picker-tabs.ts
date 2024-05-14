@@ -3,15 +3,15 @@ import {TuiTabsModule} from "@taiga-ui/kit";
 import {TuiAlertService} from "@taiga-ui/core";
 
 @Component({
-  selector: 'app-321',
+  selector: 'app-user-picker-tabs',
   standalone: true,
   imports: [
     TuiTabsModule
   ],
-  templateUrl: './child-tabs.component.html',
-  styleUrl: './child-tabs.component.less'
+  templateUrl: './user-picker-tabs.html',
+  styleUrl: './user-picker-tabs.less'
 })
-export class ChildTabsComponent {
+export class UserPickerTabs {
   constructor(
     @Inject(TuiAlertService)
     private readonly alerts: TuiAlertService,
