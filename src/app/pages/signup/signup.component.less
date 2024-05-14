@@ -25,11 +25,6 @@
       min-width: 800px;
       padding: 10px;
     }
-
-    &__button-box {
-      display: flex;
-      justify-content: space-between;
-    }
   }
 
   &-island {
@@ -59,7 +54,19 @@
   border-bottom-right-radius: 10px !important;
 }
 
+
 .button-box {
   display: flex;
   justify-content: space-between;
+  @media (max-width: @tui-breakpoint-mobile) {
+    display: flex;
+    flex-direction: column;
+  }
+  &__button {
+    @media (max-width: @tui-breakpoint-mobile) {
+      &:not(:last-child) {
+        margin-bottom: 8px;
+      }
+    }
+  }
 }

@@ -45,12 +45,15 @@
             <div class="tui-island_text-align_right tui-space_top-3">
               <button tuiButton type="button" (click)="nextStep()" appearance="primary" size="m" [disabled]="!form.get('email')?.valid || !form.get('password')?.valid || !form.get('passwordConfirm')?.valid || !isEmailValid">
                 Далее
+                <tui-svg src="tuiIconArrowRight"></tui-svg>
               </button>
             </div>
           </div>
           <div *ngIf="step === 2">
             <div class="tui-form__row">
-              <tui-input formControlName="firstname" placeholder="Введите ваше имя">Введите ваше имя</tui-input>
+              <tui-input formControlName="firstname" placeholder="Введите ваше имя">
+                <input autofocus tuiTextfield type="text"/>
+                Введите ваше имя</tui-input>
               <tui-error
                 formControlName="firstname"
                 [error]="[] | tuiFieldError | async"
@@ -104,7 +107,8 @@
             </div>
 
             <div class="button-box tui-island_text-align_right tui-space_top-3">
-              <button tuiButton type="button" (click)="previousStep()" appearance="secondary" size="m">
+              <button class="button-box" tuiButton type="button" (click)="previousStep()" appearance="secondary" size="m">
+                <tui-svg src="tuiIconArrowLeft"></tui-svg>
                 Назад
               </button>
               <button tuiButton type="submit" (click)="submit()" appearance="primary" size="m">
@@ -115,6 +119,8 @@
           <a tuiButton [routerLink]="['/login']" type="button" size="m" class="tui-island__footer-button"
              appearance="primary">
             У меня уже есть запись
+            <tui-svg src="tuiIconLogIn"></tui-svg>
+
           </a>
         </tui-island>
       </div>
