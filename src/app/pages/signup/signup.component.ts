@@ -17,6 +17,8 @@ import { TuiButtonModule, TuiErrorModule, TuiSvgModule, TuiTextfieldControllerMo
 import { RouterLink, Router } from "@angular/router";
 import { AuthService } from "../../core/auth/auth.service";
 import { SignUpRequest } from '../../core/auth/interfaces/signup.interface';
+import {SignupFormService} from "./services/signup-form.service"; // Ensure this path is correct
+
 
 interface GenderOption {
   id: number;
@@ -59,21 +61,15 @@ export class SignupComponent implements OnInit {
     { id: 2, name: 'Женский', value: 'FEMALE' }
   ];
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private signupFormService: SignupFormService
+  ) {}
 
   ngOnInit(): void {
-    this.form = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-      passwordConfirm: new FormControl('', [Validators.required]),
-      firstname: new FormControl('', Validators.required),
-      lastname: new FormControl('', Validators.required),
-      midname: new FormControl(''),
-      dob: new FormControl('', Validators.required),
-      sex: new FormControl('', Validators.required)
-    }, { validators: this.checkPasswords });
+    this.form = this.signupFormService.generateForm();
 
-    // Email check
     this.form.get('email')?.valueChanges.subscribe(email => {
       this.checkEmail(email);
     });
@@ -81,16 +77,6 @@ export class SignupComponent implements OnInit {
 
   genderStringify = (item: GenderOption): string => {
     return item.name;
-  };
-
-  checkPasswords: ValidatorFn = (group: AbstractControl): { [key: string]: boolean } | null => {
-    const password = group.get('password');
-    const confirmPassword = group.get('passwordConfirm');
-
-    if (password && confirmPassword && password.value !== confirmPassword.value) {
-      return { notSame: true };
-    }
-    return null;
   };
 
   nextStep(): void {

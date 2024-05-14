@@ -18,17 +18,28 @@
             <div class="tui-form__row">
               <tui-input formControlName="email" placeholder="Введите ваш email">
                 Введите ваш email
-                <div tuiFieldError="emailTaken">Этот email уже зарегистрирован.</div>
               </tui-input>
+              <tui-error
+                formControlName="email"
+                [error]="[] | tuiFieldError | async"
+              ></tui-error>
             </div>
             <div class="tui-form__row">
               <tui-input-password formControlName="password" placeholder="Введите ваш пароль">Введите ваш пароль
               </tui-input-password>
+              <tui-error
+                formControlName="password"
+                [error]="[] | tuiFieldError | async"
+              ></tui-error>
             </div>
             <div class="tui-form__row">
               <tui-input-password formControlName="passwordConfirm" placeholder="Подтвердите ваш пароль">Подтвердите ваш
                 пароль
               </tui-input-password>
+              <tui-error
+                formControlName="passwordConfirm"
+                [error]="[] | tuiFieldError | async"
+              ></tui-error>
             </div>
             <div class="tui-island_text-align_right tui-space_top-3">
               <button tuiButton type="button" (click)="nextStep()" appearance="primary" size="m" [disabled]="!form.get('email')?.valid || !form.get('password')?.valid || !form.get('passwordConfirm')?.valid || !isEmailValid">
@@ -39,18 +50,34 @@
           <div *ngIf="step === 2">
             <div class="tui-form__row">
               <tui-input formControlName="firstname" placeholder="Введите ваше имя">Введите ваше имя</tui-input>
+              <tui-error
+                formControlName="firstname"
+                [error]="[] | tuiFieldError | async"
+              ></tui-error>
             </div>
             <div class="tui-form__row">
               <tui-input formControlName="lastname" placeholder="Введите вашу фамилию">Введите вашу фамилию</tui-input>
+              <tui-error
+                formControlName="lastname"
+                [error]="[] | tuiFieldError | async"
+              ></tui-error>
             </div>
             <div class="tui-form__row">
               <tui-input formControlName="midname" placeholder="Введите ваше отчество (необязательно)">Введите ваше
                 отчество (необязательно)
               </tui-input>
+              <tui-error
+                formControlName="midname"
+                [error]="[] | tuiFieldError | async"
+              ></tui-error>
             </div>
             <div class="tui-form__row">
               <tui-input-date formControlName="dob" type="date" placeholder="Выберите дату рождения">Выберите дату рождения
               </tui-input-date>
+              <tui-error
+                formControlName="dob"
+                [error]="[] | tuiFieldError | async"
+              ></tui-error>
             </div>
             <div class="tui-form__row">
               <tui-select
@@ -65,6 +92,10 @@
                 >
                 </tui-data-list-wrapper>
               </tui-select>
+              <tui-error
+                formControlName="sex"
+                [error]="[] | tuiFieldError | async"
+              ></tui-error>
 
               <ng-template #itemContent let-item>
                 {{ item.name }}
