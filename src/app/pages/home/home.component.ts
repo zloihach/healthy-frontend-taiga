@@ -31,18 +31,12 @@ export class HomeComponent implements OnInit {
   ) {
   }
 
-  activeItemIndex = 0;
   user: any;
 
   readonly vaccineTypeRadio = new FormGroup({
     testValue: new FormControl('orange'),
   });
 
-  readonly vaccineType = ['Эпидемиология', 'Нац. Календарь'];
-
-  onClick(result: string): void {
-    this.alerts.open(result).subscribe();
-  }
 
   ngOnInit() {
     this.authService.currentUser.subscribe(x => this.user = x);

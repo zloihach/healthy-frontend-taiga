@@ -1,116 +1,13 @@
 <ng-container>
   <div class="vaccine">
-    <div class="vaccine__person">
-      <tui-tabs [(activeItemIndex)]="activeItemIndex">
-        <button
-          tuiTab
-          (click)="onClick('You')"
-        >
-          Вы
-        </button>
-        <button
-          tuiTab
-          (click)="onClick('Dima')"
-        >
-          Дима
-        </button>
-        <button
-          tuiTab
-          (click)="onClick('Vasya')"
-        >
-
-          Вася
-        </button>
-      </tui-tabs>
-    </div>
     <div class="vaccine__radio-box  tui-space_top-3" style="max-width: fit-content">
       <form
         class="group"
         [formGroup]="vaccineTypeRadio"
       >
-        <div
-          tuiGroup
-          class="group"
-          [collapsed]="true"
-        >
-          <tui-radio-block
-            *ngFor="let vaccine of vaccineType"
-            contentAlign="right"
-            formControlName="testValue"
-            size="m"
-            [hideRadio]="true"
-            [item]="vaccine"
-          >
-            {{ vaccine }}
-          </tui-radio-block>
-        </div>
       </form>
     </div>
     <div style="display: flex;flex-wrap: wrap;" class="vaccine__box tui-space_top-3">
-      <app-vaccine-card>
-      </app-vaccine-card>
-      <app-vaccine-card>
-      </app-vaccine-card>
-      <app-vaccine-card>
-      </app-vaccine-card>
-      <app-vaccine-card>
-      </app-vaccine-card>
-      <app-vaccine-card>
-      </app-vaccine-card>
-      <app-vaccine-card>
-      </app-vaccine-card>
-      <app-vaccine-card>
-      </app-vaccine-card>
-      <app-vaccine-card>
-      </app-vaccine-card>
-      <app-vaccine-card>
-      </app-vaccine-card>
-      <app-vaccine-card>
-      </app-vaccine-card>
-      <app-vaccine-card>
-      </app-vaccine-card>
-      <app-vaccine-card>
-      </app-vaccine-card>
-      <app-vaccine-card>
-      </app-vaccine-card>
-      <app-vaccine-card>
-      </app-vaccine-card>
-      <app-vaccine-card>
-      </app-vaccine-card>
-      <app-vaccine-card>
-      </app-vaccine-card>
-      <app-vaccine-card>
-      </app-vaccine-card>
-      <app-vaccine-card>
-      </app-vaccine-card>
-      <app-vaccine-card>
-      </app-vaccine-card>
-      <app-vaccine-card>
-      </app-vaccine-card>
-      <app-vaccine-card>
-      </app-vaccine-card>
-      <app-vaccine-card>
-      </app-vaccine-card>
-      <app-vaccine-card>
-      </app-vaccine-card>
-      <app-vaccine-card>
-      </app-vaccine-card>
-      <app-vaccine-card>
-      </app-vaccine-card>
-      <app-vaccine-card>
-      </app-vaccine-card>
-      <app-vaccine-card>
-      </app-vaccine-card>
-      <app-vaccine-card>
-      </app-vaccine-card>
-      <app-vaccine-card>
-      </app-vaccine-card>
-      <app-vaccine-card>
-      </app-vaccine-card>
-      <app-vaccine-card>
-      </app-vaccine-card>
-      <app-vaccine-card>
-      </app-vaccine-card>
       <app-vaccine-card>
       </app-vaccine-card>
     </div>
