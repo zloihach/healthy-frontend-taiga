@@ -1,13 +1,9 @@
 <div tuiPlatform="ios" class="tui-space_right-2 tui-space_bottom-2">
-  <div
-    style="min-height: 200px"
-    tuiCardLarge
-    tuiSurface="elevated"
-  >
-    <div tuiHeader>
-      <h3 style="font-size: 16px;" tuiTitle>{{ vaccine.vaccine.name }}</h3>
+  <div tuiCardLarge tuiSurface="elevated" class="vaccine-card">
+    <div tuiHeader class="vaccine-header">
+      <h3 tuiTitle class="vaccine-title">{{ vaccine.vaccine.name }}</h3>
       <span tuiSubtitle>{{ vaccine.vaccination_date | date }}</span>
-      <aside tuiAccessories>
+      <aside class="badge" tuiAccessories>
         <tui-badge
           [status]="vaccine.vaccine.type === 'CALENDAR' ? 'success' : 'info'"
           [value]="vaccine.vaccine.type === 'CALENDAR' ? 'Календарь' : 'Эпидемиология'"
@@ -15,13 +11,13 @@
         ></tui-badge>
       </aside>
     </div>
-    <footer style="display: grid;">
+    <footer class="vaccine-footer">
       <button
         appearance="primary"
         size="s"
         tuiButton
         type="button"
-        class="tui-space_bottom-2"
+        class="tui-space_bottom-2 cancel-button"
       >
         Отменить прививку
       </button>
@@ -30,6 +26,7 @@
         size="s"
         tuiButton
         type="button"
+        class="details-button"
       >
         Подробности
       </button>

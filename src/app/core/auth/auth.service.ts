@@ -82,7 +82,7 @@ export class AuthService {
     return this.http.post<SessionInfo>(`${AUTH_API}session`, {}, { headers, withCredentials: true }).pipe(
       catchError(err => {
         console.error('Failed to get session info', err);
-        return of(null);  // Возвращаем null в случае ошибки
+        return of(null);
       })
     );
   }
