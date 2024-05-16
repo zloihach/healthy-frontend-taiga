@@ -19,14 +19,13 @@ export class VaccineService {
   }
 
   getAllVaccinationsForCurrentUser(): Observable<Vaccine[]> {
-    console.log('Sending request to get vaccinations'); // Log before sending request
+    console.log('Sending request to get vaccinations');
 
     const authToken = this.getCookie('access-token');
     if (!authToken) {
       console.error('Auth token not found in cookies');
     }
 
-    // Добавляем токен в заголовок Cookie
     const headers = new HttpHeaders({
       'Cookie': `access-token=${authToken}`
     });

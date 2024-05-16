@@ -7,10 +7,9 @@ import {
   TuiLoaderModule,
   TuiSvgModule,
 } from '@taiga-ui/core';
-import {ActivatedRoute, Router, RouterModule} from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AuthService } from "../../core/auth/auth.service";
 import { TuiCheckboxLabeledModule, TuiInputModule, TuiInputPasswordModule, TuiIslandModule } from "@taiga-ui/kit";
-
 
 @Component({
   selector: 'app-login',
@@ -49,7 +48,11 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.authService.currentUserValue) {
+      this.router.navigate(['/vaccination-calendar']);
+    }
   }
+
   login(): void {
     if (this.form.valid) {
       this.loading = true;

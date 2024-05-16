@@ -17,10 +17,9 @@ import { TuiButtonModule, TuiErrorModule, TuiSvgModule, TuiTextfieldControllerMo
 import { RouterLink, Router } from "@angular/router";
 import { AuthService } from "../../core/auth/auth.service";
 import { SignUpRequest } from '../../core/auth/interfaces/signup.interface';
-import {SignupFormService} from "./services/signup-form.service";
-import {debounceTime, distinctUntilChanged} from "rxjs";
-import {ExampleNativeDateTransformerDirective} from "../../shared/directives/nativeDateTransformer.directive"; // Ensure this path is correct
-
+import { SignupFormService } from "./services/signup-form.service";
+import { debounceTime, distinctUntilChanged } from "rxjs";
+import { ExampleNativeDateTransformerDirective } from "../../shared/directives/nativeDateTransformer.directive"; // Ensure this path is correct
 
 interface GenderOption {
   id: number;
@@ -83,6 +82,11 @@ export class SignupComponent implements OnInit {
           this.checkEmail(email);
         }
       });
+
+    // Проверка на наличие сессии
+    if (this.authService.currentUserValue) {
+      this.router.navigate(['/vaccination-calendar']);
+    }
   }
 
   genderStringify = (item: GenderOption): string => {
