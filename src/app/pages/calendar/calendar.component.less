@@ -1,3 +1,8 @@
+@tui-breakpoint-mobile: 320px;
+@tui-breakpoint-tablet: 768px;
+@tui-breakpoint-desktop: 1024px;
+@tui-breakpoint-large-desktop: 1200px;
+
 :host {
   display: flex;
   flex-wrap: wrap;
@@ -7,6 +12,7 @@
 
 .action {
   flex: 1;
+  display: flex;
   align-items: center;
 
   &:first-child {
@@ -20,3 +26,23 @@
   }
 }
 
+.vaccine-box {
+  display: grid;
+  grid-template-columns: 1fr;
+
+  @media (min-width: @tui-breakpoint-mobile) {
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: @tui-breakpoint-tablet) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (min-width: @tui-breakpoint-desktop) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  @media (min-width: @tui-breakpoint-large-desktop) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}

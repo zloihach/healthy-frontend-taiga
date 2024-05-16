@@ -4,8 +4,8 @@
     <div class="vaccine__radio-box  tui-space_top-3" style="max-width: fit-content">
       <app-vaccine-type-picker></app-vaccine-type-picker>
     </div>
-    <div class="vaccine-box" style="display: flex; flex-wrap: wrap;" >
-      <div *ngFor="let vaccine of vaccines" class="vaccine__box tui-space_top-3">
+    <div class="vaccine-box">
+    <div *ngFor="let vaccine of vaccines" class="vaccine__box tui-space_top-3">
         <app-vaccine-card [vaccine]="vaccine"></app-vaccine-card>
       </div>
     </div>

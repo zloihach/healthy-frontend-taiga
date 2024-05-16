@@ -109,12 +109,10 @@ export class AuthService {
   }
 
 
-  // Новый метод для навигации
   navigateTo(url: string): void {
     this.router.navigate([url]).then();
   }
 
-  // Новый метод для навигации с параметрами
   navigateByUrl(url: string): void {
     this.router.navigateByUrl(url).then();
   }

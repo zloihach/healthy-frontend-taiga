@@ -1,53 +1,11 @@
-
-<!--<div tuiPlatform="ios" class="tui-space_right-2 tui-space_bottom-2">-->
-
-<!--  <div-->
-<!--    tuiCardLarge-->
-<!--    tuiSurface="elevated"-->
-<!--  >-->
-<!--    <div tuiHeader>-->
-<!--      <h3 tuiTitle>-->
-<!--        Против туляремии-->
-<!--        <span tuiSubtitle>5 октября 2010</span>-->
-<!--      </h3>-->
-
-<!--      <aside tuiAccessories>-->
-<!--        <tui-badge-->
-<!--          status="success"-->
-<!--          value="Эпидемиология"-->
-<!--          class="tui-space_right-2 tui-space_bottom-2"-->
-<!--        ></tui-badge>-->
-<!--      </aside>-->
-<!--    </div>-->
-
-<!--    <footer style="display: grid;">-->
-<!--      <button-->
-<!--        appearance="primary"-->
-<!--        size="s"-->
-<!--        tuiButton-->
-<!--        type="button"-->
-<!--        class="tui-space_bottom-2"-->
-<!--      >-->
-<!--        Отменить прививку-->
-<!--      </button>-->
-<!--      <button-->
-<!--        appearance="secondary"-->
-<!--        size="s"-->
-<!--        tuiButton-->
-<!--        type="button"-->
-<!--      >-->
-<!--        Подробности-->
-<!--      </button>-->
-<!--    </footer>-->
-<!--  </div>-->
-<!--</div>-->
 <div tuiPlatform="ios" class="tui-space_right-2 tui-space_bottom-2">
   <div
+    style="min-height: 200px"
     tuiCardLarge
     tuiSurface="elevated"
   >
     <div tuiHeader>
-      <h3 tuiTitle>{{ vaccine.vaccine.name }}</h3>
+      <h3 style="font-size: 16px;" tuiTitle>{{ vaccine.vaccine.name }}</h3>
       <span tuiSubtitle>{{ vaccine.vaccination_date | date }}</span>
       <aside tuiAccessories>
         <tui-badge
@@ -75,25 +33,6 @@
       >
         Подробности
       </button>
-<!--      <button-->
-<!--      appearance="primary"-->
-<!--      size="s"-->
-<!--      tuiButton-->
-<!--      type="button"-->
-<!--      class="tui-space_bottom-2"-->
-<!--      (click)="cancelVaccine()"-->
-<!--    >-->
-<!--      Отменить прививку-->
-<!--    </button>-->
-<!--      <button-->
-<!--        appearance="secondary"-->
-<!--        size="s"-->
-<!--        tuiButton-->
-<!--        type="button"-->
-<!--        (click)="showDetails()"-->
-<!--      >-->
-<!--        Подробности-->
-<!--      </button>-->
     </footer>
   </div>
 </div>

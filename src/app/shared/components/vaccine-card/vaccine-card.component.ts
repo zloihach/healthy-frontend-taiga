@@ -1,6 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { Vaccine } from '../../interfaces/vaccine.interface';
-import {TuiButtonModule, TuiCardModule, TuiHeaderModule, TuiSurfaceModule} from "@taiga-ui/experimental";
+import {
+  TuiButtonModule,
+  TuiCardModule,
+  TuiHeaderModule,
+  TuiSurfaceModule,
+  TuiTitleModule
+} from "@taiga-ui/experimental";
 import {TuiPlatformModule} from "@taiga-ui/cdk";
 import {DatePipe} from "@angular/common";
 import {TuiBadgeModule} from "@taiga-ui/kit";
@@ -16,7 +22,8 @@ import {TuiBadgeModule} from "@taiga-ui/kit";
     TuiPlatformModule,
     DatePipe,
     TuiBadgeModule,
-    TuiButtonModule
+    TuiButtonModule,
+    TuiTitleModule
   ],
   styleUrls: ['./vaccine-card.component.less']
 })
