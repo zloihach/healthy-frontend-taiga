@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject, Observable, catchError, of, switchMap, tap} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {SessionInfo} from './interfaces/sessionInfo.interface';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { catchError, switchMap, tap } from 'rxjs/operators';
+import { SessionInfo } from './interfaces/sessionInfo.interface';
 import { Router } from '@angular/router';
-import {SignUpRequest} from "./interfaces/signup.interface";
+import { SignUpRequest } from "./interfaces/signup.interface";
 
 const AUTH_API = 'http://localhost:3010/auth/';
 const API = 'http://localhost:3010/';
@@ -15,7 +15,6 @@ const API = 'http://localhost:3010/';
 export class AuthService {
   private currentUserSubject: BehaviorSubject<SessionInfo | null>;
   public currentUser: Observable<SessionInfo | null>;
-
 
   constructor(private http: HttpClient, private router: Router) {
     this.currentUserSubject = new BehaviorSubject<SessionInfo | null>(JSON.parse(localStorage.getItem('currentUser') || 'null'));
@@ -42,7 +41,7 @@ export class AuthService {
   }
 
   login(email: string, password: string): Observable<any> {
-    return this.http.post<any>(`${AUTH_API}sign-in`, {email, password}, {withCredentials: true}).pipe(
+    return this.http.post<any>(`${AUTH_API}sign-in`, { email, password }, { withCredentials: true }).pipe(
       switchMap(user => this.getSessionInfo()),
       tap(sessionInfo => {
         this.currentUserSubject.next(sessionInfo);
@@ -56,12 +55,11 @@ export class AuthService {
   }
 
   logout(): Observable<any> {
-    return this.http.post(`${AUTH_API}sign-out`, {}, {withCredentials: true}).pipe(
-      map(response => {
+    return this.http.post(`${AUTH_API}sign-out`, {}, { withCredentials: true }).pipe(
+      tap(() => {
         this.currentUserSubject.next(null);
         localStorage.removeItem('currentUser');
         this.router.navigate(['/login']).then();
-        return response;
       }),
       catchError(err => {
         console.error('Logout failed', err);
@@ -71,12 +69,16 @@ export class AuthService {
   }
 
   getSessionInfo(): Observable<SessionInfo> {
-    return this.http.post<SessionInfo>(`${AUTH_API}session`, {}, {withCredentials: true});
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http.post<SessionInfo>(`${AUTH_API}session`, {}, { headers, withCredentials: true });
   }
 
   checkEmail(email: string): Observable<boolean> {
     return this.http.get<boolean>(`${API}users/check-email/${email}`);
   }
+
   signUp(signUpRequest: SignUpRequest): Observable<any> {
     return this.http.post<any>(`${AUTH_API}sign-up`, signUpRequest, { withCredentials: true });
   }

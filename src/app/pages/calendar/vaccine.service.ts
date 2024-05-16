@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {Vaccine} from "../../shared/interfaces/vaccine.interface";
+import { Vaccine } from '../../shared/interfaces/vaccine.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,7 @@ export class VaccineService {
   constructor(private http: HttpClient) {}
 
   getAllVaccinationsForCurrentUser(): Observable<Vaccine[]> {
+    console.log('Sending request to get vaccinations'); // Log before sending request
     return this.http.get<Vaccine[]>(this.apiUrl);
   }
 }
