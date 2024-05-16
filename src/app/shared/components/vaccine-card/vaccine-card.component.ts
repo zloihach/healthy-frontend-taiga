@@ -8,8 +8,9 @@ import {
   TuiTitleModule
 } from "@taiga-ui/experimental";
 import {TuiPlatformModule} from "@taiga-ui/cdk";
-import {DatePipe} from "@angular/common";
+import {DatePipe, NgClass, NgIf} from "@angular/common";
 import {TuiBadgeModule} from "@taiga-ui/kit";
+import {TruncatePipe} from "../../pipes/truncate.pipe";
 
 @Component({
   selector: 'app-vaccine-card',
@@ -23,7 +24,10 @@ import {TuiBadgeModule} from "@taiga-ui/kit";
     DatePipe,
     TuiBadgeModule,
     TuiButtonModule,
-    TuiTitleModule
+    TuiTitleModule,
+    TruncatePipe,
+    NgClass,
+    NgIf
   ],
   styleUrls: ['./vaccine-card.component.less']
 })
