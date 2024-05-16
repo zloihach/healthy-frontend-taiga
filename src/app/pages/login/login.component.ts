@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.authService.currentUserValue) {
-      this.router.navigate(['/vaccination-calendar']);
+      this.authService.navigateTo('/vaccination-calendar');
     }
   }
 
@@ -58,14 +58,12 @@ export class LoginComponent implements OnInit {
       this.loading = true;
       this.authService.login(
         this.form.value.email,
-        this.form.value.password
+        this.form.value.password,
+        this.route.snapshot.queryParams['returnUrl'] || '/vaccination-calendar'
       ).subscribe({
         next: sessionInfo => {
           this.loading = false;
-          if (sessionInfo) {
-            const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/vaccination-calendar';
-            this.router.navigateByUrl(decodeURIComponent(returnUrl));
-          } else {
+          if (!sessionInfo) {
             console.error('Login failed: No session info returned');
           }
         },

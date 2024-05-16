@@ -85,7 +85,7 @@ export class SignupComponent implements OnInit {
 
     // Проверка на наличие сессии
     if (this.authService.currentUserValue) {
-      this.router.navigate(['/vaccination-calendar']);
+      this.authService.navigateTo('/vaccination-calendar');
     }
   }
 
@@ -123,9 +123,9 @@ export class SignupComponent implements OnInit {
 
       console.log('Submitting sign-up request:', signUpRequest);
 
-      this.authService.signUp(signUpRequest).subscribe({
+      this.authService.signUp(signUpRequest, '/vaccination-calendar').subscribe({  // Передача URL для перехода
         next: () => {
-          this.router.navigate(['/vaccination-calendar']);
+          console.log('Registration successful');
         },
         error: (err) => {
           console.error('Registration failed', err);
