@@ -18,7 +18,7 @@ import { RouterLink, Router } from "@angular/router";
 import { AuthService } from "../../core/auth/auth.service";
 import { SignUpRequest } from '../../core/auth/interfaces/signup.interface';
 import { SignupFormService } from "./services/signup-form.service";
-import { debounceTime, distinctUntilChanged } from "rxjs";
+import { debounceTime, distinctUntilChanged, BehaviorSubject } from "rxjs";
 import { ExampleNativeDateTransformerDirective } from "../../shared/directives/nativeDateTransformer.directive"; // Ensure this path is correct
 
 interface GenderOption {
@@ -57,6 +57,7 @@ export class SignupComponent implements OnInit {
   form!: FormGroup;
   step = 1;
   isEmailValid = false;
+  isSecondStepValid = new BehaviorSubject<boolean>(false);
 
   genderOptions: GenderOption[] = [
     { id: 1, name: 'Мужской', value: 'MALE' },
@@ -83,7 +84,10 @@ export class SignupComponent implements OnInit {
         }
       });
 
-    // Проверка на наличие сессии
+    this.form.valueChanges.subscribe(() => {
+      this.updateSecondStepValidity();
+    });
+
     if (this.authService.currentUserValue) {
       this.authService.navigateTo('/vaccination-calendar');
     }
@@ -147,5 +151,13 @@ export class SignupComponent implements OnInit {
         this.isEmailValid = false;
       }
     });
+  }
+
+  private updateSecondStepValidity(): void {
+    const isValid = this.form.get('firstname')?.valid &&
+      this.form.get('lastname')?.valid &&
+      this.form.get('dob')?.valid &&
+      this.form.get('sex')?.valid;
+    this.isSecondStepValid.next(isValid!);
   }
 }

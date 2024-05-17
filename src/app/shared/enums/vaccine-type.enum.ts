@@ -1,4 +1,4 @@
-enum VaccineType {
+export enum VaccineType {
   CALENDAR = "CALENDAR",
   EPIDEMIOLOGY = "EPIDEMIOLOGY",
 }

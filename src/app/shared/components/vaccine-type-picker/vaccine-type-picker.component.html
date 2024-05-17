@@ -1,21 +1,14 @@
-<form
-  class="group"
-  [formGroup]="vaccineTypeRadio"
->
-  <div
-    tuiGroup
-    class="group"
-    [collapsed]="true"
-  >
+<form [formGroup]="vaccineTypeRadio">
+  <div tuiGroup class="group" [collapsed]="true">
     <tui-radio-block
-      *ngFor="let vaccine of vaccineType"
+      *ngFor="let vaccine of vaccineTypes"
       contentAlign="right"
       formControlName="testValue"
       size="m"
       [hideRadio]="true"
       [item]="vaccine"
     >
-      {{ vaccine }}
+      {{ vaccine === VaccineType.CALENDAR ? 'Нац. Календарь' : 'Эпидемиология' }}
     </tui-radio-block>
   </div>
 </form>

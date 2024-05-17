@@ -1,7 +1,4 @@
-enum VaccineType {
-  CALENDAR = "CALENDAR",
-  EPIDEMIOLOGY = "EPIDEMIOLOGY",
-}
+import {VaccineType} from "../enums/vaccine-type.enum";
 
 export interface Vaccine {
   id: number;

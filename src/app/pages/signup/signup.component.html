@@ -111,7 +111,8 @@
                 <tui-svg src="tuiIconArrowLeft"></tui-svg>
                 Назад
               </button>
-              <button tuiButton type="submit" (click)="submit()" appearance="primary" size="m">
+              <button tuiButton type="submit" (click)="submit()" appearance="primary" size="m"
+                      [disabled]="!(isSecondStepValid | async)">
                 Зарегистрироваться
               </button>
             </div>
