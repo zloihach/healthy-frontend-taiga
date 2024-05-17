@@ -6,13 +6,14 @@ import {TuiIslandModule, TuiPaginationModule} from '@taiga-ui/kit';
 import {Subscription} from 'rxjs';
 import {NgForOf, NgIf} from "@angular/common";
 import {PolymorpheusContent} from '@tinkoff/ng-polymorpheus';
+import {TruncatePipe} from "../../shared/pipes/truncate.pipe";
 
 
 @Component({
   selector: 'app-publication',
   templateUrl: './publication.component.html',
   styleUrls: ['./publication.component.less'],
-  imports: [TuiIslandModule, TuiPaginationModule, NgForOf, NgIf],
+  imports: [TuiIslandModule, TuiPaginationModule, NgForOf, NgIf, TruncatePipe],
   standalone: true
 })
 export class PublicationComponent implements OnInit {

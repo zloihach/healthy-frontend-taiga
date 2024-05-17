@@ -10,77 +10,62 @@
   overflow-x: hidden;
 }
 
-.tui-row {
-  display: flex;
-  flex-wrap: wrap;
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
   margin: 0 -15px;
-}
-
-.tui-col_md-4 {
-  padding: 0 15px;
-  width: 100%;
 
   @media (min-width: 768px) {
-    width: 50%;
+    grid-template-columns: repeat(2, 1fr);
   }
 
   @media (min-width: 1024px) {
-    width: 25%;
-  }
-
-  .tui-island {
-    width: 100%;
-    margin-bottom: 20px;
-    box-sizing: border-box;
-
-    &:nth-child(4n) {
-      margin-right: 0;
-    }
-
-    &:hover {
-      background-color: var(--tui-base-02);
-    }
-
-    .tui-island__content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding: 15px;
-      height: 100%;
-
-      .tui-island__figure {
-        margin-bottom: auto;
-        overflow: hidden;
-        margin-left: 0 !important;
-
-        img {
-          width: 100%;
-          max-height: 200px;
-          object-fit: cover;
-        }
-      }
-
-      .tui-island__title {
-        font-size: 1.1rem;
-        margin-bottom: 8px;
-      }
-
-      .tui-island__paragraph {
-        font-size: 0.9rem;
-        margin-bottom: 5px;
-      }
-
-      .tui-island__paragraph_link {
-        margin-top: auto;
-        a {
-          color: var(--tui-primary);
-          &:hover {
-            text-decoration: underline;
-          }
-        }
-      }
-    }
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
+.grid-item {
+  padding: 0 15px;
+}
+
+.tui-island {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--tui-base-02);
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 15px;
+    height: 100%;
+
+    &__figure {
+      margin-bottom: auto;
+      overflow: hidden;
+      margin-left: 0 !important;
+
+      img {
+        width: 100%;
+        max-height: 200px;
+        object-fit: cover;
+      }
+    }
+
+    &__header{
+      flex: 1 1 auto;
+    }
+  }
+  &__title {
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+}

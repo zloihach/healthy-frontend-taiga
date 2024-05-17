@@ -1,7 +1,7 @@
 <div class="container">
   <h1 class="publication__header" style="text-align: center; color:var(--tui-primary)">Статьи от врачей</h1>
-  <div class="tui-row">
-    <div class="tui-col_md-4" *ngFor="let publication of publications">
+  <div class="grid-container">
+    <div class="grid-item" *ngFor="let publication of publications">
       <tui-island (click)="openPublicationDialog(publication)">
         <div class="tui-island__content">
           <figure class="tui-island__figure">
@@ -12,9 +12,9 @@
               <img [src]="publication.image_url" alt="{{ publication.short_title }}" class="tui-island__image">
             </ng-template>
           </figure>
-          <div>
-            <h3 class="tui-island__title" [class.tui-skeleton]="isLoading" [class.tui-skeleton_text]="isLoading">
-              {{ isLoading ? 'Loading...' : publication.short_title }}
+          <div class="tui-island__header">
+            <h3 class="tui-island__title "[class.tui-skeleton]="isLoading" [class.tui-skeleton_text]="isLoading">
+              {{ isLoading ? 'Loading...' : publication.short_title | truncate:30 }}
             </h3>
           </div>
         </div>
