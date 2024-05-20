@@ -31,7 +31,7 @@ export class VaccineTypePickerComponent implements OnInit {
     this.vaccineTypeRadio.get('testValue')?.valueChanges.subscribe(value => {
       this.ngZone.run(() => {
         this.vaccineTypeChange.emit(value!);
-        this.cdr.detectChanges(); // Ensure change detection
+        this.cdr.detectChanges();
       });
     });
   }

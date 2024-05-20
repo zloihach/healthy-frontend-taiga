@@ -19,7 +19,8 @@ import { VaccineCardComponent } from "./shared/components/vaccine-card/vaccine-c
     TuiAlertModule,
     LoginComponent,
     HeaderComponent,
-    VaccineCardComponent
+    VaccineCardComponent,
+
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less'],

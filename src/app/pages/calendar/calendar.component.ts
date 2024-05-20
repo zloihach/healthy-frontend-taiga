@@ -1,79 +1,80 @@
-import {ChangeDetectorRef, Component, NgZone, OnInit} from '@angular/core';
+import {AfterViewChecked, ChangeDetectorRef, Component, NgZone, OnInit} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Vaccine } from '../../shared/interfaces/vaccine.interface';
 import { VaccineType } from '../../shared/enums/vaccine-type.enum';
 import { Observable } from 'rxjs';
 import { selectUserVaccinations } from '../../shared/states/selectors/vaccine.selectors';
-import { AppState } from '../../shared/states/reducers/vaccine.reducer';
 import * as VaccineAction from '../../shared/states/actions/vaccine.actions';
 import {VaccineCardComponent} from "../../shared/components/vaccine-card/vaccine-card.component";
 import {NgForOf} from "@angular/common";
 import {VaccineTypePickerComponent} from "../../shared/components/vaccine-type-picker/vaccine-type-picker.component";
 import {UserPickerTabsComponent} from "../../shared/components/user-picker-tabs/user-picker-tabs.component";
+import {AppStateInterface} from "../../shared/interfaces/appStates.interface";
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   standalone: true,
   imports: [
-    VaccineCardComponent,
-    NgForOf,
+    UserPickerTabsComponent,
     VaccineTypePickerComponent,
-    UserPickerTabsComponent
+    VaccineCardComponent,
+    NgForOf
   ],
   styleUrls: ['./calendar.component.less']
 })
 export class CalendarComponent implements OnInit {
   vaccines$: Observable<Vaccine[]>;
+  allVaccines: Vaccine[] = [];
   filteredVaccines: Vaccine[] = [];
   selectedVaccineType: VaccineType = VaccineType.CALENDAR;
   selectedUser: any = { id: 'user' };
 
-  constructor(private store: Store<AppState>, private cdr: ChangeDetectorRef, private ngZone: NgZone) {
+  constructor(private store: Store<AppStateInterface>, private cdr: ChangeDetectorRef) {
     this.vaccines$ = this.store.select(selectUserVaccinations);
   }
 
   ngOnInit(): void {
-    console.log('CalendarComponent initialized');
+    console.log('CalendarComponent: ngOnInit');
     this.getVaccinationsForCurrentUser();
     this.vaccines$.subscribe(vaccines => {
-      console.log('Received vaccines from store:', vaccines);
-      this.filteredVaccines = vaccines;
+      console.log('CalendarComponent: vaccines$', vaccines);
+      this.allVaccines = vaccines;
       this.filterVaccines();
     });
   }
 
   getVaccinationsForCurrentUser(): void {
-    console.log('Getting vaccinations for current user');
+    console.log('CalendarComponent: getVaccinationsForCurrentUser');
     if (this.selectedUser.id === 'user') {
       this.store.dispatch(VaccineAction.loadUserVaccinations());
     }
   }
 
   onUserChange(user: any): void {
-    console.log('User changed:', user);
+    console.log('CalendarComponent: onUserChange', user);
     this.selectedUser = user;
-    this.ngZone.run(() => {
-      this.getVaccinationsForCurrentUser();
-      this.cdr.detectChanges(); // Ensure change detection
-    });
+    this.getVaccinationsForCurrentUser();
   }
 
   onVaccineTypeChange(type: VaccineType): void {
-    console.log('Vaccine type changed:', type);
-    this.ngZone.run(() => {
-      this.selectedVaccineType = type;
-      this.filterVaccines();
-      this.cdr.detectChanges(); // Ensure change detection
-    });
+    console.log('CalendarComponent: onVaccineTypeChange', type);
+    this.selectedVaccineType = type;
+    this.filterVaccines();
   }
 
   filterVaccines(): void {
-    console.log('Filtering vaccines based on selected vaccine type:', this.selectedVaccineType);
-    this.filteredVaccines = this.filteredVaccines.filter(vaccine =>
+    if (!this.allVaccines) {
+      console.error('filterVaccines: allVaccines is null');
+      return;
+    }
+
+    console.log('CalendarComponent: filterVaccines', this.selectedVaccineType);
+    this.filteredVaccines = this.allVaccines.filter(vaccine =>
       this.selectedVaccineType === VaccineType.CALENDAR
         ? vaccine.vaccine.type === VaccineType.CALENDAR
         : vaccine.vaccine.type === VaccineType.EPIDEMIOLOGY
     );
+    this.cdr.detectChanges();
   }
 }

@@ -1,14 +1,14 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { AppState } from '../reducers/vaccine.reducer';
+import { VaccineState } from '../reducers/vaccine.reducer';
 
-export const selectVaccineState = createFeatureSelector<AppState>('vaccines');
+export const selectVaccineState = createFeatureSelector<VaccineState>('vaccineState');
 
 export const selectUserVaccinations = createSelector(
   selectVaccineState,
-  (state: AppState) => state.vaccines
+  (state: VaccineState) => state.user
 );
 
-export const selectUsers = createSelector(
+export const selectChildren = createSelector(
   selectVaccineState,
-  (state: AppState) => state.users
+  (state: VaccineState) => state.children
 );
