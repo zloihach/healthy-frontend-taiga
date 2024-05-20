@@ -1,0 +1,11 @@
+<div>
+  <tui-tabs [(activeItemIndex)]="activeItemIndex">
+    <button
+      tuiTab
+      *ngFor="let user of users$ | async; let i = index"
+      (click)="onClick(user)"
+    >
+      {{ user.name }}
+    </button>
+  </tui-tabs>
+</div>

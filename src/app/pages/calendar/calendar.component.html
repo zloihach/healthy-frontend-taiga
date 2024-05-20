@@ -1,6 +1,6 @@
 <ng-container>
   <div class="vaccine">
-    <app-user-picker-tabs></app-user-picker-tabs>
+    <app-user-picker-tabs (userChange)="onUserChange($event)"></app-user-picker-tabs>
     <div class="vaccine__radio-box tui-space_top-3" style="max-width: fit-content">
       <app-vaccine-type-picker (vaccineTypeChange)="onVaccineTypeChange($event)"></app-vaccine-type-picker>
     </div>

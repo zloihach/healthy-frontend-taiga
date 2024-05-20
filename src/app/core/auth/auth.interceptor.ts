@@ -1,37 +1,27 @@
-import { HttpInterceptorFn } from '@angular/common/http';
-import { HttpErrorResponse } from '@angular/common/http';
-import { throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
-function getCookie(name: string): string | null {
-  const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-  console.log(`Getting cookie ${name}:`, match ? decodeURIComponent(match[2]) : null); // Log cookie value
-  return match ? decodeURIComponent(match[2]) : null;
-}
+@Injectable()
+export class AuthInterceptor implements HttpInterceptor {
 
-export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  console.log('Interceptor called'); // Log to check if interceptor is called
+  private getCookie(name: string): string | null {
+    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? decodeURIComponent(match[2]) : null;
+  }
 
-  const authToken = getCookie('access-token'); // Извлекаем токен из куков
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const authToken = this.getCookie('access-token');
 
-  console.log('Extracted authToken:', authToken); // Log extracted token
-
-  const authReq = authToken ? req.clone({
-    setHeaders: {
-      Authorization: `Bearer ${authToken}`
+    if (authToken) {
+      request = request.clone({
+        setHeaders: {
+          'Cookie': `access-token=${authToken}`
+        },
+        withCredentials: true
+      });
     }
-  }) : req;
 
-  console.log('Modified request:', authReq); // Log modified request
-
-  return next(authReq).pipe(
-    catchError((error: HttpErrorResponse) => {
-      if (error.status === 401) {
-        console.error('Unauthorized request:', error);
-      } else {
-        console.error('HTTP error:', error);
-      }
-      return throwError(error);
-    })
-  );
-};
+    return next.handle(request);
+  }
+}

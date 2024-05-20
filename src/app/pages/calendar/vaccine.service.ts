@@ -1,35 +1,22 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {Vaccine} from '../../shared/interfaces/vaccine.interface';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import {Vaccine} from "../../shared/interfaces/vaccine.interface";
 
 @Injectable({
   providedIn: 'root'
 })
 export class VaccineService {
   private apiUrl = 'http://localhost:3010/vaccination/user-vaccinations';
+  private childApiUrl = 'http://localhost:3010/children/all';
 
-  constructor(private http: HttpClient) {
-  }
-
-  private getCookie(name: string): string | null {
-    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-    console.log(`Getting cookie ${name}:`, match ? decodeURIComponent(match[2]) : null);
-    return match ? decodeURIComponent(match[2]) : null;
-  }
+  constructor(private http: HttpClient) {}
 
   getAllVaccinationsForCurrentUser(): Observable<Vaccine[]> {
-    console.log('Sending request to get vaccinations');
+    return this.http.post<Vaccine[]>(this.apiUrl, {}, { withCredentials: true });
+  }
 
-    const authToken = this.getCookie('access-token');
-    if (!authToken) {
-      console.error('Auth token not found in cookies');
-    }
-
-    const headers = new HttpHeaders({
-      'Cookie': `access-token=${authToken}`
-    });
-
-    return this.http.post<Vaccine[]>(this.apiUrl, {headers}, {withCredentials: true});
+  getUsersAndChildren(): Observable<any[]> {
+    return this.http.post<any[]>(this.childApiUrl, {}, { withCredentials: true });
   }
 }
