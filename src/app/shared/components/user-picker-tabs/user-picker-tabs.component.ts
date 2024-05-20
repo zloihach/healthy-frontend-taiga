@@ -12,7 +12,7 @@ import { Store } from '@ngrx/store';
 import { TuiTabsModule } from '@taiga-ui/kit';
 import { TuiAlertService } from '@taiga-ui/core';
 import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
-import {Observable, Subscription, forkJoin, of} from 'rxjs';
+import {Observable, Subscription, forkJoin, of, combineLatest} from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
 import * as VaccineActions from '../../states/actions/vaccine.actions';
 import { selectChildren, selectUserVaccinations } from "../../states/selectors/vaccine.selectors";
@@ -43,8 +43,8 @@ export class UserPickerTabsComponent implements OnInit, OnDestroy, AfterViewChec
     private cdr: ChangeDetectorRef
   ) {
     console.log('UserPickerTabsComponent: Constructor');
-    this.users$ = forkJoin({
-      user: this.store.select(selectUserVaccinations).pipe(
+    this.users$ = combineLatest([
+      this.store.select(selectUserVaccinations).pipe(
         tap(userVaccinations => console.log('selectUserVaccinations:', userVaccinations)),
         map(userVaccinations => userVaccinations ? { ...userVaccinations, isCurrentUser: true } : null),
         catchError(error => {
@@ -52,7 +52,7 @@ export class UserPickerTabsComponent implements OnInit, OnDestroy, AfterViewChec
           return of(null);
         })
       ),
-      children: this.store.select(selectChildren).pipe(
+      this.store.select(selectChildren).pipe(
         tap(children => console.log('selectChildren:', children)),
         map(children => children ? children.map(child => ({ ...child, isCurrentUser: false })) : []),
         catchError(error => {
@@ -60,8 +60,8 @@ export class UserPickerTabsComponent implements OnInit, OnDestroy, AfterViewChec
           return of([]);
         })
       )
-    }).pipe(
-      map(({ user, children }) => user ? [user, ...children] : children),
+    ]).pipe(
+      map(([user, children]) => user ? [user, ...children] : children),
       tap(users => console.log('Combined users:', users))
     );
   }
