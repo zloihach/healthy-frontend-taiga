@@ -1,12 +1,13 @@
 import { Component, Inject, OnInit, Output, EventEmitter } from '@angular/core';
-import { Store} from '@ngrx/store';
-import { TuiTabsModule } from "@taiga-ui/kit";
-import { TuiAlertService } from "@taiga-ui/core";
-import {AsyncPipe, NgForOf} from "@angular/common";
+import { Store } from '@ngrx/store';
+import { TuiTabsModule } from '@taiga-ui/kit';
+import { TuiAlertService } from '@taiga-ui/core';
+import { AsyncPipe, NgForOf } from '@angular/common';
 import { Observable } from 'rxjs';
-import {selectUsers} from "../../states/selectors/vaccine.selectors";
-import * as VaccineActions from "../../states/actions/vaccine.actions";
-import {AppState} from "../../states/reducers/vaccine.reducer";
+import { selectUsers } from '../../states/selectors/vaccine.selectors';
+import * as VaccineActions from '../../states/actions/vaccine.actions';
+import { AppState } from '../../states/reducers/vaccine.reducer';
+
 @Component({
   selector: 'app-user-picker-tabs',
   standalone: true,

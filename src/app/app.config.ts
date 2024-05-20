@@ -18,7 +18,7 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(
       TuiRootModule,
       HttpClientModule,
-      StoreModule.forRoot({ vaccines: vaccineReducer }),
+      StoreModule.forRoot({ vaccineState: vaccineReducer }), // Исправлено здесь
       EffectsModule.forRoot([VaccineEffects]),
       StoreDevtoolsModule.instrument({ maxAge: 25 })
     ),

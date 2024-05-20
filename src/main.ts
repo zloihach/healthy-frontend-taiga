@@ -7,6 +7,11 @@ import {provideRouter} from "@angular/router";
 import {importProvidersFrom} from "@angular/core";
 import {routes} from "./app/app.routes";
 import {provideHttpClient, withFetch} from "@angular/common/http";
+import {provideStore} from "@ngrx/store";
+import {vaccineReducer} from "./app/shared/states/reducers/vaccine.reducer";
+import {provideEffects} from "@ngrx/effects";
+import {VaccineEffects} from "./app/shared/states/effects/vaccine.effects";
+import {provideStoreDevtools} from "@ngrx/store-devtools";
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -17,5 +22,9 @@ bootstrapApplication(AppComponent, {
     importProvidersFrom(
       TuiRootModule,
     ),
+    provideStore({ vaccines: vaccineReducer }),
+    provideEffects([VaccineEffects]),
+    provideStoreDevtools({ maxAge: 25 }),
+    importProvidersFrom(TuiRootModule)
   ],
 }).catch(err => console.error(err));

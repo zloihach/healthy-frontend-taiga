@@ -1,58 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, NgZone, OnInit} from '@angular/core';
 import { Store } from '@ngrx/store';
-import { DatePipe, NgForOf } from '@angular/common';
-import { VaccineCardComponent } from '../../shared/components/vaccine-card/vaccine-card.component';
-import { VaccineTypePickerComponent } from '../../shared/components/vaccine-type-picker/vaccine-type-picker.component';
-import { ChildrenComponent } from '../children/children.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { Vaccine } from '../../shared/interfaces/vaccine.interface';
 import { VaccineType } from '../../shared/enums/vaccine-type.enum';
 import { Observable } from 'rxjs';
-import { UserPickerTabsComponent } from '../../shared/components/user-picker-tabs/user-picker-tabs.component';
 import { selectUserVaccinations } from '../../shared/states/selectors/vaccine.selectors';
 import { AppState } from '../../shared/states/reducers/vaccine.reducer';
 import * as VaccineAction from '../../shared/states/actions/vaccine.actions';
-
-interface ChildVaccine {
-  id: number;
-  vaccine_id: number;
-  child_id: number;
-  medical_center: string;
-  dose: number;
-  serial_number: string;
-  vaccination_date: string;
-  commentary: string;
-  is_vaccinated: boolean;
-  created_at: string;
-  updated_at: string;
-  vaccine: Vaccine;
-}
-
-interface Child {
-  id: number;
-  lastname: string;
-  firstname: string;
-  midname: string;
-  dob: string;
-  sex: string;
-  is_active: boolean;
-  created_at: string;
-  updated_at: string;
-  user_id: number;
-  ChildVaccine: ChildVaccine[];
-}
+import {VaccineCardComponent} from "../../shared/components/vaccine-card/vaccine-card.component";
+import {NgForOf} from "@angular/common";
+import {VaccineTypePickerComponent} from "../../shared/components/vaccine-type-picker/vaccine-type-picker.component";
+import {UserPickerTabsComponent} from "../../shared/components/user-picker-tabs/user-picker-tabs.component";
 
 @Component({
   selector: 'app-calendar',
-  standalone: true,
   templateUrl: './calendar.component.html',
+  standalone: true,
   imports: [
-    DatePipe,
-    NgForOf,
     VaccineCardComponent,
+    NgForOf,
     VaccineTypePickerComponent,
-    ChildrenComponent,
-    ReactiveFormsModule,
     UserPickerTabsComponent
   ],
   styleUrls: ['./calendar.component.less']
@@ -63,35 +29,47 @@ export class CalendarComponent implements OnInit {
   selectedVaccineType: VaccineType = VaccineType.CALENDAR;
   selectedUser: any = { id: 'user' };
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>, private cdr: ChangeDetectorRef, private ngZone: NgZone) {
     this.vaccines$ = this.store.select(selectUserVaccinations);
   }
 
   ngOnInit(): void {
+    console.log('CalendarComponent initialized');
     this.getVaccinationsForCurrentUser();
     this.vaccines$.subscribe(vaccines => {
+      console.log('Received vaccines from store:', vaccines);
       this.filteredVaccines = vaccines;
       this.filterVaccines();
     });
   }
 
   getVaccinationsForCurrentUser(): void {
+    console.log('Getting vaccinations for current user');
     if (this.selectedUser.id === 'user') {
       this.store.dispatch(VaccineAction.loadUserVaccinations());
     }
   }
 
   onUserChange(user: any): void {
+    console.log('User changed:', user);
     this.selectedUser = user;
-    this.getVaccinationsForCurrentUser();
+    this.ngZone.run(() => {
+      this.getVaccinationsForCurrentUser();
+      this.cdr.detectChanges(); // Ensure change detection
+    });
   }
 
   onVaccineTypeChange(type: VaccineType): void {
-    this.selectedVaccineType = type;
-    this.filterVaccines();
+    console.log('Vaccine type changed:', type);
+    this.ngZone.run(() => {
+      this.selectedVaccineType = type;
+      this.filterVaccines();
+      this.cdr.detectChanges(); // Ensure change detection
+    });
   }
 
   filterVaccines(): void {
+    console.log('Filtering vaccines based on selected vaccine type:', this.selectedVaccineType);
     this.filteredVaccines = this.filteredVaccines.filter(vaccine =>
       this.selectedVaccineType === VaccineType.CALENDAR
         ? vaccine.vaccine.type === VaccineType.CALENDAR
