@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as VaccineActions from '../actions/vaccine.actions';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
-import {VaccineService} from "../../../pages/calendar/vaccine.service";
+import { VaccineService } from '../../../pages/calendar/vaccine.service';
 
 @Injectable()
 export class VaccineEffects {
@@ -12,7 +12,7 @@ export class VaccineEffects {
       ofType(VaccineActions.loadUserVaccinations),
       mergeMap(() =>
         this.vaccineService.getUserVaccinations().pipe(
-          map(user => VaccineActions.loadUserVaccinationsSuccess({ user })),
+          map(vaccinations => VaccineActions.loadUserVaccinationsSuccess({ vaccinations })),
           catchError(error => of(VaccineActions.loadUserVaccinationsFailure({ error })))
         )
       )
@@ -24,7 +24,13 @@ export class VaccineEffects {
       ofType(VaccineActions.loadChildren),
       mergeMap(() =>
         this.vaccineService.getChildren().pipe(
-          map(children => VaccineActions.loadChildrenSuccess({ children })),
+          map(children => {
+            const formattedChildren = children.map(child => ({
+              ...child,
+              vaccinations: child.ChildVaccine
+            }));
+            return VaccineActions.loadChildrenSuccess({ children: formattedChildren });
+          }),
           catchError(error => of(VaccineActions.loadChildrenFailure({ error })))
         )
       )

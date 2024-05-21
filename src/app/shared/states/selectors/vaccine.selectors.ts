@@ -1,14 +1,19 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { VaccineState } from '../reducers/vaccine.reducer';
+import { VaccineStateInterface } from '../../interfaces/vaccine-state.interface';
 
-export const selectVaccineState = createFeatureSelector<VaccineState>('vaccineState');
+export const selectVaccineState = createFeatureSelector<VaccineStateInterface>('vaccineState');
 
 export const selectUserVaccinations = createSelector(
   selectVaccineState,
-  (state: VaccineState) => state.user
+  (state: VaccineStateInterface) => state.userVaccinations
 );
 
 export const selectChildren = createSelector(
   selectVaccineState,
-  (state: VaccineState) => state.children
+  (state: VaccineStateInterface) => state.children
+);
+
+export const selectChildrenVaccinations = (userId: number) => createSelector(
+  selectVaccineState,
+  (state: VaccineStateInterface) => state.childrenVaccinations[userId] || []
 );

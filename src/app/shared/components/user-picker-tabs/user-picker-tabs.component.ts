@@ -1,6 +1,5 @@
 import {
   Component,
-  Inject,
   OnInit,
   Output,
   EventEmitter,
@@ -12,7 +11,7 @@ import { Store } from '@ngrx/store';
 import { TuiTabsModule } from '@taiga-ui/kit';
 import { TuiAlertService } from '@taiga-ui/core';
 import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
-import {Observable, Subscription, forkJoin, of, combineLatest} from 'rxjs';
+import {Observable, Subscription, of, combineLatest} from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
 import * as VaccineActions from '../../states/actions/vaccine.actions';
 import { selectChildren, selectUserVaccinations } from "../../states/selectors/vaccine.selectors";
@@ -35,7 +34,7 @@ export class UserPickerTabsComponent implements OnInit, OnDestroy, AfterViewChec
   users$: Observable<any[]>;
   loading = true;
   private subscriptions: Subscription = new Subscription();
-  @Output() userChange = new EventEmitter<any>();
+  @Output() userChange = new EventEmitter<{ user: any, vaccinations: any[] }>();
 
   constructor(
     private alerts: TuiAlertService,
@@ -75,7 +74,7 @@ export class UserPickerTabsComponent implements OnInit, OnDestroy, AfterViewChec
         console.log('UserPickerTabsComponent: users$', users);
         this.loading = false;
         if (users.length > 0) {
-          this.userChange.emit(users[this.activeItemIndex]);
+          this.userChange.emit({ user: users[this.activeItemIndex], vaccinations: users[this.activeItemIndex].ChildVaccine });
           this.cdr.detectChanges();
         }
       })
@@ -95,7 +94,7 @@ export class UserPickerTabsComponent implements OnInit, OnDestroy, AfterViewChec
   onClick(user: any): void {
     console.log('UserPickerTabsComponent: onClick', user);
     this.alerts.open(`Selected: ${user.isCurrentUser ? 'Вы' : user.firstname}`).subscribe();
-    this.userChange.emit(user);
+    this.userChange.emit({ user, vaccinations: user.ChildVaccine || [] });
     this.cdr.detectChanges();
   }
 }

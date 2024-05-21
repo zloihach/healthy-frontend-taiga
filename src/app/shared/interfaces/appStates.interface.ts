@@ -1,5 +1,5 @@
-import {VaccineState} from "../states/reducers/vaccine.reducer";
+import {VaccineStateInterface} from "./vaccine-state.interface";
 
 export interface AppStateInterface {
-  vaccineState: VaccineState;
+  vaccineState: VaccineStateInterface;
 }
