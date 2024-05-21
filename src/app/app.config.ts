@@ -5,12 +5,13 @@ import { routes } from './app.routes';
 import { TuiRootModule } from "@taiga-ui/core";
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from "./core/auth/auth.interceptor";
-import { provideStore, StoreModule } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { vaccineReducer } from './shared/states/reducers/vaccine.reducer';
 import { VaccineEffects } from './shared/states/effects/vaccine.effects';
 import { BrowserModule } from "@angular/platform-browser";
+import {TuiTabsModule} from "@taiga-ui/kit";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -24,6 +25,7 @@ export const appConfig: ApplicationConfig = {
       EffectsModule.forRoot([VaccineEffects]),
       StoreDevtoolsModule.instrument({ maxAge: 25 }),
       TuiRootModule,
+      TuiTabsModule,
     ),
     {
       provide: HTTP_INTERCEPTORS,

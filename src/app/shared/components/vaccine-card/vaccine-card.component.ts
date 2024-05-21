@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from '@angular/core';
 import { Vaccine } from '../../interfaces/vaccine.interface';
 import {
   TuiButtonModule,
@@ -11,7 +11,6 @@ import {TuiPlatformModule} from "@taiga-ui/cdk";
 import {DatePipe, NgClass, NgIf} from "@angular/common";
 import {TuiBadgeModule} from "@taiga-ui/kit";
 import {TruncatePipe} from "../../pipes/truncate.pipe";
-import {PolymorpheusContent} from '@tinkoff/ng-polymorpheus';
 import {Inject} from '@angular/core';
 import {TuiDialogService} from "@taiga-ui/core";
 
@@ -19,6 +18,7 @@ import {TuiDialogService} from "@taiga-ui/core";
   selector: 'app-vaccine-card',
   templateUrl: './vaccine-card.component.html',
   standalone: true,
+
   imports: [
     TuiHeaderModule,
     TuiCardModule,
@@ -32,6 +32,8 @@ import {TuiDialogService} from "@taiga-ui/core";
     NgClass,
     NgIf
   ],
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./vaccine-card.component.less']
 })
 export class VaccineCardComponent {

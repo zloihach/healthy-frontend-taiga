@@ -1,14 +1,11 @@
-<div *ngIf="!loading; else loadingTemplate">
+<div>
   <tui-tabs [(activeItemIndex)]="activeItemIndex">
     <button
       tuiTab
       *ngFor="let user of users$ | async; let i = index"
-      (click)="onClick(user)"
+      (click)="onClick(user, i)"
     >
       {{ user.isCurrentUser ? 'Вы' : user.firstname }}
     </button>
   </tui-tabs>
 </div>
-<ng-template #loadingTemplate>
-  <div>Loading...</div>
-</ng-template>

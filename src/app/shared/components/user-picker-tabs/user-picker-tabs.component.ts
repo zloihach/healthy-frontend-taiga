@@ -5,17 +5,18 @@ import {
   EventEmitter,
   ChangeDetectorRef,
   OnDestroy,
-  AfterViewChecked
+  AfterViewChecked, ChangeDetectionStrategy
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { TuiTabsModule } from '@taiga-ui/kit';
 import { TuiAlertService } from '@taiga-ui/core';
-import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
+import {AsyncPipe, NgClass, NgForOf, NgIf} from '@angular/common';
 import {Observable, Subscription, of, combineLatest} from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
 import * as VaccineActions from '../../states/actions/vaccine.actions';
 import { selectChildren, selectUserVaccinations } from "../../states/selectors/vaccine.selectors";
 import {AppStateInterface} from "../../interfaces/appStates.interface";
+
 
 @Component({
   selector: 'app-user-picker-tabs',
@@ -24,8 +25,10 @@ import {AppStateInterface} from "../../interfaces/appStates.interface";
     TuiTabsModule,
     NgForOf,
     AsyncPipe,
-    NgIf
+    NgIf,
+    NgClass
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './user-picker-tabs.component.html',
   styleUrls: ['./user-picker-tabs.component.less']
 })
@@ -91,9 +94,9 @@ export class UserPickerTabsComponent implements OnInit, OnDestroy, AfterViewChec
     this.cdr.detectChanges();
   }
 
-  onClick(user: any): void {
+  onClick(user: any, index: number): void {
     console.log('UserPickerTabsComponent: onClick', user);
-    this.alerts.open(`Selected: ${user.isCurrentUser ? 'Вы' : user.firstname}`).subscribe();
+    this.activeItemIndex = index;
     this.userChange.emit(user);
     this.cdr.detectChanges();
   }

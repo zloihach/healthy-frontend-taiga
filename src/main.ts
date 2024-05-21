@@ -21,7 +21,6 @@ bootstrapApplication(AppComponent, {
     importProvidersFrom(
       TuiRootModule,
       BrowserAnimationsModule,
-      TuiRootModule
     ),
     provideStore({ vaccineState: vaccineReducer }),
     provideEffects([VaccineEffects]),
