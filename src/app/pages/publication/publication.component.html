@@ -4,7 +4,7 @@
     <div class="grid-item" *ngFor="let publication of publications">
       <tui-island (click)="openPublicationDialog(publication)">
         <div class="tui-island__content">
-          <figure class="tui-island__figure">
+          <figure style="margin-left: 0 !important;" class="tui-island__figure">
             <ng-container *ngIf="isLoading; else imageContent">
               <div class="tui-skeleton tui-skeleton_rounded" style="height: 200px; width: 250px;"></div>
             </ng-container>
@@ -13,7 +13,8 @@
             </ng-template>
           </figure>
           <div class="tui-island__header">
-            <h3 class="tui-island__title "[class.tui-skeleton]="isLoading" [class.tui-skeleton_text]="isLoading">
+            <h3 class="tui-island__title"
+                [class.tui-skeleton]="isLoading" [class.tui-skeleton_text]="isLoading">
               {{ isLoading ? 'Loading...' : publication.short_title | truncate:30 }}
             </h3>
           </div>
