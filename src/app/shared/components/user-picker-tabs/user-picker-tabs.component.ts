@@ -34,7 +34,7 @@ export class UserPickerTabsComponent implements OnInit, OnDestroy, AfterViewChec
   users$: Observable<any[]>;
   loading = true;
   private subscriptions: Subscription = new Subscription();
-  @Output() userChange = new EventEmitter<{ user: any, vaccinations: any[] }>();
+  @Output() userChange = new EventEmitter<any>();
 
   constructor(
     private alerts: TuiAlertService,
@@ -45,7 +45,7 @@ export class UserPickerTabsComponent implements OnInit, OnDestroy, AfterViewChec
     this.users$ = combineLatest([
       this.store.select(selectUserVaccinations).pipe(
         tap(userVaccinations => console.log('selectUserVaccinations:', userVaccinations)),
-        map(userVaccinations => userVaccinations ? { ...userVaccinations, isCurrentUser: true } : null),
+        map(userVaccinations => userVaccinations ? { id: 'user', vaccinations: userVaccinations, isCurrentUser: true } : null),
         catchError(error => {
           console.error('Error loading user vaccinations', error);
           return of(null);
@@ -74,7 +74,7 @@ export class UserPickerTabsComponent implements OnInit, OnDestroy, AfterViewChec
         console.log('UserPickerTabsComponent: users$', users);
         this.loading = false;
         if (users.length > 0) {
-          this.userChange.emit({ user: users[this.activeItemIndex], vaccinations: users[this.activeItemIndex].ChildVaccine });
+          this.userChange.emit(users[this.activeItemIndex]);
           this.cdr.detectChanges();
         }
       })
@@ -94,7 +94,7 @@ export class UserPickerTabsComponent implements OnInit, OnDestroy, AfterViewChec
   onClick(user: any): void {
     console.log('UserPickerTabsComponent: onClick', user);
     this.alerts.open(`Selected: ${user.isCurrentUser ? 'Вы' : user.firstname}`).subscribe();
-    this.userChange.emit({ user, vaccinations: user.ChildVaccine || [] });
+    this.userChange.emit(user);
     this.cdr.detectChanges();
   }
 }
