@@ -1,4 +1,4 @@
-<div tuiPlatform="ios" class="tui-space_right-2 tui-space_bottom-2" style="min-width: 400px">
+<div tuiPlatform="ios" class="tui-space_right-2 tui-space_bottom-2" style="min-width: 300px">
   <div tuiCardLarge tuiSurface="elevated">
     <div tuiHeader>
       <h3 tuiTitle>
@@ -13,13 +13,13 @@
         ></tui-badge>
       </aside>
     </div>
-    <footer style="display: grid;">
+    <footer style="display: grid; gap: 0.5rem;">
       <button
         appearance="primary"
         size="s"
         tuiButton
         type="button"
-        class="tui-space_bottom-2"
+        (click)="navigateToCalendar()"
       >
         Перейти
       </button>
@@ -28,6 +28,7 @@
         size="s"
         tuiButton
         type="button"
+        (click)="openEditDialog()"
       >
         Изменить
       </button>

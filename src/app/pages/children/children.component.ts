@@ -26,8 +26,14 @@ export class ChildrenComponent implements OnInit {
   constructor(private store: Store<AppStateInterface>) {
     this.children$ = this.store.select(selectChildren).pipe(
       map(children => children.map(child => ({
+        id: child.id,
         name: `${child.firstname} ${child.lastname}`,
-        birthDate: new Date(child.dob).toLocaleDateString() // Преобразуем дату в удобный формат
+        birthDate: new Date(child.dob).toLocaleDateString(),
+        firstname: child.firstname,
+        lastname: child.lastname,
+        midname: child.midname,
+        sex: child.sex,
+        dob: child.dob
       })))
     );
   }
