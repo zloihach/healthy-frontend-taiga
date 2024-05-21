@@ -1,7 +1,7 @@
-<div tuiPlatform="ios" class="tui-space_right-2 tui-space_bottom-2" style="min-width: 300px">
+<div tuiPlatform="ios" class="tui-space_right-2 tui-space_bottom-2 child-card">
   <div tuiCardLarge tuiSurface="elevated">
-    <div tuiHeader>
-      <h3 tuiTitle>
+    <div tuiHeader class="child-header">
+      <h3 tuiTitle class="child-title">
         {{ child.name }}
         <span tuiSubtitle>{{ child.birthDate }}</span>
       </h3>
@@ -9,16 +9,17 @@
         <tui-badge
           status="success"
           value=""
-          class="tui-space_right-2 tui-space_bottom-2"
+          class="tui-space_right-2 tui-space_bottom-2 badge"
         ></tui-badge>
       </aside>
     </div>
-    <footer style="display: grid; gap: 0.5rem;">
+    <footer class="child-footer">
       <button
         appearance="primary"
         size="s"
         tuiButton
         type="button"
+        class="primary-button"
         (click)="navigateToCalendar()"
       >
         Перейти
@@ -28,6 +29,7 @@
         size="s"
         tuiButton
         type="button"
+        class="secondary-button"
         (click)="openEditDialog()"
       >
         Изменить

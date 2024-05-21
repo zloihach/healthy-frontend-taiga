@@ -4,7 +4,7 @@
     <div class="vaccine__radio-box tui-space_top-3" style="max-width: fit-content">
       <app-vaccine-type-picker (vaccineTypeChange)="onVaccineTypeChange($event)"></app-vaccine-type-picker>
     </div>
-    <div class="vaccine-box">
+    <div class="wrapper">
       <div *ngFor="let vaccine of filteredVaccines" class="vaccine__box tui-space_top-3">
         <app-vaccine-card [vaccine]="vaccine"></app-vaccine-card>
       </div>

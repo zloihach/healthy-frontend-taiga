@@ -2,7 +2,9 @@
 
 <ng-container *ngIf="children$ | async as children; else loadingTemplate">
   <div class="wrapper">
-    <app-child-card *ngFor="let child of children" [child]="child"></app-child-card>
+    <div *ngFor="let child of children" class="child-box">
+      <app-child-card [child]="child"></app-child-card>
+    </div>
   </div>
 </ng-container>
 <ng-template #loadingTemplate>

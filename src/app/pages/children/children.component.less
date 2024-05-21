@@ -1,3 +1,8 @@
+@tui-breakpoint-mobile: 320px;
+@tui-breakpoint-tablet: 768px;
+@tui-breakpoint-desktop: 1024px;
+@tui-breakpoint-large-desktop: 1200px;
+
 :host {
   display: flex;
   flex-direction: column;
@@ -5,17 +10,49 @@
   padding: 1rem;
 }
 
-.wrapper {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-}
 
-@media (max-width: 600px) {
+@media (min-width: @tui-breakpoint-mobile) {
   .wrapper {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: @tui-breakpoint-tablet) {
+  .wrapper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: @tui-breakpoint-desktop) {
+  .wrapper {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: @tui-breakpoint-large-desktop) {
+  .wrapper {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: minmax(200px, auto);
+  @media (min-width: @tui-breakpoint-mobile) {
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: @tui-breakpoint-tablet) {
+    grid-template-columns: repeat(2,1fr);
+  }
+
+  @media (min-width: @tui-breakpoint-desktop) {
+    grid-template-columns: repeat(3,1fr);
+  }
+
+  @media (min-width: @tui-breakpoint-large-desktop) {
+    grid-template-columns: repeat(3,1fr);
   }
 }
