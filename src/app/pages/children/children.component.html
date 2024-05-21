@@ -1,9 +1,10 @@
 <h1 style="text-align: center;color:var(--tui-primary)">Мои дети</h1>
 
-<ng-container>
-  <div class="wrapper" style="display: flex;">
-    <app-child-card></app-child-card>
-    <app-child-card></app-child-card>
-    <app-child-card></app-child-card>
+<ng-container *ngIf="children$ | async as children">
+  <div class="wrapper">
+    <app-child-card *ngFor="let child of children" [child]="child"></app-child-card>
   </div>
 </ng-container>
+<ng-template #loadingTemplate>
+  <div>Loading...</div>
+</ng-template>

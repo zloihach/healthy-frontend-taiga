@@ -7,6 +7,7 @@ import { LoginComponent } from "./pages/login/login.component";
 import { HeaderComponent } from "./layout/header/header.component";
 import { VaccineCardComponent } from "./shared/components/vaccine-card/vaccine-card.component";
 import {TuiTableModule} from "@taiga-ui/addon-table";
+import {ChildrenComponent} from "./pages/children/children.component";
 
 @Component({
   selector: 'app-root',
@@ -21,6 +22,7 @@ import {TuiTableModule} from "@taiga-ui/addon-table";
     HeaderComponent,
     VaccineCardComponent,
     TuiTableModule,
+    ChildrenComponent
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less'],
