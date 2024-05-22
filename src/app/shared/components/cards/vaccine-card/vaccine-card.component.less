@@ -1,6 +1,69 @@
+//@tui-breakpoint-mobile: 320px;
+//@tui-breakpoint-tablet: 768px;
+//@tui-breakpoint-desktop: 1024px;
+//@tui-breakpoint-large-desktop: 1200px;
+//
+//.vaccine-card {
+//  min-height: 200px;
+//  min-width: 450px;
+//}
+//
+//.vaccine-header {
+//  display: flex;
+//  flex-direction: column;
+//}
+//
+//.badge{
+//  display: flex;
+//  gap: 0 !important;
+//  grid-gap: 0 !important;
+//}
+//.vaccine-title {
+//  font-size: 16px !important;
+//}
+//
+//.vaccine-footer {
+//  display: grid;
+//}
+//
+//.cancel-button {
+//  margin-bottom: 0.5rem;
+//}
+//
+//.details-button {
+//  margin-bottom: 0.5rem;
+//}
+//
+//section {
+//  display: flex;
+//  height: 3.125rem;
+//  border-radius: 0.75rem;
+//  justify-content: center;
+//  align-items: center;
+//  color: var(--tui-base-06);
+//  border: 1px dashed var(--tui-base-06);
+//}
+//
+//.label {
+//  font: var(--tui-font-text-l);
+//}
+//
+////
+////@media (min-width: @tui-breakpoint-large-desktop) {
+////  .vaccine-card {
+////    min-height: 200px;
+////    min-width: 400px;
+////  }
+////}
+
+@tui-breakpoint-mobile: 320px;
+@tui-breakpoint-tablet: 768px;
+@tui-breakpoint-desktop: 1024px;
+@tui-breakpoint-large-desktop: 1200px;
+
 .vaccine-card {
-  min-height: 200px;
-  min-width: 450px;
+  min-height: 250px;
+  width: 100%;
 }
 
 .vaccine-header {
@@ -8,23 +71,20 @@
   flex-direction: column;
 }
 
-.badge{
+.badge {
   display: flex;
-  gap: 0 !important;
-  grid-gap: 0 !important;
+  gap: 0;
 }
+
 .vaccine-title {
-  font-size: 16px !important;
+  font-size: calc(12px + 0.5vw);
 }
 
 .vaccine-footer {
   display: grid;
 }
 
-.cancel-button {
-  margin-bottom: 0.5rem;
-}
-
+.cancel-button,
 .details-button {
   margin-bottom: 0.5rem;
 }
@@ -42,3 +102,20 @@ section {
 .label {
   font: var(--tui-font-text-l);
 }
+
+@media (max-width: @tui-breakpoint-tablet - 1px) {
+  min-width: 100%;
+}
+
+@media (min-width: @tui-breakpoint-tablet) {
+  width: 50%;
+}
+
+@media (min-width: @tui-breakpoint-desktop) {
+  width: 33.33%;
+}
+
+@media (min-width: @tui-breakpoint-large-desktop) {
+  width: 25%;
+}
+
