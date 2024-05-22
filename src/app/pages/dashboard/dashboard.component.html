@@ -1,7 +1,7 @@
 <h1 style="text-align: center; color: var(--tui-primary)">Личный кабинет</h1>
 <div class="dashboard">
-  <div class="personal-data tui-island">
-    <h3>Здравствуйте, Василиса!</h3>
+  <tui-island size="l" textAlign="left" class="personal-data">
+    <h2>Здравствуйте, Василиса!</h2>
     <form [formGroup]="personalDataForm">
       <div class="form-grid">
         <tui-input formControlName="lastName" label="Фамилия">Фамилия</tui-input>
@@ -34,10 +34,10 @@
         <button tuiButton type="button" appearance="secondary">Отменить</button>
       </div>
     </form>
-  </div>
+  </tui-island>
 
   <div class="additional-settings">
-    <div class="security-settings tui-island small">
+    <tui-island size="l" textAlign="center" class="security-settings small">
       <h3>Безопасность</h3>
       <form [formGroup]="securityForm">
         <div class="form-column">
@@ -49,15 +49,42 @@
           <button tuiButton type="submit" appearance="primary">Сохранить</button>
         </div>
       </form>
-    </div>
+    </tui-island>
 
-    <div class="banner-settings tui-island small">
-      <button tuiButton appearance="outline" class="banner-button full-width">
-        <h3>Баннер</h3>
-        <div class="banner">
-          <p>Тут будет баннер с переходом на статью</p>
+    <div class="banner-wrapper">
+      <tui-island size="m" textAlign="center" class="banner-settings small">
+        <div class="tui-island__content">
+          <figure class="tui-island__figure">
+            <img src="https://s3.timeweb.cloud/304acea6-healthy/banner_4.svg" alt="Баннер" class="banner-image">
+          </figure>
+          <div>
+            <h3 class="tui-island__title">Интересная статья</h3>
+            <p class="tui-island__paragraph">
+              Тут будет баннер с переходом на статью.
+            </p>
+            <button appearance="flat" size="m" tuiButton type="button" class="tui-island__footer-button">
+              Перейти к статье
+            </button>
+          </div>
         </div>
-      </button>
+      </tui-island>
+
+      <tui-island size="m" textAlign="center" class="banner-settings small">
+        <div class="tui-island__content">
+          <figure class="tui-island__figure">
+            <img src="https://s3.timeweb.cloud/304acea6-healthy/banner_4.svg" alt="Баннер" class="banner-image">
+          </figure>
+          <div>
+            <h3 class="tui-island__title">Полезный совет</h3>
+            <p class="tui-island__paragraph">
+              Тут будет еще один баннер с переходом на статью.
+            </p>
+            <button appearance="flat" size="m" tuiButton type="button" class="tui-island__footer-button">
+              Узнать больше
+            </button>
+          </div>
+        </div>
+      </tui-island>
     </div>
   </div>
 </div>

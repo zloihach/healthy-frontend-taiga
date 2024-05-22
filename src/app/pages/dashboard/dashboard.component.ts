@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { TuiButtonModule } from "@taiga-ui/core";
-import { TuiInputModule, TuiInputPasswordModule, TuiSelectModule, TuiToggleModule } from "@taiga-ui/kit";
+import {TuiInputModule, TuiInputPasswordModule, TuiIslandModule, TuiSelectModule, TuiToggleModule} from "@taiga-ui/kit";
 import { TuiDataListModule } from '@taiga-ui/core';
 
 @Component({
@@ -14,7 +14,8 @@ import { TuiDataListModule } from '@taiga-ui/core';
     TuiInputPasswordModule,
     TuiSelectModule,
     TuiToggleModule,
-    TuiDataListModule
+    TuiDataListModule,
+    TuiIslandModule
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.less']
