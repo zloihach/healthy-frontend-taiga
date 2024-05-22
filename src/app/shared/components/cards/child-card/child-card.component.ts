@@ -51,6 +51,6 @@ export class ChildCardComponent {
   }
 
   navigateToCalendar(): void {
-    this.router.navigate(['/calendar', this.child.id]);
+    this.router.navigate(['/vaccination-calendar', this.child.id]);
   }
 }

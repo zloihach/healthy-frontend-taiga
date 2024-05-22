@@ -1,0 +1,42 @@
+.add-child-card {
+  min-height: 200px;
+  min-width: 450px;
+  height: 96%;
+}
+
+.add-child-button {
+  background-color: white;
+  border: dashed;
+  border-color: var(--tui-primary);
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  box-shadow: 0 0.25rem 1.5rem rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 0.75rem 2.25rem rgba(0, 0, 0, 0.2);
+  }
+}
+
+.add-child-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--tui-primary);
+}
+
+.add-child-plus {
+  font-size: 3rem;
+}
+
+.add-child-text {
+  font-size: 1.5rem;
+  margin-top: 0.5rem;
+}

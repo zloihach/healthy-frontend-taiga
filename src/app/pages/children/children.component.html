@@ -2,10 +2,15 @@
 <ng-container *ngIf="children$ | async as children; else loadingTemplate">
   <div class="wrapper">
     <div *ngFor="let child of children" class="child-box">
-      <app-child-card [child]="child"></app-child-card>
+      <ng-container *ngIf="!child.isAddCard; else addCardTemplate">
+        <app-child-card [child]="child"></app-child-card>
+      </ng-container>
     </div>
   </div>
 </ng-container>
 <ng-template #loadingTemplate>
   <div style="text-align: center; padding: 2rem;">Loading...</div>
+</ng-template>
+<ng-template #addCardTemplate>
+  <app-add-child-card></app-add-child-card>
 </ng-template>
