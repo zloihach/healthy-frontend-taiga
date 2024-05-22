@@ -1,0 +1,68 @@
+/* dashboard.component.less */
+.dashboard {
+  padding: 2rem;
+  background-color: var(--tui-base-01);
+  color: var(--tui-base-06);
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+
+  h1 {
+    margin: 0;
+    font-size: 2rem;
+    color: var(--tui-primary);
+  }
+
+  button {
+    background-color: var(--tui-primary);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: var(--tui-primary-hover);
+    }
+  }
+}
+
+.dashboard-content {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.dashboard-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 0.25rem 1.5rem rgba(0, 0, 0, 0.12);
+  padding: 1.5rem;
+}
+
+.user-form {
+  display: grid;
+  gap: 1rem;
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+      color: var(--tui-primary);
+    }
+
+    input {
+      padding: 0.5rem;
+      border: 1px solid var(--tui-base-03);
+      border-radius: 4px;
+    }
+  }
+}
