@@ -3,7 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { NgForOf } from '@angular/common';
 import { TuiGroupModule } from '@taiga-ui/core';
 import { TuiRadioBlockModule } from '@taiga-ui/kit';
-import { VaccineType } from '../../enums/vaccine-type.enum';
+import { VaccineType } from '../../../enums/vaccine-type.enum';
 
 @Component({
   selector: 'app-vaccine-type-picker',

@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {TuiButtonModule, TuiDialogContext, TuiHintModule} from '@taiga-ui/core';
-import { Vaccine } from '../../interfaces/vaccine.interface';
+import { Vaccine } from '../../../interfaces/vaccine.interface';
 import { POLYMORPHEUS_CONTEXT } from '@tinkoff/ng-polymorpheus';
 import {TuiCheckboxLabeledModule, TuiInputModule, TuiTextareaModule} from "@taiga-ui/kit";
 

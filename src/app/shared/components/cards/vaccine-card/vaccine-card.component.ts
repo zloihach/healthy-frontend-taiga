@@ -19,8 +19,8 @@
 // import { PolymorpheusComponent } from '@tinkoff/ng-polymorpheus';
 //
 // @Component({
-//   selector: 'app-vaccine-card',
-//   templateUrl: './vaccine-card.component.html',
+//   selector: 'app-vaccine-cards',
+//   templateUrl: './vaccine-cards.component.html',
 //   standalone: true,
 //   imports: [
 //     TuiHeaderModule,
@@ -39,7 +39,7 @@
 //   ],
 //   encapsulation: ViewEncapsulation.None,
 //   changeDetection: ChangeDetectionStrategy.OnPush,
-//   styleUrls: ['./vaccine-card.component.less']
+//   styleUrls: ['./vaccine-cards.component.less']
 // })
 // export class VaccineCardComponent {
 //   @Input() vaccine!: Vaccine;
@@ -95,9 +95,9 @@
 // }
 import { TuiDialogService } from '@taiga-ui/core';
 import { Component, Input, Inject } from '@angular/core';
-import { Vaccine } from '../../interfaces/vaccine.interface';
+import { Vaccine } from '../../../interfaces/vaccine.interface';
 import { PolymorpheusComponent } from '@tinkoff/ng-polymorpheus';
-import { TranslateDateDirective } from "../../directives/dateTranslate.directive";
+import { TranslateDateDirective } from "../../../directives/dateTranslate.directive";
 import { TuiBadgeModule } from "@taiga-ui/kit";
 import { NgIf } from "@angular/common";
 import {
@@ -107,9 +107,12 @@ import {
   TuiSurfaceModule,
   TuiTitleModule
 } from "@taiga-ui/experimental";
-import { TruncatePipe } from "../../pipes/truncate.pipe";
+import { TruncatePipe } from "../../../pipes/truncate.pipe";
 import { TuiPlatformModule } from "@taiga-ui/cdk";
-import {VaccineDialogComponent} from "../vaccine-dialog-component/vaccine-dialog.component";
+import {VaccineDialogComponent} from "../../dialogs/vaccine-dialog-component/vaccine-dialog.component";
+import {
+  InfoVaccineDialogComponent
+} from "../../dialogs/info-vaccine-dialog-component/info-vaccine-dialog.component";
 
 @Component({
   selector: 'app-vaccine-card',
@@ -171,6 +174,24 @@ export class VaccineCardComponent {
       error: error => console.error('Dialog failed with error:', error)
     });
   }
+
+  openDetailsDialog(): void {
+    this.dialogService.open(
+      new PolymorpheusComponent(InfoVaccineDialogComponent),
+      {
+        size: 'm',
+        data: { vaccine: this.vaccine }
+      }
+    ).subscribe({
+      next: result => {
+        if (result!) {
+          console.log('Диалог с информацией о вакцине закрыт');
+        }
+      },
+      error: error => console.error('Dialog failed with error:', error)
+    });
+  }
+
 
   isVaccinationOverdue(): boolean {
     const today = new Date();

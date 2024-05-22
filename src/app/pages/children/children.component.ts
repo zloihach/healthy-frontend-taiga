@@ -5,8 +5,8 @@ import { map } from 'rxjs/operators';
 import { selectChildren } from '../../shared/states/selectors/vaccine.selectors';
 import { AppStateInterface } from '../../shared/interfaces/appStates.interface';
 import * as VaccineActions from '../../shared/states/actions/vaccine.actions';
-import { ChildCardComponent } from '../../shared/components/child-card/child-card.component';
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
+import {ChildCardComponent} from "../../shared/components/cards/child-card/child-card.component";
 
 @Component({
   selector: 'app-children',

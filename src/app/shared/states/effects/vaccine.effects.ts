@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as VaccineActions from '../actions/vaccine.actions';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { VaccineService } from '../../../pages/calendar/vaccine.service';
+import {VaccineService} from "../../../core/services/vaccine/vaccine.service";
 
 @Injectable()
 export class VaccineEffects {

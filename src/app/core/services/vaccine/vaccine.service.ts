@@ -1,7 +1,7 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
-import {Vaccine} from "../../shared/interfaces/vaccine.interface";
+import {Vaccine} from "../../../shared/interfaces/vaccine.interface";
 
 @Injectable({
   providedIn: 'root'

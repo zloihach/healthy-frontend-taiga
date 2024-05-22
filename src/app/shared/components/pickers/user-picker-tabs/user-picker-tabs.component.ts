@@ -13,9 +13,9 @@ import { TuiAlertService } from '@taiga-ui/core';
 import {AsyncPipe, NgClass, NgForOf, NgIf} from '@angular/common';
 import {Observable, Subscription, of, combineLatest} from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
-import * as VaccineActions from '../../states/actions/vaccine.actions';
-import { selectChildren, selectUserVaccinations } from "../../states/selectors/vaccine.selectors";
-import {AppStateInterface} from "../../interfaces/appStates.interface";
+import * as VaccineActions from '../../../states/actions/vaccine.actions';
+import { selectChildren, selectUserVaccinations } from "../../../states/selectors/vaccine.selectors";
+import {AppStateInterface} from "../../../interfaces/appStates.interface";
 
 
 @Component({
