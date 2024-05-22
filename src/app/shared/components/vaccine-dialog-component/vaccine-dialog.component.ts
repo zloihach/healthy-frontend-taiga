@@ -1,33 +1,34 @@
 import { Component, Inject } from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {TuiDialogContext, TuiHintModule} from '@taiga-ui/core';
+import {TuiButtonModule, TuiDialogContext, TuiHintModule} from '@taiga-ui/core';
 import { Vaccine } from '../../interfaces/vaccine.interface';
 import { POLYMORPHEUS_CONTEXT } from '@tinkoff/ng-polymorpheus';
-import {TuiCheckboxLabeledModule, TuiInputModule, TuiIslandModule, TuiTextareaModule} from "@taiga-ui/kit";
-import {TuiButtonModule} from "@taiga-ui/experimental";
+import {TuiCheckboxLabeledModule, TuiInputModule, TuiTextareaModule} from "@taiga-ui/kit";
 
 @Component({
-  selector: 'app-edit-vaccine-dialog',
-  templateUrl: './edit-vaccine-dialog.component.html',
+  selector: 'app-vaccine-dialog',
+  templateUrl: './vaccine-dialog.component.html',
   standalone: true,
   imports: [
-    ReactiveFormsModule,
-    TuiIslandModule,
     TuiInputModule,
+    ReactiveFormsModule,
+    TuiHintModule,
     TuiCheckboxLabeledModule,
     TuiButtonModule,
-    TuiHintModule,
     TuiTextareaModule
   ],
-  styleUrls: ['./edit-vaccine-dialog.component.less']
+  styleUrls: ['./vaccine-dialog.component.less']
 })
-export class EditVaccineDialogComponent {
+export class VaccineDialogComponent {
   form: FormGroup;
+  mode: 'edit' | 'mark';
 
   constructor(
     private fb: FormBuilder,
-    @Inject(POLYMORPHEUS_CONTEXT) private readonly context: TuiDialogContext<Vaccine, { vaccine: Vaccine }>
+    @Inject(POLYMORPHEUS_CONTEXT) private readonly context: TuiDialogContext<Vaccine, { vaccine: Vaccine, mode: 'edit' | 'mark' }>
   ) {
+    this.mode = this.context.data.mode;
+
     this.form = this.fb.group({
       medical_center: [this.context.data.vaccine.medical_center, Validators.required],
       dose: [this.context.data.vaccine.dose, [Validators.required, Validators.min(1)]],

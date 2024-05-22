@@ -15,7 +15,7 @@
 // import { TuiDialogService } from "@taiga-ui/core";
 // import {DateRuPipe} from "../../pipes/date-ru.pipe";
 // import {TranslateDateDirective} from "../../directives/dateTranslate.directive";
-// import {EditVaccineDialogComponent} from "../edit-vaccine-dialog-component/edit-vaccine-dialog.component";
+// import {EditVaccineDialogComponent} from "../vaccine-dialog-component/edit-vaccine-dialog.component";
 // import { PolymorpheusComponent } from '@tinkoff/ng-polymorpheus';
 //
 // @Component({
@@ -93,17 +93,13 @@
 //   }
 //
 // }
-
-
-
 import { TuiDialogService } from '@taiga-ui/core';
 import { Component, Input, Inject } from '@angular/core';
 import { Vaccine } from '../../interfaces/vaccine.interface';
 import { PolymorpheusComponent } from '@tinkoff/ng-polymorpheus';
-import {EditVaccineDialogComponent} from "../edit-vaccine-dialog-component/edit-vaccine-dialog.component";
-import {TranslateDateDirective} from "../../directives/dateTranslate.directive";
-import {TuiBadgeModule} from "@taiga-ui/kit";
-import {NgIf} from "@angular/common";
+import { TranslateDateDirective } from "../../directives/dateTranslate.directive";
+import { TuiBadgeModule } from "@taiga-ui/kit";
+import { NgIf } from "@angular/common";
 import {
   TuiButtonModule,
   TuiCardModule,
@@ -111,8 +107,9 @@ import {
   TuiSurfaceModule,
   TuiTitleModule
 } from "@taiga-ui/experimental";
-import {TruncatePipe} from "../../pipes/truncate.pipe";
-import {TuiPlatformModule} from "@taiga-ui/cdk";
+import { TruncatePipe } from "../../pipes/truncate.pipe";
+import { TuiPlatformModule } from "@taiga-ui/cdk";
+import {VaccineDialogComponent} from "../vaccine-dialog-component/vaccine-dialog.component";
 
 @Component({
   selector: 'app-vaccine-card',
@@ -141,15 +138,34 @@ export class VaccineCardComponent {
 
   openEditDialog(): void {
     this.dialogService.open(
-      new PolymorpheusComponent(EditVaccineDialogComponent),
+      new PolymorpheusComponent(VaccineDialogComponent),
       {
         size: 'm',
-        data: { vaccine: this.vaccine }
+        data: { vaccine: this.vaccine, mode: 'edit' }
       }
     ).subscribe({
       next: result => {
         if (result!) {
           console.log('Прививка изменена:', result);
+          // Обновите объект вакцинации здесь, если это необходимо
+        }
+      },
+      error: error => console.error('Dialog failed with error:', error)
+    });
+  }
+
+  openMarkDialog(): void {
+    this.dialogService.open(
+      new PolymorpheusComponent(VaccineDialogComponent),
+      {
+        size: 'm',
+        data: { vaccine: this.vaccine, mode: 'mark' }
+      }
+    ).subscribe({
+      next: result => {
+        if (result!) {
+          console.log('Факт вакцинации отмечен:', result);
+          // Обновите объект вакцинации здесь, если это необходимо
         }
       },
       error: error => console.error('Dialog failed with error:', error)
@@ -162,4 +178,3 @@ export class VaccineCardComponent {
     return !this.vaccine.is_vaccinated && today > vaccinationDate;
   }
 }
-
