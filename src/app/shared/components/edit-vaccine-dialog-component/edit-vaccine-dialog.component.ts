@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {TuiDialogContext, TuiHintModule} from '@taiga-ui/core';
 import { Vaccine } from '../../interfaces/vaccine.interface';
 import { POLYMORPHEUS_CONTEXT } from '@tinkoff/ng-polymorpheus';
-import {TuiCheckboxLabeledModule, TuiInputModule, TuiIslandModule} from "@taiga-ui/kit";
+import {TuiCheckboxLabeledModule, TuiInputModule, TuiIslandModule, TuiTextareaModule} from "@taiga-ui/kit";
 import {TuiButtonModule} from "@taiga-ui/experimental";
 
 @Component({
@@ -16,7 +16,8 @@ import {TuiButtonModule} from "@taiga-ui/experimental";
     TuiInputModule,
     TuiCheckboxLabeledModule,
     TuiButtonModule,
-    TuiHintModule
+    TuiHintModule,
+    TuiTextareaModule
   ],
   styleUrls: ['./edit-vaccine-dialog.component.less']
 })
@@ -28,9 +29,11 @@ export class EditVaccineDialogComponent {
     @Inject(POLYMORPHEUS_CONTEXT) private readonly context: TuiDialogContext<Vaccine, { vaccine: Vaccine }>
   ) {
     this.form = this.fb.group({
-      name: [this.context.data.vaccine.vaccine.name, Validators.required],
-      date: [this.context.data.vaccine.planned_vaccination_date, Validators.required],
-      isVaccinated: [this.context.data.vaccine.is_vaccinated]
+      medical_center: [this.context.data.vaccine.medical_center, Validators.required],
+      dose: [this.context.data.vaccine.dose, [Validators.required, Validators.min(1)]],
+      vaccination_date: [this.context.data.vaccine.vaccination_date, Validators.required],
+      is_vaccinated: [this.context.data.vaccine.is_vaccinated],
+      commentary: [this.context.data.vaccine.commentary]
     });
   }
 

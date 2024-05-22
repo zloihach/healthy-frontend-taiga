@@ -104,8 +104,15 @@ import {EditVaccineDialogComponent} from "../edit-vaccine-dialog-component/edit-
 import {TranslateDateDirective} from "../../directives/dateTranslate.directive";
 import {TuiBadgeModule} from "@taiga-ui/kit";
 import {NgIf} from "@angular/common";
-import {TuiButtonModule} from "@taiga-ui/experimental";
+import {
+  TuiButtonModule,
+  TuiCardModule,
+  TuiHeaderModule,
+  TuiSurfaceModule,
+  TuiTitleModule
+} from "@taiga-ui/experimental";
 import {TruncatePipe} from "../../pipes/truncate.pipe";
+import {TuiPlatformModule} from "@taiga-ui/cdk";
 
 @Component({
   selector: 'app-vaccine-card',
@@ -116,7 +123,12 @@ import {TruncatePipe} from "../../pipes/truncate.pipe";
     TuiBadgeModule,
     NgIf,
     TuiButtonModule,
-    TruncatePipe
+    TruncatePipe,
+    TuiPlatformModule,
+    TuiCardModule,
+    TuiSurfaceModule,
+    TuiHeaderModule,
+    TuiTitleModule
   ],
   styleUrls: ['./vaccine-card.component.less']
 })

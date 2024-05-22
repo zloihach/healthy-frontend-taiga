@@ -1,20 +1,26 @@
-<form [formGroup]="form" (ngSubmit)="onSave()">
-  <tui-island class="edit-vaccine-island">
-    <h2>Изменить прививку</h2>
-    <tui-input formControlName="name" tuiHintContent="Введите название прививки">
-      <input tuiTextfield type="text" />
-      Название прививки
-    </tui-input>
-    <tui-input formControlName="date" tuiHintContent="Введите дату прививки">
-      <input tuiTextfield type="date" />
-      Дата прививки
-    </tui-input>
-    <tui-checkbox-labeled formControlName="isVaccinated">
-      Сделана
-    </tui-checkbox-labeled>
-    <div class="button-group">
-      <button tuiButton type="submit" appearance="primary">Сохранить</button>
-      <button tuiButton type="button" appearance="secondary" (click)="onCancel()">Отменить</button>
-    </div>
-  </tui-island>
+<form [formGroup]="form" (ngSubmit)="onSave()" class="edit-vaccine-dialog">
+  <h2>Изменить прививку</h2>
+  <tui-input formControlName="medical_center" tuiHintContent="Введите название медицинского центра">
+    <input tuiTextfield type="text" />
+    Медицинский центр
+  </tui-input>
+  <tui-input formControlName="dose" tuiHintContent="Введите дозу">
+    <input tuiTextfield type="number" />
+    Доза
+  </tui-input>
+  <tui-input formControlName="vaccination_date" tuiHintContent="Введите дату прививки">
+    <input tuiTextfield type="date" />
+    Дата прививки
+  </tui-input>
+  <tui-textarea formControlName="commentary" tuiHintContent="Введите комментарий">
+    <textarea tuiTextfield></textarea>
+    Комментарий
+  </tui-textarea>
+  <tui-checkbox-labeled size="l" formControlName="is_vaccinated">
+    Вакцинация пройдена
+  </tui-checkbox-labeled>
+  <div class="button-group">
+    <button tuiButton type="submit" appearance="primary">Сохранить</button>
+    <button tuiButton type="button" appearance="secondary" (click)="onCancel()">Отменить</button>
+  </div>
 </form>

@@ -1,0 +1,80 @@
+.edit-vaccine-dialog {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  h2 {
+    color: #2c3e50;
+    text-align: center;
+  }
+
+  tui-input,
+  tui-checkbox-labeled,
+  tui-textarea {
+    margin-bottom: 16px;
+  }
+
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+
+    button {
+      min-width: 100px;
+    }
+  }
+
+  tui-input {
+    position: relative;
+
+    input[tuiTextfield] {
+      padding-right: 2.5rem; // Adjust based on the size of your icons
+    }
+
+    tui-svg {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+  }
+
+  tui-input[type="number"] {
+    input[tuiTextfield] {
+      padding-right: 2.5rem; // Adjust based on the size of your icons
+    }
+  }
+
+  tui-input[type="date"] {
+    input[tuiTextfield] {
+      padding-right: 2.5rem; // Adjust based on the size of your icons
+    }
+  }
+
+  tui-textarea {
+    position: relative;
+
+    textarea[tuiTextfield] {
+      padding-right: 2.5rem; // Adjust based on the size of your icons
+    }
+
+    tui-svg {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      pointer-events: none;
+    }
+  }
+
+  tui-checkbox-labeled {
+    .tui-checkbox__box {
+      width: 24px;
+      height: 24px;
+    }
+
+    .tui-checkbox__label {
+      font-size: 18px;
+    }
+  }
+}
