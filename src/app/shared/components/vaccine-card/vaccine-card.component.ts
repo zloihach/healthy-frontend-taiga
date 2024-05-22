@@ -78,4 +78,10 @@ export class VaccineCardComponent {
       error: error => console.error('Dialog failed with error:', error)
     });
   }
+  isVaccinationOverdue(): boolean {
+    const today = new Date();
+    const vaccinationDate = new Date(this.vaccine.planned_vaccination_date);
+    return !this.vaccine.is_vaccinated && today > vaccinationDate;
+  }
+
 }

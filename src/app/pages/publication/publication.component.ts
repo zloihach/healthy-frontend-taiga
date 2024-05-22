@@ -69,7 +69,7 @@ export class PublicationComponent implements OnInit {
     const dialogRef = this.dialogService.open(publication.text, {
       label: publication.full_title,
       size: 'm',
-      data: {button: 'Close'}
+      data: {button: 'Закрыть'}
     });
     dialogRef.subscribe({
       next: result => console.log('Dialog closed with:', result),
