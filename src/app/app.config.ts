@@ -12,6 +12,7 @@ import { vaccineReducer } from './shared/states/reducers/vaccine.reducer';
 import { VaccineEffects } from './shared/states/effects/vaccine.effects';
 import { BrowserModule } from "@angular/platform-browser";
 import {TuiTabsModule} from "@taiga-ui/kit";
+import {DateRuPipe} from "./shared/pipes/date-ru.pipe";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -26,6 +27,7 @@ export const appConfig: ApplicationConfig = {
       StoreDevtoolsModule.instrument({ maxAge: 25 }),
       TuiRootModule,
       TuiTabsModule,
+      DateRuPipe
     ),
     {
       provide: HTTP_INTERCEPTORS,

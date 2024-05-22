@@ -13,6 +13,8 @@ import { TuiBadgeModule } from "@taiga-ui/kit";
 import { TruncatePipe } from "../../pipes/truncate.pipe";
 import { Inject } from '@angular/core';
 import { TuiDialogService } from "@taiga-ui/core";
+import {DateRuPipe} from "../../pipes/date-ru.pipe";
+import {TranslateDateDirective} from "../../directives/dateTranslate.directive";
 
 @Component({
   selector: 'app-vaccine-card',
@@ -29,7 +31,9 @@ import { TuiDialogService } from "@taiga-ui/core";
     TuiTitleModule,
     TruncatePipe,
     NgClass,
-    NgIf
+    NgIf,
+    DateRuPipe,
+    TranslateDateDirective
   ],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -3,11 +3,11 @@
     <div tuiHeader class="vaccine-header">
       <h3 tuiTitle class="vaccine-title">{{ vaccine.vaccine.name | truncate: 40 }}</h3>
       <span tuiSubtitle *ngIf="vaccine.is_vaccinated; else plannedDate">
-        Дата вакцинации: {{ vaccine.vaccination_date | date }}
+        Дата вакцинации: <span [translateDate]="vaccine.vaccination_date"></span>
       </span>
       <ng-template #plannedDate>
         <span tuiSubtitle>
-          Плановая дата: {{ vaccine.planned_vaccination_date | date }}
+          Плановая дата: <span [translateDate]="vaccine.planned_vaccination_date"></span>
         </span>
       </ng-template>
       <aside class="badge" tuiAccessories>
