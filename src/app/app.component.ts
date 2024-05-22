@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { LoginComponent } from "./pages/login/login.component";
 import { HeaderComponent } from "./layout/header/header.component";
-import { VaccineCardComponent } from "./shared/components/vaccine-card/vaccine-card.component";
+import { VaccineCardComponent } from "./shared/components/cards/vaccine-card/vaccine-card.component";
 import {TuiTableModule} from "@taiga-ui/addon-table";
 import {ChildrenComponent} from "./pages/children/children.component";
 
