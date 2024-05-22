@@ -1,0 +1,20 @@
+<form [formGroup]="form" (ngSubmit)="onSave()">
+  <tui-island class="edit-vaccine-island">
+    <h2>Изменить прививку</h2>
+    <tui-input formControlName="name" tuiHintContent="Введите название прививки">
+      <input tuiTextfield type="text" />
+      Название прививки
+    </tui-input>
+    <tui-input formControlName="date" tuiHintContent="Введите дату прививки">
+      <input tuiTextfield type="date" />
+      Дата прививки
+    </tui-input>
+    <tui-checkbox-labeled formControlName="isVaccinated">
+      Сделана
+    </tui-checkbox-labeled>
+    <div class="button-group">
+      <button tuiButton type="submit" appearance="primary">Сохранить</button>
+      <button tuiButton type="button" appearance="secondary" (click)="onCancel()">Отменить</button>
+    </div>
+  </tui-island>
+</form>

@@ -45,7 +45,6 @@
           tuiButton
           type="button"
           class="tui-space_bottom-2 cancel-button tui-space_right-3 tui-space_bottom-3"
-          (click)="openMarkDialog()"
         >
           Отметить прививку
         </button>
@@ -56,77 +55,9 @@
         tuiButton
         type="button"
         class="details-button tui-space_right-3 tui-space_bottom-3"
-        (click)="openDetailsDialog()"
       >
         Подробности
       </button>
     </footer>
   </div>
 </div>
-
-
-<!--<div tuiPlatform="ios" class="tui-space_right-2 tui-space_bottom-2">-->
-<!--  <div tuiCardLarge tuiSurface="elevated" class="vaccine-card">-->
-<!--    <div tuiHeader class="vaccine-header">-->
-<!--      <h3 tuiTitle class="vaccine-title">{{ vaccine.vaccine.name | truncate: 40 }}</h3>-->
-<!--      <span tuiSubtitle *ngIf="vaccine.is_vaccinated; else plannedDate">-->
-<!--        Дата вакцинации: <span [translateDate]="vaccine.vaccination_date"></span>-->
-<!--      </span>-->
-<!--      <ng-template #plannedDate>-->
-<!--        <span tuiSubtitle>-->
-<!--          Плановая дата: <span [translateDate]="vaccine.planned_vaccination_date"></span>-->
-<!--        </span>-->
-<!--      </ng-template>-->
-<!--      <aside class="badge" tuiAccessories>-->
-<!--        <tui-badge-->
-<!--          [status]="vaccine.vaccine.type === 'CALENDAR' ? 'success' : 'info'"-->
-<!--          [value]="vaccine.vaccine.type === 'CALENDAR' ? 'Календарь' : 'Эпидемиология'"-->
-<!--          class="tui-space_right-2 tui-space_bottom-2"-->
-<!--        ></tui-badge>-->
-<!--        <ng-container *ngIf="isVaccinationOverdue()">-->
-<!--          <tui-badge-->
-<!--            status="error"-->
-<!--            value="Просрочено"-->
-<!--            class="tui-space_right-2 tui-space_bottom-2"-->
-<!--          ></tui-badge>-->
-<!--        </ng-container>-->
-<!--      </aside>-->
-<!--    </div>-->
-<!--    <footer class="vaccine-footer">-->
-<!--      <ng-container *ngIf="vaccine.is_vaccinated; else notVaccinated">-->
-<!--        <button-->
-<!--          appearance="secondary"-->
-<!--          size="s"-->
-<!--          tuiButton-->
-<!--          type="button"-->
-<!--          class="tui-space_bottom-2 cancel-button tui-space_right-3 tui-space_bottom-3"-->
-<!--          (click)="openEditDialog()"-->
-<!--        >-->
-<!--          Изменить прививку-->
-<!--        </button>-->
-<!--      </ng-container>-->
-<!--      <ng-template #notVaccinated>-->
-<!--        <button-->
-<!--          appearance="primary"-->
-<!--          size="s"-->
-<!--          tuiButton-->
-<!--          type="button"-->
-<!--          class="tui-space_bottom-2 cancel-button tui-space_right-3 tui-space_bottom-3"-->
-<!--          (click)="openMarkDialog()"-->
-<!--        >-->
-<!--          Отметить прививку-->
-<!--        </button>-->
-<!--      </ng-template>-->
-<!--      <button-->
-<!--        appearance="outline"-->
-<!--        size="s"-->
-<!--        tuiButton-->
-<!--        type="button"-->
-<!--        class="details-button tui-space_right-3 tui-space_bottom-3"-->
-<!--        (click)="openDetailsDialog()"-->
-<!--      >-->
-<!--        Подробности-->
-<!--      </button>-->
-<!--    </footer>-->
-<!--  </div>-->
-<!--</div>-->

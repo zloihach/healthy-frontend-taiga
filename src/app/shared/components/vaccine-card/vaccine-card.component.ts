@@ -1,42 +1,123 @@
-import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
+// import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
+// import { Vaccine } from '../../interfaces/vaccine.interface';
+// import {
+//   TuiButtonModule,
+//   TuiCardModule,
+//   TuiHeaderModule,
+//   TuiSurfaceModule,
+//   TuiTitleModule,
+// } from "@taiga-ui/experimental";
+// import { TuiPlatformModule } from "@taiga-ui/cdk";
+// import { DatePipe, NgClass, NgIf } from "@angular/common";
+// import { TuiBadgeModule } from "@taiga-ui/kit";
+// import { TruncatePipe } from "../../pipes/truncate.pipe";
+// import { Inject } from '@angular/core';
+// import { TuiDialogService } from "@taiga-ui/core";
+// import {DateRuPipe} from "../../pipes/date-ru.pipe";
+// import {TranslateDateDirective} from "../../directives/dateTranslate.directive";
+// import {EditVaccineDialogComponent} from "../edit-vaccine-dialog-component/edit-vaccine-dialog.component";
+// import { PolymorpheusComponent } from '@tinkoff/ng-polymorpheus';
+//
+// @Component({
+//   selector: 'app-vaccine-card',
+//   templateUrl: './vaccine-card.component.html',
+//   standalone: true,
+//   imports: [
+//     TuiHeaderModule,
+//     TuiCardModule,
+//     TuiSurfaceModule,
+//     TuiPlatformModule,
+//     DatePipe,
+//     TuiBadgeModule,
+//     TuiButtonModule,
+//     TuiTitleModule,
+//     TruncatePipe,
+//     NgClass,
+//     NgIf,
+//     DateRuPipe,
+//     TranslateDateDirective
+//   ],
+//   encapsulation: ViewEncapsulation.None,
+//   changeDetection: ChangeDetectionStrategy.OnPush,
+//   styleUrls: ['./vaccine-card.component.less']
+// })
+// export class VaccineCardComponent {
+//   @Input() vaccine!: Vaccine;
+//
+//   constructor(
+//     @Inject(TuiDialogService) private readonly dialogService: TuiDialogService
+//   ) {}
+//
+//   openEditDialog(): void {
+//     this.dialogService.open<Vaccine>(
+//       new PolymorpheusComponent(EditVaccineDialogComponent),
+//       {
+//         size: 'm',
+//         data: { vaccine: this.vaccine }
+//       }
+//     ).subscribe({
+//       next: result => {
+//         if (result) {
+//           console.log('Прививка изменена:', result);
+//         }
+//       },
+//       error: error => console.error('Dialog failed with error:', error)
+//     });
+//   }
+//
+//   openMarkDialog(): void {
+//     // this.dialogService.open('Здесь можно отметить прививку.', {
+//     //   label: 'Отметить прививку',
+//     //   size: 'm',
+//     //   data: { button: 'Закрыть' }
+//     // }).subscribe({
+//     //   next: result => console.log('Dialog closed with:', result),
+//     //   error: error => console.error('Dialog failed with error:', error)
+//     // });
+//   }
+//
+//   openDetailsDialog(): void {
+//     // this.dialogService.open('Подробная информация о прививке.', {
+//     //   label: 'Подробности',
+//     //   size: 'm',
+//     //   data: { button: 'Закрыть' }
+//     // }).subscribe({
+//     //   next: result => console.log('Dialog closed with:', result),
+//     //   error: error => console.error('Dialog failed with error:', error)
+//     // });
+//   }
+//   isVaccinationOverdue(): boolean {
+//     const today = new Date();
+//     const vaccinationDate = new Date(this.vaccine.planned_vaccination_date);
+//     return !this.vaccine.is_vaccinated && today > vaccinationDate;
+//   }
+//
+// }
+
+
+
+import { TuiDialogService } from '@taiga-ui/core';
+import { Component, Input, Inject } from '@angular/core';
 import { Vaccine } from '../../interfaces/vaccine.interface';
-import {
-  TuiButtonModule,
-  TuiCardModule,
-  TuiHeaderModule,
-  TuiSurfaceModule,
-  TuiTitleModule,
-} from "@taiga-ui/experimental";
-import { TuiPlatformModule } from "@taiga-ui/cdk";
-import { DatePipe, NgClass, NgIf } from "@angular/common";
-import { TuiBadgeModule } from "@taiga-ui/kit";
-import { TruncatePipe } from "../../pipes/truncate.pipe";
-import { Inject } from '@angular/core';
-import { TuiDialogService } from "@taiga-ui/core";
-import {DateRuPipe} from "../../pipes/date-ru.pipe";
+import { PolymorpheusComponent } from '@tinkoff/ng-polymorpheus';
+import {EditVaccineDialogComponent} from "../edit-vaccine-dialog-component/edit-vaccine-dialog.component";
 import {TranslateDateDirective} from "../../directives/dateTranslate.directive";
+import {TuiBadgeModule} from "@taiga-ui/kit";
+import {NgIf} from "@angular/common";
+import {TuiButtonModule} from "@taiga-ui/experimental";
+import {TruncatePipe} from "../../pipes/truncate.pipe";
 
 @Component({
   selector: 'app-vaccine-card',
   templateUrl: './vaccine-card.component.html',
   standalone: true,
   imports: [
-    TuiHeaderModule,
-    TuiCardModule,
-    TuiSurfaceModule,
-    TuiPlatformModule,
-    DatePipe,
+    TranslateDateDirective,
     TuiBadgeModule,
-    TuiButtonModule,
-    TuiTitleModule,
-    TruncatePipe,
-    NgClass,
     NgIf,
-    DateRuPipe,
-    TranslateDateDirective
+    TuiButtonModule,
+    TruncatePipe
   ],
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./vaccine-card.component.less']
 })
 export class VaccineCardComponent {
@@ -47,41 +128,26 @@ export class VaccineCardComponent {
   ) {}
 
   openEditDialog(): void {
-    this.dialogService.open('Здесь можно изменить прививку.', {
-      label: 'Изменить прививку',
-      size: 'm',
-      data: { button: 'Закрыть' }
-    }).subscribe({
-      next: result => console.log('Dialog closed with:', result),
+    this.dialogService.open(
+      new PolymorpheusComponent(EditVaccineDialogComponent),
+      {
+        size: 'm',
+        data: { vaccine: this.vaccine }
+      }
+    ).subscribe({
+      next: result => {
+        if (result!) {
+          console.log('Прививка изменена:', result);
+        }
+      },
       error: error => console.error('Dialog failed with error:', error)
     });
   }
 
-  openMarkDialog(): void {
-    this.dialogService.open('Здесь можно отметить прививку.', {
-      label: 'Отметить прививку',
-      size: 'm',
-      data: { button: 'Закрыть' }
-    }).subscribe({
-      next: result => console.log('Dialog closed with:', result),
-      error: error => console.error('Dialog failed with error:', error)
-    });
-  }
-
-  openDetailsDialog(): void {
-    this.dialogService.open('Подробная информация о прививке.', {
-      label: 'Подробности',
-      size: 'm',
-      data: { button: 'Закрыть' }
-    }).subscribe({
-      next: result => console.log('Dialog closed with:', result),
-      error: error => console.error('Dialog failed with error:', error)
-    });
-  }
   isVaccinationOverdue(): boolean {
     const today = new Date();
     const vaccinationDate = new Date(this.vaccine.planned_vaccination_date);
     return !this.vaccine.is_vaccinated && today > vaccinationDate;
   }
-
 }
+
