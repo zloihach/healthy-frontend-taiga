@@ -1,5 +1,4 @@
 <h1 style="text-align: center; color: var(--tui-primary)">Мои дети</h1>
-
 <ng-container *ngIf="children$ | async as children; else loadingTemplate">
   <div class="wrapper">
     <div *ngFor="let child of children" class="child-box">

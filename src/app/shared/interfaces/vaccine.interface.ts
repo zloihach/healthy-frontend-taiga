@@ -10,6 +10,7 @@ export interface Vaccine {
   vaccination_date: string;
   commentary: string;
   is_vaccinated: boolean | null;
+  planned_vaccination_date: string;
   created_at: string;
   updated_at: string;
   vaccine: {

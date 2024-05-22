@@ -2,7 +2,14 @@
   <div tuiCardLarge tuiSurface="elevated" class="vaccine-card">
     <div tuiHeader class="vaccine-header">
       <h3 tuiTitle class="vaccine-title">{{ vaccine.vaccine.name | truncate: 40 }}</h3>
-      <span tuiSubtitle>{{ vaccine.vaccination_date | date }}</span>
+      <span tuiSubtitle *ngIf="vaccine.is_vaccinated; else plannedDate">
+        Дата вакцинации: {{ vaccine.vaccination_date | date }}
+      </span>
+      <ng-template #plannedDate>
+        <span tuiSubtitle>
+          Плановая дата: {{ vaccine.planned_vaccination_date | date }}
+        </span>
+      </ng-template>
       <aside class="badge" tuiAccessories>
         <tui-badge
           [status]="vaccine.vaccine.type === 'CALENDAR' ? 'success' : 'info'"
