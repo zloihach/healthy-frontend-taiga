@@ -32,4 +32,8 @@ export class VaccineService {
   updateChildVaccination(childId: number, vaccinationId: number, vaccination: any): Observable<any> {
     return this.http.put<any>(`http://localhost:3010/children/${childId}/vaccinations/${vaccinationId}`, vaccination);
   }
+
+  getCurrentUser(): Observable<any> {
+    return this.http.get<any>('http://localhost:3010/auth/get-me', { withCredentials: true });
+  }
 }

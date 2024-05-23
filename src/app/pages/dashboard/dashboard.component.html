@@ -1,7 +1,7 @@
 <h1 style="text-align: center; color: var(--tui-primary)">Личный кабинет</h1>
 <div class="dashboard">
   <tui-island size="l" textAlign="left" class="personal-data">
-    <h2>Здравствуйте, Василиса!</h2>
+    <h2>Здравствуйте, {{ userData?.firstname }}!</h2>
     <form [formGroup]="personalDataForm">
       <div class="form-grid">
         <tui-input formControlName="lastName" label="Фамилия">Фамилия</tui-input>
@@ -9,25 +9,45 @@
         <tui-input formControlName="middleName" label="Отчество">Отчество</tui-input>
         <tui-input formControlName="email" label="Email">Email</tui-input>
         <tui-input formControlName="birthDate" label="Дата рождения">Дата рождения</tui-input>
-        <tui-select formControlName="gender" label="Пол">
-          Пол
-          <tui-data-list>
-            <button tuiOption value="male">Мужской</button>
-            <button tuiOption value="female">Женский</button>
-          </tui-data-list>
+        <tui-select
+          formControlName="gender"
+          [stringify]="genderStringify"
+          label="Пол"
+        >
+          Выберите пол
+          <tui-data-list-wrapper
+            *tuiDataList
+            [items]="genderOptions"
+            [itemContent]="itemContent"
+          >
+          </tui-data-list-wrapper>
         </tui-select>
+        <ng-template #itemContent let-item>
+          {{ item.name }}
+        </ng-template>
+
+
         <div class="notification-settings">
           <h3>Настройки уведомлений</h3>
-          <tui-toggle formControlName="notifications" size="l" label="Уведомления">Включить уведомления</tui-toggle><span>Включить уведомления</span>
-          <tui-select formControlName="periodicity" label="Периодичность">
-            Периодичность
-            <tui-data-list>
-              <button tuiOption value="1_day_before">За 1 день до вакцинации</button>
-              <button tuiOption value="2_days_before">За 2 дня до вакцинации</button>
-              <button tuiOption value="3_days_before">За 3 дня до вакцинации</button>
-            </tui-data-list>
+          <tui-select
+            formControlName="periodicity"
+            [stringify]="periodStringify"
+            label="Периодичность"
+          >
+            Выберите периодичность
+            <tui-data-list-wrapper
+              *tuiDataList
+              [items]="periodOptions"
+              [itemContent]="periodContent"
+            >
+            </tui-data-list-wrapper>
           </tui-select>
         </div>
+
+        <ng-template #periodContent let-item>
+          {{ item.label }}
+        </ng-template>
+
       </div>
       <div class="form-actions">
         <button tuiButton type="submit" appearance="primary">Сохранить</button>
