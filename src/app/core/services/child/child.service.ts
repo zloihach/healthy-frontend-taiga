@@ -12,6 +12,6 @@ export class ChildService {
   constructor(private http: HttpClient) {}
 
   addChild(child: any): Observable<any> {
-    return this.http.post<any>(this.childrenApiUrl, child);
+    return this.http.post<any>(this.childrenApiUrl, child,{withCredentials: true});
   }
 }
