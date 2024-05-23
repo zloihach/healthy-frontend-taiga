@@ -21,9 +21,11 @@
       </tui-island>
     </div>
   </div>
-  <tui-pagination
-    [index]="currentPage-1"
-    [length]="totalItems/itemsPerPage"
-    (indexChange)="onPageChange($event)"
-  ></tui-pagination>
+  <div class="pagination-container">
+    <tui-pagination
+      [index]="currentPage - 1"
+      [length]="totalItems / itemsPerPage"
+      (indexChange)="onPageChange($event)"
+    ></tui-pagination>
+  </div>
 </div>
