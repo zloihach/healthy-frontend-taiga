@@ -1,28 +1,22 @@
 import { Component } from '@angular/core';
-import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
-import {ChildCardComponent} from "../child-card/child-card.component";
-import {TuiButtonModule} from "@taiga-ui/core";
-import {TuiCardModule, TuiHeaderModule, TuiSurfaceModule, TuiTitleModule} from "@taiga-ui/experimental";
-import {TuiPlatformModule} from "@taiga-ui/cdk";
+import { TuiDialogService } from '@taiga-ui/core';
+import { PolymorpheusComponent } from '@tinkoff/ng-polymorpheus';
+import { AddChildDialogComponent } from '../../dialogs/add-child-dialog/add-child-dialog.component';
+import { TuiButtonModule } from '@taiga-ui/core';
 
 @Component({
   selector: 'app-add-child-card',
+  templateUrl: './add-child-card.component.html',
+  styleUrls: ['./add-child-card.component.less'],
   standalone: true,
   imports: [
-    AsyncPipe,
-    ChildCardComponent,
-    NgForOf,
-    NgIf,
-    TuiButtonModule,
-    TuiCardModule,
-    TuiHeaderModule,
-    TuiPlatformModule,
-    TuiSurfaceModule,
-    TuiTitleModule
-  ],
-  templateUrl: './add-child-card.component.html',
-  styleUrl: './add-child-card.component.less'
+    TuiButtonModule
+  ]
 })
 export class AddChildCardComponent {
+  constructor(private dialogService: TuiDialogService) {}
 
+  openAddChildDialog(): void {
+    this.dialogService.open(new PolymorpheusComponent(AddChildDialogComponent)).subscribe();
+  }
 }

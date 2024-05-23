@@ -1,0 +1,23 @@
+<div class="add-child-dialog">
+  <h2>Добавить ребенка</h2>
+  <form [formGroup]="addChildForm" (ngSubmit)="onAddChild()">
+    <tui-input formControlName="lastname" placeholder="Фамилия">Фамилия</tui-input>
+    <tui-input formControlName="firstname" placeholder="Имя">Имя</tui-input>
+    <tui-input formControlName="midname" placeholder="Отчество">Отчество</tui-input>
+    <tui-input-date formControlName="dob" placeholder="Дата рождения">Дата рождения</tui-input-date>
+    <tui-select formControlName="sex" placeholder="Пол">
+      Пол
+      <tui-data-list-wrapper
+        *tuiDataList
+        [items]="[{ value: 'MALE', label: 'Мужской' }, { value: 'FEMALE', label: 'Женский' }]"
+      >
+        <button tuiOption value="MALE">Мужской</button>
+        <button tuiOption value="FEMALE">Женский</button>
+      </tui-data-list-wrapper>
+    </tui-select>
+    <div class="button-group">
+      <button tuiButton type="submit" appearance="primary">Добавить</button>
+      <button tuiButton type="button" appearance="secondary" (click)="onClose()">Отменить</button>
+    </div>
+  </form>
+</div>
