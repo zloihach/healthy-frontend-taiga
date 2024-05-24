@@ -1,0 +1,21 @@
+<div class="info-child-dialog">
+  <div class="info-item">
+    <strong>Имя:</strong> {{ child.firstname }}
+  </div>
+  <div class="info-item">
+    <strong>Фамилия:</strong> {{ child.lastname }}
+  </div>
+  <div class="info-item">
+    <strong>Отчество:</strong> {{ child.midname }}
+  </div>
+  <div class="info-item">
+    <strong>Дата рождения:</strong> {{ child.dob | date: 'dd.MM.yyyy' }}
+  </div>
+  <div class="info-item">
+    <strong>Пол:</strong> {{ child.sex === 'MALE' ? 'Мужской' : 'Женский' }}
+  </div>
+  <div class="button-group">
+    <button tuiButton type="button" appearance="secondary" (click)="onClose()">Закрыть</button>
+    <button tuiButton type="button" appearance="danger" (click)="deleteChild()">Удалить запись</button>
+  </div>
+</div>

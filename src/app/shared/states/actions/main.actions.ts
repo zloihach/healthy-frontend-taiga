@@ -12,3 +12,7 @@ export const loadChildrenFailure = createAction('[Vaccine] Load Children Failure
 export const loadChildrenVaccinations = createAction('[Vaccine] Load Children Vaccinations', props<{ userId: number }>());
 export const loadChildrenVaccinationsSuccess = createAction('[Vaccine] Load Children Vaccinations Success', props<{ userId: number, vaccinations: Vaccine[] }>());
 export const loadChildrenVaccinationsFailure = createAction('[Vaccine] Load Children Vaccinations Failure', props<{ error: any }>());
+
+export const deleteChild = createAction('[Child] Delete Child', props<{ childId: number }>());
+export const deleteChildSuccess = createAction('[Child] Delete Child Success', props<{ childId: number }>());
+export const deleteChildFailure = createAction('[Child] Delete Child Failure', props<{ error: any }>());

@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import * as VaccineActions from '../actions/vaccine.actions';
+import * as VaccineActions from '../actions/main.actions';
 import { VaccineStateInterface } from '../../interfaces/vaccine-state.interface';
 
 export const initialVaccineState: VaccineStateInterface = {
@@ -9,7 +9,7 @@ export const initialVaccineState: VaccineStateInterface = {
   error: null,
 };
 
-export const vaccineReducer = createReducer(
+export const mainReducer = createReducer(
   initialVaccineState,
   on(VaccineActions.loadUserVaccinationsSuccess, (state, { vaccinations }) => ({
     ...state,
@@ -35,6 +35,14 @@ export const vaccineReducer = createReducer(
     error
   })),
   on(VaccineActions.loadChildrenVaccinationsFailure, (state, { error }) => ({
+    ...state,
+    error
+  })),
+  on(VaccineActions.deleteChildSuccess, (state, { childId }) => ({
+    ...state,
+    children: state.children.filter(child => child.id !== childId)
+  })),
+  on(VaccineActions.deleteChildFailure, (state, { error }) => ({
     ...state,
     error
   }))

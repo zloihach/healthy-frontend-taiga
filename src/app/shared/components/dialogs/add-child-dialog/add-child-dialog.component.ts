@@ -1,5 +1,4 @@
-// src/app/shared/components/dialogs/add-child-dialog/add-child-dialog.component.ts
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TuiDialogContext } from '@taiga-ui/core';
 import { POLYMORPHEUS_CONTEXT } from '@tinkoff/ng-polymorpheus';
@@ -7,6 +6,9 @@ import { ChildService } from '../../../../core/services/child/child.service';
 import { TuiDialogModule, TuiButtonModule } from '@taiga-ui/core';
 import { TuiInputModule, TuiSelectModule, TuiDataListWrapperModule, TuiInputDateModule } from '@taiga-ui/kit';
 import { CommonModule } from '@angular/common';
+import { Store } from '@ngrx/store';
+import { AppStateInterface } from '../../../interfaces/appStates.interface';
+import * as VaccineActions from '../../../../shared/states/actions/main.actions';
 
 interface GenderOption {
   value: 'MALE' | 'FEMALE';
@@ -30,6 +32,7 @@ interface GenderOption {
   ]
 })
 export class AddChildDialogComponent {
+  @Output() childAdded = new EventEmitter<void>();
   addChildForm: FormGroup;
 
   genderOptions: GenderOption[] = [
@@ -40,7 +43,8 @@ export class AddChildDialogComponent {
   constructor(
     @Inject(POLYMORPHEUS_CONTEXT) private readonly context: TuiDialogContext<void>,
     private fb: FormBuilder,
-    private childService: ChildService
+    private childService: ChildService,
+    private store: Store<AppStateInterface>
   ) {
     this.addChildForm = this.fb.group({
       lastname: ['', Validators.required],
@@ -57,11 +61,12 @@ export class AddChildDialogComponent {
       const formValue = this.addChildForm.value;
       const requestPayload = {
         ...formValue,
-        sex: formValue.sex.value, // Use only the value property for sex
-        dob: new Date(formValue.dob).toISOString() // Format date to ISO-8601
+        sex: formValue.sex.value,
+        dob: new Date(formValue.dob).toISOString()
       };
 
       this.childService.addChild(requestPayload).subscribe(() => {
+        this.store.dispatch(VaccineActions.loadChildren());
         this.context.completeWith();
       });
     }

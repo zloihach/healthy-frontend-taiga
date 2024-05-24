@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import * as VaccineActions from '../actions/vaccine.actions';
+import * as VaccineActions from '../actions/main.actions';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
-import {VaccineService} from "../../../core/services/vaccine/vaccine.service";
+import { VaccineService } from '../../../core/services/vaccine/vaccine.service';
+import { ChildService } from '../../../core/services/child/child.service';
 
 @Injectable()
-export class VaccineEffects {
+export class MainEffects {
   loadUserVaccinations$ = createEffect(() =>
     this.actions$.pipe(
       ofType(VaccineActions.loadUserVaccinations),
@@ -23,7 +24,7 @@ export class VaccineEffects {
     this.actions$.pipe(
       ofType(VaccineActions.loadChildren),
       mergeMap(() =>
-        this.vaccineService.getChildren().pipe(
+        this.childService.getChildren().pipe(
           map(children => {
             const formattedChildren = children.map(child => ({
               ...child,
@@ -37,8 +38,21 @@ export class VaccineEffects {
     )
   );
 
+  deleteChild$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(VaccineActions.deleteChild),
+      mergeMap(action =>
+        this.childService.deleteChild(action.childId).pipe(
+          map(() => VaccineActions.deleteChildSuccess({ childId: action.childId })),
+          catchError(error => of(VaccineActions.deleteChildFailure({ error })))
+        )
+      )
+    )
+  );
+
   constructor(
     private actions$: Actions,
-    private vaccineService: VaccineService
+    private vaccineService: VaccineService,
+    private childService: ChildService
   ) {}
 }

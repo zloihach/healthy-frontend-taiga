@@ -8,8 +8,8 @@ import { AuthInterceptor } from "./core/auth/auth.interceptor";
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { vaccineReducer } from './shared/states/reducers/vaccine.reducer';
-import { VaccineEffects } from './shared/states/effects/vaccine.effects';
+import { mainReducer } from './shared/states/reducers/main.reducer';
+import { MainEffects } from './shared/states/effects/main.effects';
 import { BrowserModule } from "@angular/platform-browser";
 import {TuiTabsModule} from "@taiga-ui/kit";
 import {DateRuPipe} from "./shared/pipes/date-ru.pipe";
@@ -22,8 +22,8 @@ export const appConfig: ApplicationConfig = {
       TuiRootModule,
       HttpClientModule,
       BrowserModule,
-      StoreModule.forRoot({ vaccineState: vaccineReducer }),
-      EffectsModule.forRoot([VaccineEffects]),
+      StoreModule.forRoot({ vaccineState: mainReducer }),
+      EffectsModule.forRoot([MainEffects]),
       StoreDevtoolsModule.instrument({ maxAge: 25 }),
       TuiRootModule,
       TuiTabsModule,

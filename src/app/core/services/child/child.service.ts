@@ -1,4 +1,3 @@
-// src/app/core/services/child/child.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -12,6 +11,14 @@ export class ChildService {
   constructor(private http: HttpClient) {}
 
   addChild(child: any): Observable<any> {
-    return this.http.post<any>(this.childrenApiUrl, child,{withCredentials: true});
+    return this.http.post<any>(this.childrenApiUrl, child, { withCredentials: true });
+  }
+
+  deleteChild(childId: number): Observable<any> {
+    return this.http.delete<any>(`${this.childrenApiUrl}/${childId}`, { withCredentials: true });
+  }
+
+  getChildren(): Observable<any[]> {
+    return this.http.get<any[]>(this.childrenApiUrl, { withCredentials: true });
   }
 }

@@ -7,9 +7,9 @@ import { importProvidersFrom } from "@angular/core";
 import { routes } from "./app/app.routes";
 import { provideHttpClient, withFetch } from "@angular/common/http";
 import { provideStore } from "@ngrx/store";
-import { vaccineReducer } from "./app/shared/states/reducers/vaccine.reducer";
+import { mainReducer } from "./app/shared/states/reducers/main.reducer";
 import { provideEffects } from "@ngrx/effects";
-import { VaccineEffects } from "./app/shared/states/effects/vaccine.effects";
+import { MainEffects } from "./app/shared/states/effects/main.effects";
 import { provideStoreDevtools } from "@ngrx/store-devtools";
 
 bootstrapApplication(AppComponent, {
@@ -22,8 +22,8 @@ bootstrapApplication(AppComponent, {
       TuiRootModule,
       BrowserAnimationsModule,
     ),
-    provideStore({ vaccineState: vaccineReducer }),
-    provideEffects([VaccineEffects]),
+    provideStore({ vaccineState: mainReducer }),
+    provideEffects([MainEffects]),
     provideStoreDevtools({ maxAge: 25 }),
   ],
 }).catch(err => console.error(err));

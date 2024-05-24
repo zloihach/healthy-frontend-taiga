@@ -1,0 +1,41 @@
+h2 {
+  color: #2c3e50;
+  text-align: center !important;
+  margin-bottom: 16px;
+}
+.info-child-dialog {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  h2 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  .info-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #e0e0e0;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    strong {
+      font-weight: 600;
+    }
+  }
+
+  .button-group {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+
+    button {
+      min-width: 100px;
+    }
+  }
+}
