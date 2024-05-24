@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { TuiBadgeModule } from '@taiga-ui/kit';
 import { POLYMORPHEUS_CONTEXT } from '@tinkoff/ng-polymorpheus';
 import { ChildService } from '../../../../core/services/child/child.service';
-import { Router } from '@angular/router';
 import {Store} from "@ngrx/store";
 import {AppStateInterface} from "../../../interfaces/appStates.interface";
 import * as VaccineActions from '../../../../shared/states/actions/main.actions';
@@ -27,7 +26,6 @@ export class InfoChildDialogComponent {
   constructor(
     @Inject(POLYMORPHEUS_CONTEXT) private readonly context: TuiDialogContext<void, { child: any }>,
     private childService: ChildService,
-    private router: Router,
     private store: Store<AppStateInterface>
   ) {
     this.child = this.context.data.child;

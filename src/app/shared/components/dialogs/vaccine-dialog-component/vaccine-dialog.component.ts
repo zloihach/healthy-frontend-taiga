@@ -1,9 +1,10 @@
 import { Component, Inject } from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {TuiButtonModule, TuiDialogContext, TuiHintModule} from '@taiga-ui/core';
-import { Vaccine } from '../../../interfaces/vaccine.interface';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { TuiButtonModule, TuiDialogContext, TuiHintModule } from '@taiga-ui/core';
 import { POLYMORPHEUS_CONTEXT } from '@tinkoff/ng-polymorpheus';
-import {TuiCheckboxLabeledModule, TuiInputModule, TuiTextareaModule} from "@taiga-ui/kit";
+import { TuiCheckboxLabeledModule, TuiInputDateModule, TuiInputModule, TuiTextareaModule } from "@taiga-ui/kit";
+import { VaccineService } from "../../../../core/services/vaccine/vaccine.service";
+import {VaccineMark} from "../../../interfaces/vaccine-mark.interface";
 
 @Component({
   selector: 'app-vaccine-dialog',
@@ -15,7 +16,8 @@ import {TuiCheckboxLabeledModule, TuiInputModule, TuiTextareaModule} from "@taig
     TuiHintModule,
     TuiCheckboxLabeledModule,
     TuiButtonModule,
-    TuiTextareaModule
+    TuiTextareaModule,
+    TuiInputDateModule
   ],
   styleUrls: ['./vaccine-dialog.component.less']
 })
@@ -25,22 +27,32 @@ export class VaccineDialogComponent {
 
   constructor(
     private fb: FormBuilder,
-    @Inject(POLYMORPHEUS_CONTEXT) private readonly context: TuiDialogContext<Vaccine, { vaccine: Vaccine, mode: 'edit' | 'mark' }>
+    private vaccineService: VaccineService,
+    @Inject(POLYMORPHEUS_CONTEXT) private readonly context: TuiDialogContext<VaccineMark, { vaccine: VaccineMark, mode: 'edit' | 'mark' }>
   ) {
     this.mode = this.context.data.mode;
 
     this.form = this.fb.group({
       medical_center: [this.context.data.vaccine.medical_center, Validators.required],
       dose: [this.context.data.vaccine.dose, [Validators.required, Validators.min(1)]],
-      vaccination_date: [this.context.data.vaccine.vaccination_date, Validators.required],
+      vaccination_date: [new Date(this.context.data.vaccine.vaccination_date), Validators.required],
       is_vaccinated: [this.context.data.vaccine.is_vaccinated],
-      commentary: [this.context.data.vaccine.commentary]
+      commentary: [this.context.data.vaccine.commentary],
+      serial_number : [this.context.data.vaccine.serial_number]
     });
   }
 
   onSave(): void {
     if (this.form.valid) {
-      this.context.completeWith(this.form.value);
+      const updatedVaccine = {
+        ...this.context.data.vaccine,
+        ...this.form.value,
+        vaccination_date: this.form.value.vaccination_date.toISOString().split('T')[0]
+      };
+
+      this.vaccineService.updateVaccine(updatedVaccine).subscribe(() => {
+        this.context.completeWith(this.form.value);
+      });
     }
   }
 
@@ -48,3 +60,4 @@ export class VaccineDialogComponent {
     this.context.completeWith(null!);
   }
 }
+

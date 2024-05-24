@@ -1,7 +1,7 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from "rxjs";
-import {Injectable} from "@angular/core";
-import {Vaccine} from "../../../shared/interfaces/vaccine.interface";
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+import {VaccineMark} from "../../../shared/interfaces/vaccine-mark.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +18,11 @@ export class VaccineService {
   }
 
   getChildren(): Observable<any[]> {
-    return this.http.get<any[]>(this.childrenApiUrl,{withCredentials: true});
+    return this.http.get<any[]>(this.childrenApiUrl, { withCredentials: true });
   }
 
-  updateVaccine(vaccination: Vaccine): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/update`, vaccination);
+  updateVaccine(vaccination: VaccineMark): Observable<any> {
+    return this.http.patch<any>(`${this.baseUrl}/update`, vaccination);
   }
 
   getChildVaccinations(childId: number): Observable<any> {
