@@ -5,7 +5,7 @@ import {TuiFilterModule} from "@taiga-ui/kit";
 import {JsonPipe} from "@angular/common";
 
 @Component({
-  selector: 'tui-filter-example-1',
+  selector: 'app-vaccine-filter',
   templateUrl: './vaccine-filter.component.html',
   styleUrls: ['./vaccine-filter.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22,13 +22,9 @@ export class VaccineFilterComponent {
   });
 
   readonly items = [
-    'News',
     'Food',
     'Clothes',
     'Popular',
-    'Goods',
-    'Furniture',
-    'Tech',
     'Building materials',
   ];
 

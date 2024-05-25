@@ -1,4 +1,19 @@
-<form [formGroup]="vaccineTypeRadio">
+<!--<form [formGroup]="vaccineTypeRadio" class="tui-space_bottom-3" style="min-width: 200px">-->
+<!--  <div tuiGroup class="group" [collapsed]="true">-->
+<!--    <tui-radio-block-->
+<!--      *ngFor="let vaccine of vaccineTypes"-->
+<!--      contentAlign="right"-->
+<!--      formControlName="testValue"-->
+<!--      size="m"-->
+<!--      [hideRadio]="true"-->
+<!--      [item]="vaccine"-->
+<!--    >-->
+<!--      {{ vaccine === VaccineType.CALENDAR ? 'Нац. Календарь' : 'Эпидемиология' }}-->
+<!--    </tui-radio-block>-->
+<!--  </div>-->
+<!--</form>-->
+
+<form [formGroup]="vaccineTypeRadio" class="tui-space_bottom-3" style="min-width: 200px">
   <div tuiGroup class="group" [collapsed]="true">
     <tui-radio-block
       *ngFor="let vaccine of vaccineTypes"
@@ -8,7 +23,7 @@
       [hideRadio]="true"
       [item]="vaccine"
     >
-      {{ vaccine === VaccineType.CALENDAR ? 'Нац. Календарь' : 'Эпидемиология' }}
+      {{ vaccine === VaccineType.CALENDAR ? 'Нац. Календарь' : vaccine === VaccineType.ALL ? 'Все' : 'Эпидемиология' }}
     </tui-radio-block>
   </div>
 </form>
