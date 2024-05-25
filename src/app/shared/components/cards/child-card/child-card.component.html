@@ -6,6 +6,22 @@
         <span tuiSubtitle>{{ child.birthDate }}</span>
       </h3>
     </div>
+    <aside class="badge" tuiAccessories>
+      <ng-container>
+        <tui-badge
+          status="error"
+          value="Просрочено"
+          class="tui-space_right-2 tui-space_bottom-2"
+        ></tui-badge>
+      </ng-container>
+      <ng-container>
+        <tui-badge
+          status="warning"
+          value="Приближается вакцинация"
+          class="tui-space_right-2 tui-space_bottom-2"
+        ></tui-badge>
+      </ng-container>
+    </aside>
     <footer class="child-footer">
       <button
         appearance="primary"

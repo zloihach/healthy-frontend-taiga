@@ -1,8 +1,9 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
-import {TuiBooleanHandler} from '@taiga-ui/cdk';
-import {TuiFilterModule} from "@taiga-ui/kit";
-import {JsonPipe} from "@angular/common";
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { TuiBooleanHandler } from '@taiga-ui/cdk';
+import { TuiFilterModule } from "@taiga-ui/kit";
+import { JsonPipe } from "@angular/common";
+import {VaccinationStatus} from "../../../enums/vaccination-status.types";
 
 @Component({
   selector: 'app-vaccine-filter',
@@ -18,14 +19,10 @@ import {JsonPipe} from "@angular/common";
 })
 export class VaccineFilterComponent {
   readonly form = new FormGroup({
-    filters: new FormControl(['Food']),
+    filters: new FormControl([]),
   });
 
-  readonly items = [
-    'Сделанная',
-    'Просроченная',
-    'Предстоящая',
-  ];
+  readonly items = Object.values(VaccinationStatus);
 
-  disabledItemHandler: TuiBooleanHandler<string> = item => item.length < 7;
+  disabledItemHandler: TuiBooleanHandler<string> = (item: string) => item.length < 7;
 }

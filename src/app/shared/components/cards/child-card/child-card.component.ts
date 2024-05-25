@@ -1,12 +1,13 @@
 import { Component, Input, Inject } from '@angular/core';
-import { TuiBadgeModule } from '@taiga-ui/kit';
 import { TuiButtonModule, TuiDialogService } from '@taiga-ui/core';
-import { TuiCardModule, TuiHeaderModule, TuiSurfaceModule, TuiTitleModule } from '@taiga-ui/experimental';
+import {TuiCardModule, TuiHeaderModule, TuiSurfaceModule, TuiTitleModule} from '@taiga-ui/experimental';
 import { TuiPlatformModule } from '@taiga-ui/cdk';
 import { Router } from '@angular/router';
 import { ChildService } from '../../../../core/services/child/child.service';
 import { PolymorpheusComponent } from '@tinkoff/ng-polymorpheus';
 import {InfoChildDialogComponent} from "../../dialogs/info-child-dialog/info-child-dialog.component";
+import {NgIf} from "@angular/common";
+import {TuiBadgeModule} from "@taiga-ui/kit";
 
 @Component({
   selector: 'app-child-card',
@@ -18,7 +19,15 @@ import {InfoChildDialogComponent} from "../../dialogs/info-child-dialog/info-chi
     TuiHeaderModule,
     TuiPlatformModule,
     TuiSurfaceModule,
-    TuiTitleModule
+    TuiTitleModule,
+    NgIf,
+    TuiBadgeModule,
+    TuiBadgeModule,
+    TuiBadgeModule,
+    TuiBadgeModule,
+    TuiBadgeModule,
+    TuiBadgeModule,
+    TuiBadgeModule
   ],
   templateUrl: './child-card.component.html',
   styleUrls: ['./child-card.component.less']
