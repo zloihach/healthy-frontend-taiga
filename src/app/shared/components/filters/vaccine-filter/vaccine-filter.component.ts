@@ -22,10 +22,9 @@ export class VaccineFilterComponent {
   });
 
   readonly items = [
-    'Food',
-    'Clothes',
-    'Popular',
-    'Building materials',
+    'Сделанная',
+    'Просроченная',
+    'Предстоящая',
   ];
 
   disabledItemHandler: TuiBooleanHandler<string> = item => item.length < 7;

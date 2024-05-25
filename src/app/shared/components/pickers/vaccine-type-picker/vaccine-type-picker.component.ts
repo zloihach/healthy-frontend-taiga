@@ -1,59 +1,16 @@
-// import {Component, EventEmitter, Output, ChangeDetectorRef, OnInit, NgZone} from '@angular/core';
-// import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-// import { NgForOf } from '@angular/common';
-// import { TuiGroupModule } from '@taiga-ui/core';
-// import { TuiRadioBlockModule } from '@taiga-ui/kit';
-// import { VaccineType } from '../../../enums/vaccine-type.enum';
-//
-// @Component({
-//   selector: 'app-vaccine-type-picker',
-//   standalone: true,
-//   imports: [
-//     ReactiveFormsModule,
-//     NgForOf,
-//     TuiGroupModule,
-//     TuiRadioBlockModule
-//   ],
-//   templateUrl: './vaccine-type-picker.component.html',
-//   styleUrls: ['./vaccine-type-picker.component.less']
-// })
-// export class VaccineTypePickerComponent implements OnInit {
-//   @Output() vaccineTypeChange = new EventEmitter<VaccineType>();
-//
-//   readonly vaccineTypes = [VaccineType.EPIDEMIOLOGY, VaccineType.CALENDAR];
-//   readonly vaccineTypeRadio = new FormGroup({
-//     testValue: new FormControl(VaccineType.CALENDAR),
-//   });
-//
-//   constructor(private cdr: ChangeDetectorRef, private ngZone: NgZone) {}
-//
-//   ngOnInit(): void {
-//     this.vaccineTypeRadio.get('testValue')?.valueChanges.subscribe(value => {
-//       this.ngZone.run(() => {
-//         this.vaccineTypeChange.emit(value!);
-//         this.cdr.detectChanges();
-//       });
-//     });
-//   }
-//
-//   protected readonly VaccineType = VaccineType;
-// }
-
 import { Component, EventEmitter, Output, ChangeDetectorRef, OnInit, NgZone } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { NgForOf } from '@angular/common';
-import { TuiGroupModule } from '@taiga-ui/core';
-import { TuiRadioBlockModule } from '@taiga-ui/kit';
 import { VaccineType } from '../../../enums/vaccine-type.enum';
+import {TuiBadgeNotificationModule, TuiIconModule, TuiSegmentedModule} from "@taiga-ui/experimental";
 
 @Component({
   selector: 'app-vaccine-type-picker',
   standalone: true,
   imports: [
-    ReactiveFormsModule,
     NgForOf,
-    TuiGroupModule,
-    TuiRadioBlockModule
+    TuiSegmentedModule,
+    TuiIconModule,
+    TuiBadgeNotificationModule
   ],
   templateUrl: './vaccine-type-picker.component.html',
   styleUrls: ['./vaccine-type-picker.component.less']
@@ -62,18 +19,19 @@ export class VaccineTypePickerComponent implements OnInit {
   @Output() vaccineTypeChange = new EventEmitter<VaccineType>();
 
   readonly vaccineTypes = [VaccineType.ALL, VaccineType.EPIDEMIOLOGY, VaccineType.CALENDAR];
-  readonly vaccineTypeRadio = new FormGroup({
-    testValue: new FormControl(VaccineType.ALL),
-  });
+  protected active = 0;
 
   constructor(private cdr: ChangeDetectorRef, private ngZone: NgZone) {}
 
   ngOnInit(): void {
-    this.vaccineTypeRadio.get('testValue')?.valueChanges.subscribe(value => {
-      this.ngZone.run(() => {
-        this.vaccineTypeChange.emit(value!);
-        this.cdr.detectChanges();
-      });
+    this.vaccineTypeChange.emit(this.vaccineTypes[this.active]);
+  }
+
+  onVaccineTypeChange(index: number): void {
+    this.active = index;
+    this.ngZone.run(() => {
+      this.vaccineTypeChange.emit(this.vaccineTypes[index]);
+      this.cdr.detectChanges();
     });
   }
 

@@ -1,29 +1,33 @@
-<!--<form [formGroup]="vaccineTypeRadio" class="tui-space_bottom-3" style="min-width: 200px">-->
+<!--<form [formGroup]="vaccineTypeRadio" class="tui-space_bottom-3">-->
 <!--  <div tuiGroup class="group" [collapsed]="true">-->
 <!--    <tui-radio-block-->
 <!--      *ngFor="let vaccine of vaccineTypes"-->
 <!--      contentAlign="right"-->
 <!--      formControlName="testValue"-->
 <!--      size="m"-->
-<!--      [hideRadio]="true"-->
+<!--      [hideRadio]="false"-->
 <!--      [item]="vaccine"-->
+<!--      class="dynamic-width"-->
 <!--    >-->
-<!--      {{ vaccine === VaccineType.CALENDAR ? 'Нац. Календарь' : 'Эпидемиология' }}-->
+<!--      <div class="radio-block-element">-->
+<!--        {{ vaccine === VaccineType.CALENDAR ? 'Нац. Календарь' : vaccine === VaccineType.ALL ? 'Все' : 'Эпидемиология' }}-->
+<!--      </div>-->
 <!--    </tui-radio-block>-->
 <!--  </div>-->
 <!--</form>-->
 
-<form [formGroup]="vaccineTypeRadio" class="tui-space_bottom-3" style="min-width: 200px">
-  <div tuiGroup class="group" [collapsed]="true">
-    <tui-radio-block
-      *ngFor="let vaccine of vaccineTypes"
-      contentAlign="right"
-      formControlName="testValue"
-      size="m"
-      [hideRadio]="true"
-      [item]="vaccine"
-    >
-      {{ vaccine === VaccineType.CALENDAR ? 'Нац. Календарь' : vaccine === VaccineType.ALL ? 'Все' : 'Эпидемиология' }}
-    </tui-radio-block>
-  </div>
-</form>
+
+<tui-segmented
+  size="m"
+  class="vaccine-segmented"
+  [(activeItemIndex)]="active"
+  (activeItemIndexChange)="onVaccineTypeChange($event)"
+>
+  <button
+    *ngFor="let vaccine of vaccineTypes; let index = index"
+    [class.active]="index === active"
+  >
+    {{ vaccine === VaccineType.CALENDAR ? 'Нац. Календарь' : vaccine === VaccineType.ALL ? 'Все' : 'Эпидемиология' }}
+  </button>
+</tui-segmented>
+
