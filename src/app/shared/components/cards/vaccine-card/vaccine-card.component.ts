@@ -106,7 +106,9 @@ export class VaccineCardComponent {
   isComingVaccination(): boolean {
     const today = new Date();
     const vaccinationDate = new Date(this.vaccine.planned_vaccination_date);
-    return !this.vaccine.is_vaccinated && today < vaccinationDate;
+    const fourteenDaysFromNow = new Date(today);
+    fourteenDaysFromNow.setDate(today.getDate() + 14);
+    return !this.vaccine.is_vaccinated && today <= vaccinationDate && vaccinationDate <= fourteenDaysFromNow;
   }
 
 }

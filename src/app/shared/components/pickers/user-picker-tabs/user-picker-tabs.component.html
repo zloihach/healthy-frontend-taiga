@@ -1,8 +1,9 @@
 <div>
-  <tui-tabs [(activeItemIndex)]="activeItemIndex">
+  <tui-tabs class="tui-tab" [(activeItemIndex)]="activeItemIndex">
     <button
       tuiTab
       *ngFor="let user of users$ | async; let i = index"
+      [ngClass]="{'active': activeItemIndex === i}"
       (click)="onClick(user, i)"
     >
       {{ user.isCurrentUser ? 'Вы' : user.firstname }}
