@@ -16,10 +16,13 @@
         </form>
       </div>
     </div>
-    <div class="wrapper">
-      <div *ngFor="let vaccine of filteredVaccines" class="vaccine__box tui-space_top-3">
+    <div class="wrapper" *ngIf="!isLoading">
+      <div *ngFor="let vaccine of filteredVaccines; trackBy: trackByVaccineId" class="vaccine__box tui-space_top-3">
         <app-vaccine-card [vaccine]="vaccine"></app-vaccine-card>
       </div>
+    </div>
+    <div *ngIf="isLoading" class="loading">
+      Loading...
     </div>
   </div>
 </ng-container>
