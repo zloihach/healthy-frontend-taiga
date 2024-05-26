@@ -1,4 +1,4 @@
-import {VaccineType} from "../enums/vaccine-type.enum";
+import { VaccineType } from "../enums/vaccine-type.enum";
 
 export interface Vaccine {
   id: number;

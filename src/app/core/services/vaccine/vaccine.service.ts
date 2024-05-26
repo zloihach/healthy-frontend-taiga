@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import {VaccineMark} from "../../../shared/interfaces/vaccine-mark.interface";
+import { VaccineMark } from '../../../shared/interfaces/vaccine-mark.interface';
 
 @Injectable({
   providedIn: 'root'
