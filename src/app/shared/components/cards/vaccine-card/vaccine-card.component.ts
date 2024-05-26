@@ -72,7 +72,6 @@ export class VaccineCardComponent {
       next: result => {
         if (result!) {
           console.log('Факт вакцинации отмечен:', result);
-          // Обновите объект вакцинации здесь, если это необходимо
         }
       },
       error: error => console.error('Dialog failed with error:', error)

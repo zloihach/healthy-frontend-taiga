@@ -49,18 +49,6 @@
   }
 }
 
-@media only screen and (-webkit-min-device-pixel-ratio: 2),
-only screen and (min--moz-device-pixel-ratio: 2),
-only screen and (-o-min-device-pixel-ratio: 2/1),
-only screen and (min-device-pixel-ratio: 2),
-only screen and (min-resolution: 192dpi),
-only screen and (min-resolution: 2dppx) {
-
- .wrapper{
-   grid-template-columns: repeat(3, 1fr);
- }
-}
-
 .vaccine-skeleton {
   min-height: 200px;
   min-width: 450px;
@@ -68,9 +56,33 @@ only screen and (min-resolution: 2dppx) {
   background-color: var(--tui-base-02);
 }
 
-//@media (min-width: @tui-breakpoint-mobile){
-//  .vaccine-helpers{
-//    display: flex;
-//    flex-direction: column;
-//  }
-//}
+/* Responsive Styles for Vaccine Helpers */
+.vaccine-helpers {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem; /* Add gap between items */
+  margin-top: 1rem; /* Add some spacing on top */
+
+  @media (max-width: @tui-breakpoint-tablet) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  @media (min-width: @tui-breakpoint-desktop) {
+    flex-direction: row;
+  }
+}
+
+.vaccine__radio-box {
+  max-width: fit-content;
+}
+
+.vaccine-filter-box {
+  width: 100%;
+
+  @media (min-width: @tui-breakpoint-tablet) {
+    width: auto;
+  }
+}
