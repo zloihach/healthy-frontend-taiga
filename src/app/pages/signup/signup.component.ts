@@ -19,7 +19,8 @@ import { AuthService } from "../../core/auth/auth.service";
 import { SignUpRequest } from '../../core/auth/interfaces/signup.interface';
 import { SignupFormService } from "./services/signup-form.service";
 import { debounceTime, distinctUntilChanged, BehaviorSubject } from "rxjs";
-import { ExampleNativeDateTransformerDirective } from "../../shared/directives/nativeDateTransformer.directive"; // Ensure this path is correct
+import { ExampleNativeDateTransformerDirective } from "../../shared/directives/nativeDateTransformer.directive";
+import { VaccineService } from "../../core/services/vaccine/vaccine.service"; // Ensure this path is correct
 
 interface GenderOption {
   id: number;
@@ -67,7 +68,8 @@ export class SignupComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private signupFormService: SignupFormService
+    private signupFormService: SignupFormService,
+    private vaccineService: VaccineService
   ) {}
 
   ngOnInit(): void {
@@ -98,8 +100,10 @@ export class SignupComponent implements OnInit {
   };
 
   nextStep(): void {
-    if (this.form.get('email')?.valid && this.form.get('password')?.valid && this.form.get('passwordConfirm')?.valid && this.isEmailValid) {
+    if (this.step === 1 && this.form.get('email')?.valid && this.form.get('password')?.valid && this.form.get('passwordConfirm')?.valid && this.isEmailValid) {
       this.step++;
+    } else if (this.step === 2 && this.isSecondStepValid.getValue()) {
+      this.submit(); // Сначала регистрируем пользователя на втором шаге
     } else {
       alert('Пожалуйста, заполните все поля корректно.');
     }
@@ -114,7 +118,6 @@ export class SignupComponent implements OnInit {
   submit(): void {
     if (this.form.valid) {
       const formValue = this.form.value;
-      console.log(formValue.dob);
       const signUpRequest: SignUpRequest = {
         email: formValue.email,
         password: formValue.password,
@@ -125,16 +128,32 @@ export class SignupComponent implements OnInit {
         sex: formValue.sex.value
       };
 
-      console.log('Submitting sign-up request:', signUpRequest);
-
-      this.authService.signUp(signUpRequest, '/vaccination-calendar').subscribe({  // Передача URL для перехода
+      this.authService.signUp(signUpRequest).subscribe({
         next: () => {
           console.log('Registration successful');
+          this.step = 3; // Переход к третьему шагу после успешной регистрации
         },
         error: (err) => {
           console.error('Registration failed', err);
         }
       });
+    }
+  }
+
+  fillVaccinationCalendar(yes: boolean): void {
+    if (yes) {
+      this.vaccineService.createVaccinationCalendar().subscribe({
+        next: () => {
+          console.log('Vaccination calendar created successfully');
+          this.router.navigate(['/vaccination-calendar']);
+        },
+        error: (err) => {
+          console.error('Failed to create vaccination calendar', err);
+          this.router.navigate(['/vaccination-calendar']);
+        }
+      });
+    } else {
+      this.router.navigate(['/vaccination-calendar']);
     }
   }
 

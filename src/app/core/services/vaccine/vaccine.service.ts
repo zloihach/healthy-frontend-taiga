@@ -36,4 +36,8 @@ export class VaccineService {
   getCurrentUser(): Observable<any> {
     return this.http.get<any>('http://localhost:3010/auth/get-me', { withCredentials: true });
   }
+
+  createVaccinationCalendar(): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/create-vaccination-calendar`, {},{withCredentials: true});
+  }
 }

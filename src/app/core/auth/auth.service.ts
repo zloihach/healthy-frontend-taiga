@@ -91,14 +91,13 @@ export class AuthService {
     return this.http.get<boolean>(`${API}users/check-email/${email}`);
   }
 
-  signUp(signUpRequest: SignUpRequest, redirectUrl: string = '/'): Observable<any> {
+  signUp(signUpRequest: SignUpRequest): Observable<any> {
     return this.http.post<any>(`${AUTH_API}sign-up`, signUpRequest, { withCredentials: true }).pipe(
       switchMap(() => this.getSessionInfo()),
       tap(sessionInfo => {
         if (sessionInfo) {
           this.currentUserSubject.next(sessionInfo);
           localStorage.setItem('currentUser', JSON.stringify(sessionInfo));
-          this.router.navigateByUrl(redirectUrl).then();
         }
       }),
       catchError(err => {
@@ -107,7 +106,6 @@ export class AuthService {
       })
     );
   }
-
 
   navigateTo(url: string): void {
     this.router.navigate([url]).then();
