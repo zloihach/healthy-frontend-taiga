@@ -2,7 +2,6 @@
 @tui-breakpoint-tablet: 768px;
 @tui-breakpoint-desktop: 1024px;
 @tui-breakpoint-large-desktop: 1200px;
-
 :host {
   display: flex;
   flex-wrap: wrap;
@@ -25,6 +24,10 @@
     --tui-action-color: var(--tui-negative);
     --tui-action-background: var(--tui-error-bg);
   }
+}
+
+.calendar {
+  width: 100%
 }
 
 .wrapper {
@@ -77,7 +80,7 @@
 
 .vaccine__radio-box {
   max-width: fit-content;
-  flex-grow: 0;
+  flex-grow: 1;
 }
 
 .vaccine-filter-box {
@@ -88,3 +91,4 @@
     flex-grow: 0;
   }
 }
+
