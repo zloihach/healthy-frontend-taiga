@@ -2,10 +2,11 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TuiButtonModule, TuiDialogContext, TuiHintModule } from '@taiga-ui/core';
 import { POLYMORPHEUS_CONTEXT } from '@tinkoff/ng-polymorpheus';
-import { TuiCheckboxLabeledModule, TuiInputDateModule, TuiInputModule, TuiTextareaModule } from "@taiga-ui/kit";
-import { VaccineService } from "../../../../core/services/vaccine/vaccine.service";
-import { VaccineMark } from "../../../interfaces/vaccine-mark.interface";
-import { Vaccine } from "../../../interfaces/vaccine.interface";
+import { TuiCheckboxLabeledModule, TuiInputDateModule, TuiInputModule, TuiTextareaModule } from '@taiga-ui/kit';
+import { VaccineService } from '../../../../core/services/vaccine/vaccine.service';
+import { VaccineMark } from '../../../interfaces/vaccine-mark.interface';
+import { Vaccine } from '../../../interfaces/vaccine.interface';
+import { TuiDay } from '@taiga-ui/cdk';
 
 @Component({
   selector: 'app-vaccine-dialog',
@@ -36,7 +37,7 @@ export class VaccineDialogComponent {
     this.form = this.fb.group({
       medical_center: [this.context.data.vaccine.medical_center, Validators.required],
       dose: [this.context.data.vaccine.dose, [Validators.required, Validators.min(1)]],
-      vaccination_date: [new Date(this.context.data.vaccine.vaccination_date), Validators.required],
+      vaccination_date: [this.mode === 'edit' ? TuiDay.fromLocalNativeDate(new Date(this.context.data.vaccine.vaccination_date)) : null, Validators.required],
       is_vaccinated: [this.context.data.vaccine.is_vaccinated],
       commentary: [this.context.data.vaccine.commentary],
       serial_number: [this.context.data.vaccine.serial_number],
@@ -46,13 +47,14 @@ export class VaccineDialogComponent {
 
   onSave(): void {
     if (this.form.valid) {
+      const vaccinationDate: TuiDay = this.form.value.vaccination_date;
       const updatedVaccine: VaccineMark = {
         vaccination_id: this.form.value.vaccination_id,
         is_vaccinated: this.form.value.is_vaccinated,
         medical_center: this.form.value.medical_center,
         dose: Number(this.form.value.dose),
         serial_number: this.form.value.serial_number,
-        vaccination_date: this.form.value.vaccination_date.toISOString().split('T')[0],
+        vaccination_date: new Date(vaccinationDate.year, vaccinationDate.month - 1, vaccinationDate.day).toISOString().split('T')[0],
         commentary: this.form.value.commentary
       };
 

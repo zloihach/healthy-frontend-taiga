@@ -29,7 +29,6 @@
 
 .calendar {
   width: 100%;
-
   &-card {
     width: 100%;
   }
@@ -111,7 +110,8 @@
     width: 30%;
     height: 18px;
     background-color: var(--tui-secondary-active);
-    &:not(:last-child){
+
+    &:not(:last-child) {
       margin-right: 15px;
     }
   }
@@ -136,14 +136,17 @@
   margin-top: 1rem;
 
   @media (max-width: @tui-breakpoint-tablet) {
-    flex-direction: column;
     align-items: stretch;
   }
 
   @media (min-width: @tui-breakpoint-desktop) {
     flex-direction: row;
   }
+  @media (min-width: @tui-breakpoint-mobile) {
+    align-items: flex-start;
+  }
 }
+
 
 .vaccine__radio-box {
   max-width: fit-content;

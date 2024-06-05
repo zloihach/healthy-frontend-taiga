@@ -1,3 +1,8 @@
+@tui-breakpoint-mobile: 320px;
+@tui-breakpoint-tablet: 768px;
+@tui-breakpoint-desktop: 1024px;
+@tui-breakpoint-large-desktop: 1200px;
+
 .vaccine-segmented {
   background: white;
   &:before {
@@ -7,5 +12,11 @@
 
   .active {
     color: var(--tui-text-01-night);
+  }
+}
+
+@media (min-width: @tui-breakpoint-mobile) {
+  button{
+    font-size: 14px;
   }
 }
