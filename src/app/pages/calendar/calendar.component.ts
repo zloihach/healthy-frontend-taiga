@@ -47,6 +47,7 @@ export class CalendarComponent implements OnInit, AfterViewChecked {
   form: FormGroup;
   items: string[] = Object.values(VaccinationStatus);
   disabledItemHandler: (item: string) => boolean = (item: string) => item.length < 7;
+  skeletonArray: number[] = Array.from({ length: 8 });
 
   constructor(private store: Store<AppStateInterface>, private cdr: ChangeDetectorRef, private route: ActivatedRoute) {
     this.userVaccinations$ = this.store.select(selectUserVaccinations);

@@ -21,8 +21,18 @@
         <app-vaccine-card class="calendar-card" [vaccine]="vaccine"></app-vaccine-card>
       </div>
     </div>
-    <div *ngIf="isLoading" class="loading">
-      Loading...
+    <div *ngIf="isLoading" class="wrapper">
+      <div *ngFor="let _ of skeletonArray" class="vaccine-skeleton tui-space_top-3">
+        <div class="skeleton-header tui-skeleton"></div>
+        <div class="skeleton-paragraph tui-skeleton"></div>
+        <div class="skeleton-badge-box">
+          <div class="skeleton-badge tui-skeleton"></div>
+          <div class="skeleton-badge tui-skeleton"></div>
+        </div>
+        <div class="skeleton-button tui-skeleton tui-space_top-8 tui-space_bottom-3"></div>
+        <div class="skeleton-button tui-skeleton"></div>
+      </div>
     </div>
   </div>
 </ng-container>
+

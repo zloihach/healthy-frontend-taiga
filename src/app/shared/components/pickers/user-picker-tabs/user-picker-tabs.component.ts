@@ -5,18 +5,18 @@ import {
   EventEmitter,
   ChangeDetectorRef,
   OnDestroy,
-  AfterViewChecked, ChangeDetectionStrategy
+  AfterViewChecked,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { TuiTabsModule } from '@taiga-ui/kit';
 import { TuiAlertService } from '@taiga-ui/core';
-import {AsyncPipe, NgClass, NgForOf, NgIf} from '@angular/common';
-import {Observable, Subscription, of, combineLatest} from 'rxjs';
-import {catchError, map, tap} from 'rxjs/operators';
+import { AsyncPipe, NgClass, NgForOf, NgIf } from '@angular/common';
+import { Observable, Subscription, of, combineLatest } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 import * as VaccineActions from '../../../states/actions/main.actions';
-import { selectChildren, selectUserVaccinations } from "../../../states/selectors/main.selectors";
-import {AppStateInterface} from "../../../interfaces/appStates.interface";
-
+import { selectChildren, selectUserVaccinations } from '../../../states/selectors/main.selectors';
+import { AppStateInterface } from '../../../interfaces/appStates.interface';
 
 @Component({
   selector: 'app-user-picker-tabs',
@@ -34,8 +34,9 @@ import {AppStateInterface} from "../../../interfaces/appStates.interface";
 })
 export class UserPickerTabsComponent implements OnInit, OnDestroy, AfterViewChecked {
   activeItemIndex = 0;
-  users$: Observable<any[]>;
+  users: any[] = [];
   loading = true;
+  skeletonArray: number[] = Array.from({ length: 3 });
   private subscriptions: Subscription = new Subscription();
   @Output() userChange = new EventEmitter<any>();
 
@@ -43,11 +44,11 @@ export class UserPickerTabsComponent implements OnInit, OnDestroy, AfterViewChec
     private alerts: TuiAlertService,
     private store: Store<AppStateInterface>,
     private cdr: ChangeDetectorRef
-  ) {
-    console.log('UserPickerTabsComponent: Constructor');
-    this.users$ = combineLatest([
+  ) {}
+
+  ngOnInit(): void {
+    const users$: Observable<any[]> = combineLatest([
       this.store.select(selectUserVaccinations).pipe(
-        tap(userVaccinations => console.log('selectUserVaccinations:', userVaccinations)),
         map(userVaccinations => userVaccinations ? { id: 'user', vaccinations: userVaccinations, isCurrentUser: true } : null),
         catchError(error => {
           console.error('Error loading user vaccinations', error);
@@ -55,7 +56,6 @@ export class UserPickerTabsComponent implements OnInit, OnDestroy, AfterViewChec
         })
       ),
       this.store.select(selectChildren).pipe(
-        tap(children => console.log('selectChildren:', children)),
         map(children => children ? children.map(child => ({ ...child, isCurrentUser: false })) : []),
         catchError(error => {
           console.error('Error loading children', error);
@@ -66,36 +66,30 @@ export class UserPickerTabsComponent implements OnInit, OnDestroy, AfterViewChec
       map(([user, children]) => user ? [user, ...children] : children),
       tap(users => console.log('Combined users:', users))
     );
-  }
 
-  ngOnInit(): void {
-    console.log('UserPickerTabsComponent: ngOnInit');
     this.store.dispatch(VaccineActions.loadUserVaccinations());
     this.store.dispatch(VaccineActions.loadChildren());
     this.subscriptions.add(
-      this.users$.subscribe(users => {
-        console.log('UserPickerTabsComponent: users$', users);
+      users$.subscribe(users => {
+        this.users = users || [];
         this.loading = false;
         if (users.length > 0) {
           this.userChange.emit(users[this.activeItemIndex]);
-          this.cdr.detectChanges();
         }
+        this.cdr.detectChanges();
       })
     );
   }
 
   ngOnDestroy(): void {
-    console.log('UserPickerTabsComponent: ngOnDestroy');
     this.subscriptions.unsubscribe();
   }
 
   ngAfterViewChecked(): void {
-    console.log('UserPickerTabsComponent: ngAfterViewChecked');
     this.cdr.detectChanges();
   }
 
   onClick(user: any, index: number): void {
-    console.log('UserPickerTabsComponent: onClick', user);
     this.activeItemIndex = index;
     this.userChange.emit(user);
     this.cdr.detectChanges();
