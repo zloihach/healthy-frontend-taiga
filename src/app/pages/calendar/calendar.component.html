@@ -2,7 +2,7 @@
   <div class="calendar">
     <app-user-picker-tabs (userChange)="onUserChange($event)"></app-user-picker-tabs>
     <div class="vaccine-helpers" style="display: flex; align-items: center; justify-content: space-between">
-      <div class="vaccine__radio-box" style="">
+      <div class="vaccine__radio-box" style="max-width: fit-content">
         <app-vaccine-type-picker (vaccineTypeChange)="onVaccineTypeChange($event)"></app-vaccine-type-picker>
       </div>
       <div class="vaccine-filter-box">
