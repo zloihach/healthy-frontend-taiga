@@ -1,27 +1,35 @@
 <form [formGroup]="form" (ngSubmit)="onSave()" class="vaccine-dialog">
   <h2>{{ mode === 'edit' ? 'Изменить прививку' : 'Отметить прививку' }}</h2>
+
   <tui-input formControlName="medical_center" tuiHintContent="Введите название медицинского центра">
     Медицинский центр
-    <input tuiTextfield type="text" />
+    <input tuiTextfield placeholder="Введите название медицинского центра" type="text"/>
   </tui-input>
+
+
   <tui-input formControlName="serial_number" tuiHintContent="Введите серийный номер">
     Серийный номер
-    <textarea tuiTextfield></textarea>
+    <input tuiTextfield placeholder="Введите серийный номер вакцины" type="text"/>
   </tui-input>
-  <tui-input formControlName="dose" tuiHintContent="Введите дозу">
+
+  <tui-input formControlName="dose" tuiHintContent="Введите дозу введенной вакцины">
     Доза
-    <input tuiTextfield type="text" />
+    <input tuiTextfield placeholder="Введите дозу вакцины" type="text"/>
   </tui-input>
+
   <tui-input-date formControlName="vaccination_date" tuiHintContent="Введите дату прививки">
     Дата прививки
   </tui-input-date>
+
   <tui-checkbox-labeled size="l" formControlName="is_vaccinated">
     Сделана
   </tui-checkbox-labeled>
+
   <tui-textarea formControlName="commentary" tuiHintContent="Введите комментарий">
     Комментарий
-    <textarea tuiTextfield></textarea>
+    <textarea tuiTextfield placeholder="Введите комментарий о пройденной вакцинации"></textarea>
   </tui-textarea>
+
   <div class="button-group">
     <button tuiButton type="submit" appearance="primary">Сохранить</button>
     <button tuiButton type="button" appearance="secondary" (click)="onCancel()">Отменить</button>

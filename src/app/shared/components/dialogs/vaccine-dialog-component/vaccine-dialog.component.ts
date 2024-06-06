@@ -1,12 +1,19 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TuiButtonModule, TuiDialogContext, TuiHintModule } from '@taiga-ui/core';
+import {TuiButtonModule, TuiDialogContext, TuiErrorModule, TuiHintModule} from '@taiga-ui/core';
 import { POLYMORPHEUS_CONTEXT } from '@tinkoff/ng-polymorpheus';
-import { TuiCheckboxLabeledModule, TuiInputDateModule, TuiInputModule, TuiTextareaModule } from '@taiga-ui/kit';
+import {
+  TuiCheckboxLabeledModule,
+  TuiFieldErrorPipeModule,
+  TuiInputDateModule,
+  TuiInputModule,
+  TuiTextareaModule
+} from '@taiga-ui/kit';
 import { VaccineService } from '../../../../core/services/vaccine/vaccine.service';
 import { VaccineMark } from '../../../interfaces/vaccine-mark.interface';
 import { Vaccine } from '../../../interfaces/vaccine.interface';
 import { TuiDay } from '@taiga-ui/cdk';
+import {AsyncPipe} from "@angular/common";
 
 @Component({
   selector: 'app-vaccine-dialog',
@@ -19,7 +26,10 @@ import { TuiDay } from '@taiga-ui/cdk';
     TuiCheckboxLabeledModule,
     TuiButtonModule,
     TuiTextareaModule,
-    TuiInputDateModule
+    TuiInputDateModule,
+    TuiErrorModule,
+    TuiFieldErrorPipeModule,
+    AsyncPipe
   ],
   styleUrls: ['./vaccine-dialog.component.less']
 })
