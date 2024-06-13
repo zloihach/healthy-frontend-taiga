@@ -69,9 +69,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
         if (user.role && user.role === 'ADMIN') {
           this.menuItems = [
             { name: 'Главная', link: '/admin' },
-            { name: 'Личный кабинет', link: '/admin' },
-            { name: 'Прививки', link: '/admin' },
-            { name: 'Публикации', link: '/admin' },
+            { name: 'Личный кабинет', link: '/dashboard'},
+            { name: 'Прививки', link: '/vaccination' },
+            { name: 'Публикации', link: '/publication-list' },
           ];
         }
       } else {
