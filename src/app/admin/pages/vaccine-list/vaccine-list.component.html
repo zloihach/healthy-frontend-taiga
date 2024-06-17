@@ -1,0 +1,41 @@
+<div class="container tui-space_top-5">
+  <h1 style="text-align: center;color:var(--tui-primary)">Вакцинации</h1>
+  <div class="vaccine-wrapper">
+    <div class="table-navigation">
+      <div class="search-form">
+        <form [formGroup]="form">
+          <tui-input formControlName="search">
+            Поиск по вакцинам
+          </tui-input>
+        </form>
+      </div>
+      <button tuiButton size="l" appearance="primary" (click)="openDialog()">Добавить вакцину</button>
+    </div>
+    <div class="vaccine-list">
+      <table tuiTable class="table tui-space_top-5" [columns]="columns">
+        <thead>
+        <tr tuiThGroup>
+          <th tuiTh>Название</th>
+          <th tuiTh>Тип</th>
+          <th tuiTh>Минимальный возраст</th>
+          <th tuiTh>Максимальный возраст</th>
+          <th tuiTh>Действия</th>
+        </tr>
+        </thead>
+        <tbody tuiTbody>
+        <tr *ngFor="let item of filteredVaccines" tuiTr>
+          <td *tuiCell="'name'" tuiTd>{{ item.name }}</td>
+          <td *tuiCell="'type'" tuiTd>{{ item.type }}</td>
+          <td *tuiCell="'min_age'" tuiTd>{{ item.min_age }}</td>
+          <td *tuiCell="'max_age'" tuiTd>{{ item.max_age }}</td>
+          <td *tuiCell="'actions'" tuiTd>
+            <button tuiButton size="s" appearance="primary" (click)="view(item)">Просмотр</button>
+            <button tuiButton size="s" appearance="secondary" (click)="edit(item)">Изменить</button>
+            <button tuiButton size="s" appearance="accent" (click)="remove(item)">Удалить</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

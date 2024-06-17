@@ -6,7 +6,6 @@ import { TuiAccordionModule, TuiInputModule } from '@taiga-ui/kit';
 import { TuiTableModule } from '@taiga-ui/addon-table';
 import { PolymorpheusComponent } from '@tinkoff/ng-polymorpheus';
 import { EditPublicationDialogComponent } from "../../../shared/components/dialogs/edit-publication-dialog/edit-publication-dialog.component";
-
 interface Publication {
   readonly id: number;
   readonly short_title: string;

@@ -60,7 +60,7 @@ export const routes: Routes = [
     canActivate: [AuthGuard, RoleGuard],
     data: {roles: ['ADMIN']},
     path: 'vaccination',
-    loadComponent: () => import('./admin/pages/vaccination/vaccination.component').then(m => m.VaccinationComponent)
+    loadComponent: () => import('./admin/pages/vaccine-list/vaccine-list.component').then(m => m.VaccineListComponent)
   },
   {
     path: '**',
