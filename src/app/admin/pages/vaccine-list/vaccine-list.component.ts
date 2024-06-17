@@ -10,6 +10,7 @@ import {
 } from "../../../shared/components/dialogs/edit-vaccine-dialog/edit-vaccine-dialog.component";
 
 interface Vaccine {
+  readonly id: number;
   readonly name: string;
   readonly type: string;
   readonly min_age: number;
@@ -40,11 +41,11 @@ export class VaccineListComponent {
   });
 
   vaccines: Vaccine[] = [
-    { name: 'Pfizer-BioNTech', type: 'CALENDAR', min_age: 12, max_age: 52, description: 'This vaccine is used to prevent COVID-19. It works by teaching the immune system how to recognize and fight the virus that causes COVID-19. This vaccine is usually given as 2 shots in the upper arm muscle spaced 3 weeks apart.' },
-    { name: 'Moderna', type: 'CALENDAR', min_age: 18, max_age: 60, description: 'The Moderna COVID-19 vaccine is another mRNA vaccine that provides protection against COVID-19. It is administered in two doses, four weeks apart.' },
+    { id: 1, name: 'Pfizer-BioNTech', type: 'CALENDAR', min_age: 12, max_age: 52, description: 'This vaccine is used to prevent COVID-19. It works by teaching the immune system how to recognize and fight the virus that causes COVID-19. This vaccine is usually given as 2 shots in the upper arm muscle spaced 3 weeks apart.' },
+    { id: 2, name: 'Moderna', type: 'CALENDAR', min_age: 18, max_age: 60, description: 'The Moderna COVID-19 vaccine is another mRNA vaccine that provides protection against COVID-19. It is administered in two doses, four weeks apart.' },
   ];
 
-  readonly columns = ['name', 'type', 'min_age', 'max_age', 'actions'];
+  readonly columns = ['id', 'name', 'type', 'min_age', 'max_age', 'actions'];
 
   constructor(@Inject(TuiDialogService) private readonly dialogs: TuiDialogService) {}
 
@@ -63,7 +64,7 @@ export class VaccineListComponent {
     const dialogRef = this.dialogs.open<Vaccine>(
       new PolymorpheusComponent(EditVaccineDialogComponent),
       {
-        data: vaccine || { name: '', type: '', min_age: 0, max_age: 0, description: '' },
+        data: vaccine || { id: 0, name: '', type: '', min_age: 0, max_age: 0, description: '' },
         size: 'l',
       }
     );
@@ -71,9 +72,10 @@ export class VaccineListComponent {
     dialogRef.subscribe(result => {
       if (result) {
         if (vaccine) {
-          this.vaccines = this.vaccines.map(v => v.name === vaccine.name ? { ...result } : v);
+          this.vaccines = this.vaccines.map(v => v.id === vaccine.id ? { ...result } : v);
         } else {
-          this.vaccines = [...this.vaccines, result];
+          const newId = this.vaccines.length ? Math.max(...this.vaccines.map(v => v.id)) + 1 : 1;
+          this.vaccines = [...this.vaccines, { ...result, id: newId }];
         }
       }
     });

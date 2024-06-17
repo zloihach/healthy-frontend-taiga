@@ -15,6 +15,7 @@
       <table tuiTable class="table tui-space_top-5" [columns]="columns">
         <thead>
         <tr tuiThGroup>
+          <th tuiTh>Номер</th>
           <th tuiTh>Название</th>
           <th tuiTh>Тип</th>
           <th tuiTh>Минимальный возраст</th>
@@ -24,6 +25,7 @@
         </thead>
         <tbody tuiTbody>
         <tr *ngFor="let item of filteredVaccines" tuiTr>
+          <td *tuiCell="'id'" tuiTd>{{ item.id }}</td>
           <td *tuiCell="'name'" tuiTd>{{ item.name }}</td>
           <td *tuiCell="'type'" tuiTd>{{ item.type }}</td>
           <td *tuiCell="'min_age'" tuiTd>{{ item.min_age }}</td>
