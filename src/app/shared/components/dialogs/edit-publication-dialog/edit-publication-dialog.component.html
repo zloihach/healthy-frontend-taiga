@@ -1,13 +1,38 @@
-<h1>{{ context.data.id ? 'Edit Publication' : 'Add New Publication' }}</h1>
-<form [formGroup]="form">
-  <tui-input formControlName="short_title" label="Short Title"></tui-input>
-  <tui-input formControlName="full_title" label="Full Title"></tui-input>
-  <tui-input formControlName="text" label="Text"></tui-input>
-  <tui-input formControlName="edit_date" label="Edit Date" type="date"></tui-input>
-  <tui-input formControlName="update_date" label="Update Date" type="date"></tui-input>
-  <tui-input formControlName="content" label="Content"></tui-input>
+<h1>{{ context.data.id ? 'Редактировать публикацию' : 'Добавить новую публикацию' }}</h1>
+<form [formGroup]="form" (ngSubmit)="onSave()" class="b-form" [tuiTextfieldCleaner]="true">
+  <tui-input formControlName="short_title" placeholder="Краткий заголовок">Краткий заголовок</tui-input>
+  <tui-input formControlName="full_title" placeholder="Полный заголовок">Полный заголовок</tui-input>
+  <tui-input formControlName="text" placeholder="Текст">Текст</tui-input>
+  <tui-input formControlName="content" placeholder="Содержание">Содержание</tui-input>
+  <tui-input-files
+    *ngIf="!control.value"
+    accept="image/*"
+    [formControl]="control"
+    (reject)="onReject($event)"
+  ></tui-input-files>
+  <tui-files class="tui-space_top-1">
+    <tui-file
+      *ngIf="loadedFiles$ | async as file"
+      [file]="file"
+      [showDelete]="control.enabled"
+      (removed)="removeFile()"
+    ></tui-file>
+    <tui-file
+      *ngIf="rejectedFiles$ | async as file"
+      state="error"
+      [file]="file"
+      [showDelete]="control.enabled"
+      (removed)="clearRejected()"
+    ></tui-file>
+    <tui-file
+      *ngIf="loadingFiles$ | async as file"
+      state="loading"
+      [file]="file"
+      [showDelete]="control.enabled"
+    ></tui-file>
+  </tui-files>
+  <div class="button-group">
+    <button tuiButton type="submit" appearance="primary">Сохранить</button>
+    <button tuiButton type="button" appearance="secondary" (click)="onCancel()">Отменить</button>
+  </div>
 </form>
-<div class="actions">
-  <button tuiButton size="m" appearance="primary" (click)="onSave()">Сохранить</button>
-  <button tuiButton size="m" appearance="secondary" (click)="onCancel()">Отменить</button>
-</div>
