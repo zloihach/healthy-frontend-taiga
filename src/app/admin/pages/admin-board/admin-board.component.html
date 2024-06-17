@@ -8,65 +8,86 @@
       <div class="stat-value">{{ stat.value }}</div>
     </div>
   </div>
+
   <div class="charts">
-    <div class="chart-container">
+    <div class="chart-container chart-1">
       <div class="chart-title">Chart 1</div>
+      <p class="b-form">
+        <tui-input-date-range
+          [maxLength]="maxLength"
+          [(ngModel)]="range1"
+        >
+          Range
+        </tui-input-date-range>
+      </p>
       <tui-axes
+        *ngIf="computeLabels$(range1) | async as labels"
         class="axes"
-        [horizontalLines]="2"
-        [tuiLineChartHint]="hintContent"
-        [verticalLines]="4"
+        [axisXLabels]="labels"
+        [horizontalLines]="4"
+        [verticalLines]="labels.length"
       >
-        <tui-line-chart
-          [dots]="true"
-          [height]="400"
-          [value]="value"
-          [width]="400"
-          [x]="0"
-          [xStringify]="stringify"
-          [y]="0"
-          [yStringify]="stringify"
-        ></tui-line-chart>
+        <tui-line-days-chart
+          class="chart"
+          [height]="200"
+          [value]="value1"
+          [xStringify]="xStringify$ | async"
+          [yStringify]="yStringify"
+        ></tui-line-days-chart>
       </tui-axes>
     </div>
-    <div class="chart-container">
+
+    <div class="chart-container chart-2">
       <div class="chart-title">Chart 2</div>
+      <p class="b-form">
+        <tui-input-date-range
+          [maxLength]="maxLength"
+          [(ngModel)]="range2"
+        >
+          Range
+        </tui-input-date-range>
+      </p>
       <tui-axes
+        *ngIf="computeLabels$(range2) | async as labels"
         class="axes"
-        [horizontalLines]="2"
-        [tuiLineChartHint]="hintContent"
-        [verticalLines]="4"
+        [axisXLabels]="labels"
+        [horizontalLines]="4"
+        [verticalLines]="labels.length"
       >
-        <tui-line-chart
-          [dots]="true"
-          [height]="400"
-          [value]="value"
-          [width]="400"
-          [x]="0"
-          [xStringify]="stringify"
-          [y]="0"
-          [yStringify]="stringify"
-        ></tui-line-chart>
+        <tui-line-days-chart
+          class="chart"
+          [height]="200"
+          [value]="value2"
+          [xStringify]="xStringify$ | async"
+          [yStringify]="yStringify"
+        ></tui-line-days-chart>
       </tui-axes>
     </div>
-    <div class="chart-container">
+
+    <div class="chart-container chart-3">
       <div class="chart-title">Chart 3</div>
+      <p class="b-form">
+        <tui-input-date-range
+          [maxLength]="maxLength"
+          [(ngModel)]="range3"
+        >
+          Range
+        </tui-input-date-range>
+      </p>
       <tui-axes
+        *ngIf="computeLabels$(range3) | async as labels"
         class="axes"
-        [horizontalLines]="2"
-        [tuiLineChartHint]="hintContent"
-        [verticalLines]="4"
+        [axisXLabels]="labels"
+        [horizontalLines]="4"
+        [verticalLines]="labels.length"
       >
-        <tui-line-chart
-          [dots]="true"
-          [height]="400"
-          [value]="value"
-          [width]="400"
-          [x]="0"
-          [xStringify]="stringify"
-          [y]="0"
-          [yStringify]="stringify"
-        ></tui-line-chart>
+        <tui-line-days-chart
+          class="chart"
+          [height]="200"
+          [value]="value3"
+          [xStringify]="xStringify$ | async"
+          [yStringify]="yStringify"
+        ></tui-line-days-chart>
       </tui-axes>
     </div>
   </div>
