@@ -1,0 +1,48 @@
+.b-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Отступы между инпутами */
+}
+
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px; /* Отступы между кнопками */
+}
+
+button[tuiButton] {
+  margin-right: 5px;
+}
+
+h1 {
+  text-align: center;
+  color: var(--tui-primary);
+  margin-bottom: 20px;
+}
+
+/* Медиазапросы для адаптивности */
+@media (max-width: 768px) {
+  .button-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  button[tuiButton] {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .button-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  button[tuiButton] {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+}

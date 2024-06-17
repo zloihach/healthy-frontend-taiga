@@ -7,6 +7,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
 .search-form {
@@ -24,4 +25,52 @@
 
 button[tuiButton] {
   margin-right: 5px;
+}
+
+/* Медиазапросы для адаптивности */
+
+@media (max-width: 768px) {
+  .table-navigation {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-form {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  button[tuiButton] {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .button-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 480px) {
+  .table-navigation {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-form {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  button[tuiButton] {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .button-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
 }

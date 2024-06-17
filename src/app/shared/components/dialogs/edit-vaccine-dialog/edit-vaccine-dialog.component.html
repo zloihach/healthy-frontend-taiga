@@ -1,0 +1,11 @@
+<h1>{{ form.get('name')?.value ? 'Редактировать вакцину' : 'Добавить новую вакцину' }}</h1>
+<form [formGroup]="form" (ngSubmit)="onSave()" class="b-form" [tuiTextfieldCleaner]="true">
+  <tui-input class="tui-space_bottom-3" formControlName="name" placeholder="Название">Название</tui-input>
+  <tui-input class="tui-space_bottom-3" formControlName="type" placeholder="Тип">Тип</tui-input>
+  <tui-input class="tui-space_bottom-3" formControlName="min_age" placeholder="Минимальный возраст">Минимальный возраст</tui-input>
+  <tui-input class="tui-space_bottom-3" formControlName="max_age" placeholder="Максимальный возраст">Максимальный возраст</tui-input>
+  <div class="button-group">
+    <button tuiButton type="submit" appearance="primary">Сохранить</button>
+    <button tuiButton type="button" appearance="secondary" (click)="onCancel()">Отменить</button>
+  </div>
+</form>
