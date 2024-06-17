@@ -1,5 +1,34 @@
 <div class="container tui-space_top-5">
   <h1 style="text-align: center;color:var(--tui-primary)">Публикации</h1>
-  <tui-accordion>
-  </tui-accordion>
+
+  <div class="publication-table">
+    <form [formGroup]="form">
+    <tui-input formControlName="search">
+      Поиск по публикациям
+    </tui-input>
+  </form>
+
+  <table tuiTable class="table" [columns]="columns">
+    <thead>
+    <tr tuiThGroup>
+      <th tuiTh>Номер</th>
+      <th tuiTh>Заголовок</th>
+      <th tuiTh>Дата</th>
+      <th tuiTh>Дейстиве</th>
+    </tr>
+    </thead>
+    <tbody tuiTbody>
+    <tr *ngFor="let item of filteredPublications" tuiTr>
+      <td *tuiCell="'id'" tuiTd>{{ item.id }}</td>
+      <td *tuiCell="'title'" tuiTd>{{ item.title }}</td>
+      <td *tuiCell="'date'" tuiTd>{{ item.date }}</td>
+      <td *tuiCell="'actions'" tuiTd>
+        <button tuiButton size="s" appearance="primary" (click)="view(item)">Просмотр</button>
+        <button tuiButton size="s" appearance="secondary"  (click)="edit(item)">Изменить</button>
+        <button tuiButton size="s" appearance="accent" (click)="remove(item)">Удалить</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  </div>
 </div>
