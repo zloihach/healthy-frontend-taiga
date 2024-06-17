@@ -119,4 +119,5 @@ export class AdminBoardComponent {
       );
     return values;
   }
+
 }

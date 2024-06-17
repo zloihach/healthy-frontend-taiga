@@ -1,34 +1,41 @@
 <div class="container tui-space_top-5">
   <h1 style="text-align: center;color:var(--tui-primary)">Публикации</h1>
-
-  <div class="publication-table">
-    <form [formGroup]="form">
-    <tui-input formControlName="search">
-      Поиск по публикациям
-    </tui-input>
-  </form>
-
-  <table tuiTable class="table" [columns]="columns">
-    <thead>
-    <tr tuiThGroup>
-      <th tuiTh>Номер</th>
-      <th tuiTh>Заголовок</th>
-      <th tuiTh>Дата</th>
-      <th tuiTh>Дейстиве</th>
-    </tr>
-    </thead>
-    <tbody tuiTbody>
-    <tr *ngFor="let item of filteredPublications" tuiTr>
-      <td *tuiCell="'id'" tuiTd>{{ item.id }}</td>
-      <td *tuiCell="'title'" tuiTd>{{ item.title }}</td>
-      <td *tuiCell="'date'" tuiTd>{{ item.date }}</td>
-      <td *tuiCell="'actions'" tuiTd>
-        <button tuiButton size="s" appearance="primary" (click)="view(item)">Просмотр</button>
-        <button tuiButton size="s" appearance="secondary"  (click)="edit(item)">Изменить</button>
-        <button tuiButton size="s" appearance="accent" (click)="remove(item)">Удалить</button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+  <div class="publication-wrapper">
+    <div class="table-navigation">
+      <div class="search-form">
+        <form [formGroup]="form">
+          <tui-input formControlName="search">
+            Поиск по публикациям
+          </tui-input>
+        </form>
+      </div>
+      <button tuiButton size="l" appearance="primary" (click)="openDialog()">Add New Publication</button>
+    </div>
+    <div class="publication-list">
+      <table tuiTable class="table tui-space_top-5" [columns]="columns">
+        <thead>
+        <tr tuiThGroup>
+          <th tuiTh>ID</th>
+          <th tuiTh>Short Title</th>
+          <th tuiTh>Edit Date</th>
+          <th tuiTh>Update Date</th>
+          <th tuiTh>Actions</th>
+        </tr>
+        </thead>
+        <tbody tuiTbody>
+        <tr *ngFor="let item of filteredPublications" tuiTr>
+          <td *tuiCell="'id'" tuiTd>{{ item.id }}</td>
+          <td *tuiCell="'short_title'" tuiTd>{{ item.short_title }}</td>
+          <td *tuiCell="'edit_date'" tuiTd>{{ item.edit_date }}</td>
+          <td *tuiCell="'update_date'" tuiTd>{{ item.update_date }}</td>
+          <td *tuiCell="'actions'" tuiTd>
+            <button tuiButton size="s" appearance="primary" (click)="view(item)">Просмотр</button>
+            <button tuiButton size="s" appearance="secondary" (click)="edit(item)">Изменить</button>
+            <button tuiButton size="s" appearance="accent" (click)="remove(item)">Удалить</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

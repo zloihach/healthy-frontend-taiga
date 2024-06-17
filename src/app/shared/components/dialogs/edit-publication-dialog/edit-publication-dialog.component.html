@@ -1,0 +1,13 @@
+<h1>{{ context.data.id ? 'Edit Publication' : 'Add New Publication' }}</h1>
+<form [formGroup]="form">
+  <tui-input formControlName="short_title" label="Short Title"></tui-input>
+  <tui-input formControlName="full_title" label="Full Title"></tui-input>
+  <tui-input formControlName="text" label="Text"></tui-input>
+  <tui-input formControlName="edit_date" label="Edit Date" type="date"></tui-input>
+  <tui-input formControlName="update_date" label="Update Date" type="date"></tui-input>
+  <tui-input formControlName="content" label="Content"></tui-input>
+</form>
+<div class="actions">
+  <button tuiButton size="m" appearance="primary" (click)="onSave()">Сохранить</button>
+  <button tuiButton size="m" appearance="secondary" (click)="onCancel()">Отменить</button>
+</div>
