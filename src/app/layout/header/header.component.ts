@@ -70,6 +70,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.menuItems = [
             { name: 'Главная', link: '/admin' },
             { name: 'Личный кабинет', link: '/dashboard'},
+            { name: 'Пользователи', link: '/user-list'},
             { name: 'Прививки', link: '/vaccination' },
             { name: 'Публикации', link: '/publication-list' },
           ];
