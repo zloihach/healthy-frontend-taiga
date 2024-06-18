@@ -71,7 +71,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
             { name: 'Главная', link: '/admin' },
             { name: 'Личный кабинет', link: '/dashboard'},
             { name: 'Пользователи', link: '/user-list'},
-            { name: 'Прививки', link: '/vaccination' },
+            { name: 'Прививки', link: '/vaccine-list' },
             { name: 'Публикации', link: '/publication-list' },
           ];
         }
