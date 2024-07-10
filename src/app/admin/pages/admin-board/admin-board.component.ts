@@ -59,10 +59,10 @@ export class AdminBoardComponent {
   );
 
   stats = [
-    { title: 'Stat 1', value: '100' },
-    { title: 'Stat 2', value: '200' },
-    { title: 'Stat 3', value: '200' },
-    { title: 'Stat 4', value: '200' },
+    { title: 'Количество прививок', value: '1000' },
+    { title: 'Охват вакцинацией', value: '85%' },
+    { title: 'Количество обращений', value: '1200' },
+    { title: 'Количество зарегистрированных пациентов', value: '3000' },
   ];
 
   data1: ReadonlyArray<[TuiDay, number]> = this.computeValue(this.range1);

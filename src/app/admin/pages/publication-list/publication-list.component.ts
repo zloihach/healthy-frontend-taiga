@@ -1,21 +1,17 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { NgForOf, AsyncPipe } from '@angular/common';
+import { NgForOf, AsyncPipe, NgIf } from '@angular/common';
 import { TuiButtonModule, TuiDialogService, TuiDialogModule } from '@taiga-ui/core';
 import { TuiAccordionModule, TuiInputModule } from '@taiga-ui/kit';
 import { TuiTableModule } from '@taiga-ui/addon-table';
 import { PolymorpheusComponent } from '@tinkoff/ng-polymorpheus';
 import { EditPublicationDialogComponent } from "../../../shared/components/dialogs/edit-publication-dialog/edit-publication-dialog.component";
-interface Publication {
-  readonly id: number;
-  readonly short_title: string;
-  readonly full_title: string;
-  readonly text: string;
-  readonly edit_date: string;
-  readonly update_date: string;
-  readonly content: string;
-  readonly image?: string | File;
-}
+import {
+  CreatePublicationBodyDto,
+  EditPublicationBodyDto,
+  PublicationService
+} from "../../../pages/publication/publication.service";
+import { Publication } from "../../../pages/publication/publication";
 
 @Component({
   selector: 'app-publication-list',
@@ -29,6 +25,7 @@ interface Publication {
     TuiButtonModule,
     TuiDialogModule,
     ReactiveFormsModule,
+    NgIf,
   ],
   templateUrl: './publication-list.component.html',
   styleUrls: ['./publication-list.component.less'],
@@ -39,17 +36,15 @@ export class PublicationListComponent {
     search: new FormControl(''),
   });
 
-  publications: Publication[] = [
-    { id: 1, short_title: 'Publication 1', full_title: 'Full Publication 1', text: 'Text 1', edit_date: '2020-01-01', update_date: '2021-01-01', content: 'Content 1', image: 'https://s3.timeweb.cloud/304acea6-healthy/blue_publicatiom.png' },
-    { id: 2, short_title: 'Publication 2', full_title: 'Full Publication 2', text: 'Text 2', edit_date: '2021-02-15', update_date: '2021-02-15', content: 'Content 2', image: 'https://s3.timeweb.cloud/304acea6-healthy/blue_publicatiom.png' },
-    { id: 3, short_title: 'Publication 3', full_title: 'Full Publication 3', text: 'Text 3', edit_date: '2019-07-30', update_date: '2019-07-30', content: 'Content 3', image: 'https://s3.timeweb.cloud/304acea6-healthy/blue_publicatiom.png' },
-    { id: 4, short_title: 'Publication 4', full_title: 'Full Publication 4', text: 'Text 4', edit_date: '2022-11-22', update_date: '2022-11-22', content: 'Content 4', image: 'https://s3.timeweb.cloud/304acea6-healthy/blue_publicatiom.png' },
-    { id: 5, short_title: 'Publication 5', full_title: 'Full Publication 5', text: 'Text 5', edit_date: '2023-05-18', update_date: '2023-05-18', content: 'Content 5', image: 'https://s3.timeweb.cloud/304acea6-healthy/blue_publicatiom.png' },
-  ];
+  publications: Publication[] = [];
+  readonly columns = ['id', 'short_title', 'edit_date', 'update_date', 'image_url', 'actions'];
 
-  readonly columns = ['id', 'short_title', 'edit_date', 'update_date', 'image', 'actions'];
-
-  constructor(@Inject(TuiDialogService) private readonly dialogs: TuiDialogService) {}
+  constructor(
+    @Inject(TuiDialogService) private readonly dialogs: TuiDialogService,
+    private publicationService: PublicationService,
+  ) {
+    this.loadPublications();
+  }
 
   get filteredPublications(): Publication[] {
     const searchValue = this.form.value.search?.toLowerCase() || '';
@@ -59,16 +54,21 @@ export class PublicationListComponent {
       publication.full_title.toLowerCase().includes(searchValue) ||
       publication.text.toLowerCase().includes(searchValue) ||
       publication.edit_date.includes(searchValue) ||
-      publication.update_date.includes(searchValue) ||
-      publication.content.toLowerCase().includes(searchValue)
+      publication.update_date.includes(searchValue)
     );
+  }
+
+  loadPublications(): void {
+    this.publicationService.getAllPublications().subscribe(publications => {
+      this.publications = publications;
+    });
   }
 
   openDialog(publication?: Publication): void {
     const dialogRef = this.dialogs.open<Publication>(
       new PolymorpheusComponent(EditPublicationDialogComponent),
       {
-        data: publication || { id: 0, short_title: '', full_title: '', text: '', edit_date: '', update_date: '', content: '' },
+        data: publication || { id: 0, short_title: '', full_title: '', text: '', image_url: '', is_active: true },
         size: 'l',
       }
     );
@@ -76,22 +76,58 @@ export class PublicationListComponent {
     dialogRef.subscribe(result => {
       if (result) {
         if (publication) {
-          this.publications = this.publications.map(pub => pub.id === publication.id ? { ...result, id: publication.id, imageUrl: result.image instanceof File ? URL.createObjectURL(result.image) : result.image } : pub);
+          const updateData: EditPublicationBodyDto = { ...result, id: publication.id.toString() };
+          this.updatePublication(publication.id, updateData, this.isFile(result.image_url) ? result.image_url : undefined);
         } else {
-          const newId = this.publications.length ? Math.max(...this.publications.map(pub => pub.id)) + 1 : 1;
-          this.publications = [...this.publications, { ...result, id: newId, image: result.image instanceof File ? URL.createObjectURL(result.image) : result.image }];
+          this.createPublication(result, this.isFile(result.image_url) ? result.image_url : undefined);
         }
       }
     });
   }
 
+  isFile(value: any): value is File {
+    return value && typeof value === 'object' && value instanceof File;
+  }
+
+  createPublication(data: CreatePublicationBodyDto, file?: File): void {
+    const formData = new FormData();
+    (Object.keys(data) as (keyof CreatePublicationBodyDto)[]).forEach(key => {
+      const value = data[key];
+      if (value !== undefined) {
+        formData.append(key, value as string | Blob);
+      }
+    });
+    if (file) {
+      formData.append('image_url', file);
+    }
+    this.publicationService.createPublication(formData as any).subscribe(newPublication => {
+      this.publications = [...this.publications, newPublication];
+    });
+  }
+
+  updatePublication(id: number, data: EditPublicationBodyDto, file?: File): void {
+    const formData = new FormData();
+    formData.append('id', id.toString()); // Ensure ID is included as a number
+    (Object.keys(data) as (keyof EditPublicationBodyDto)[]).forEach(key => {
+      const value = data[key];
+      if (value !== undefined) {
+        formData.append(key, value as string | Blob);
+      }
+    });
+    if (file) {
+      formData.append('image_url', file);
+    }
+    this.publicationService.editPublication(formData as any).subscribe(updatedPublication => {
+      this.publications = this.publications.map(pub => pub.id === id ? updatedPublication : pub);
+    });
+  }
+
   openPublicationDialog(publication: Publication): void {
-    const imageUrl = publication.image instanceof File ? URL.createObjectURL(publication.image) : publication.image;
     const dialogRef = this.dialogs.open(
       `<h3>${publication.short_title}</h3>
       <h4>${publication.full_title}</h4>
       <p>${publication.text}</p>
-      <img src="${imageUrl}" alt="${publication.short_title}" width="200">`,
+      <img src="${publication.image_url}" alt="${publication.short_title}" width="200">`,
       {
         label: publication.full_title,
         size: 'm',
@@ -114,6 +150,8 @@ export class PublicationListComponent {
   }
 
   remove(publication: Publication): void {
-    this.publications = this.publications.filter(pub => pub !== publication);
+    this.publicationService.deletePublication(publication.id.toString()).subscribe(() => {
+      this.publications = this.publications.filter(pub => pub !== publication);
+    });
   }
 }

@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, Inject, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormControl } from '@angular/forms';
 import { TuiDialogContext, TuiDialogModule, TuiButtonModule, TuiErrorModule, TuiTextfieldControllerModule } from '@taiga-ui/core';
-import { TuiInputModule, TuiInputDateModule, TuiFieldErrorPipeModule, TuiInputFilesModule, TuiFileLike } from '@taiga-ui/kit';
+import { TuiInputModule, TuiFieldErrorPipeModule, TuiInputFilesModule, TuiFileLike } from '@taiga-ui/kit';
 import { POLYMORPHEUS_CONTEXT } from '@tinkoff/ng-polymorpheus';
-import { TuiDay } from '@taiga-ui/cdk';
 import { CommonModule } from '@angular/common';
 import { Observable, of, Subject, timer } from 'rxjs';
 import { finalize, map, switchMap } from 'rxjs/operators';
@@ -18,7 +17,6 @@ import { finalize, map, switchMap } from 'rxjs/operators';
     TuiDialogModule,
     TuiButtonModule,
     TuiInputModule,
-    TuiInputDateModule,
     TuiErrorModule,
     ReactiveFormsModule,
     CommonModule,
@@ -41,20 +39,12 @@ export class EditPublicationDialogComponent {
     @Inject(POLYMORPHEUS_CONTEXT) protected readonly context: TuiDialogContext<void, any>,
     private fb: FormBuilder
   ) {
-    const today = TuiDay.currentLocal();
-
     this.form = this.fb.group({
       short_title: [context.data.short_title || '', Validators.required],
       full_title: [context.data.full_title || '', Validators.required],
       text: [context.data.text || '', Validators.required],
-      content: [context.data.content || '', Validators.required],
       image: [null],
     });
-  }
-
-  parseDate(dateString: string): TuiDay {
-    const [year, month, day] = dateString.split('-').map(part => parseInt(part, 10));
-    return new TuiDay(year, month - 1, day);
   }
 
   onSave(): void {
@@ -63,7 +53,6 @@ export class EditPublicationDialogComponent {
       formData.append('short_title', this.form.value.short_title);
       formData.append('full_title', this.form.value.full_title);
       formData.append('text', this.form.value.text);
-      formData.append('content', this.form.value.content);
 
       if (this.control.value) {
         formData.append('image', this.control.value);

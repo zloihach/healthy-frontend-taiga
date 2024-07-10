@@ -19,6 +19,7 @@
           <th tuiTh>Краткий заголовок</th>
           <th tuiTh>Дата редактирования</th>
           <th tuiTh>Дата обновления</th>
+          <th tuiTh>Изображение</th>
           <th tuiTh>Действия</th>
         </tr>
         </thead>
@@ -28,6 +29,9 @@
           <td *tuiCell="'short_title'" tuiTd>{{ item.short_title }}</td>
           <td *tuiCell="'edit_date'" tuiTd>{{ item.edit_date }}</td>
           <td *tuiCell="'update_date'" tuiTd>{{ item.update_date }}</td>
+          <td *tuiCell="'image_url'" tuiTd>
+            <img *ngIf="item.image_url" [src]="item.image_url" alt="Image" width="100">
+          </td>
           <td *tuiCell="'actions'" tuiTd>
             <button tuiButton size="s" appearance="primary" (click)="view(item)">Просмотр</button>
             <button tuiButton size="s" appearance="secondary" (click)="edit(item)">Изменить</button>
